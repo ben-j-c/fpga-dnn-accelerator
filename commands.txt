@@ -1,0 +1,6 @@
+ 
+bash ~/Soft/intelFPGA_lite/22.1std/nios2eds/nios2_command_shell.sh
+sopc-create-header-files --single hps.h --module hps_0 && mv ./hps.h ./generated_hps_headers/hps.h
+sudo screen /dev/ttyUSB0 115200
+bash ~/Soft/intelFPGA/20.1/embedded/embedded_command_shell.sh
+scp ./bin/systolic root@$DE1_IP:/home/root/systolic
