@@ -1,10 +1,11 @@
 	component soc_system is
 		port (
 			clk_clk                               : in    std_logic                     := 'X';             -- clk
-			fifo_to_copro_out_readdata            : out   std_logic_vector(31 downto 0);                    -- readdata
+			clock_95_clk                          : out   std_logic;                                        -- clk
+			fifo_to_copro_out_readdata            : out   std_logic_vector(63 downto 0);                    -- readdata
 			fifo_to_copro_out_read                : in    std_logic                     := 'X';             -- read
 			fifo_to_copro_out_waitrequest         : out   std_logic;                                        -- waitrequest
-			fifo_to_hps_in_writedata              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			fifo_to_hps_in_writedata              : in    std_logic_vector(63 downto 0) := (others => 'X'); -- writedata
 			fifo_to_hps_in_write                  : in    std_logic                     := 'X';             -- write
 			fifo_to_hps_in_waitrequest            : out   std_logic;                                        -- waitrequest
 			hps_0_f2h_cold_reset_req_reset_n      : in    std_logic                     := 'X';             -- reset_n
@@ -84,14 +85,14 @@
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
 			pio_status_export                     : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
-			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
-			clock_95_clk                          : out   std_logic                                         -- clk
+			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 
 	u0 : component soc_system
 		port map (
 			clk_clk                               => CONNECTED_TO_clk_clk,                               --                       clk.clk
+			clock_95_clk                          => CONNECTED_TO_clock_95_clk,                          --                  clock_95.clk
 			fifo_to_copro_out_readdata            => CONNECTED_TO_fifo_to_copro_out_readdata,            --         fifo_to_copro_out.readdata
 			fifo_to_copro_out_read                => CONNECTED_TO_fifo_to_copro_out_read,                --                          .read
 			fifo_to_copro_out_waitrequest         => CONNECTED_TO_fifo_to_copro_out_waitrequest,         --                          .waitrequest
@@ -175,7 +176,6 @@
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                          .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                          .oct_rzqin
 			pio_status_export                     => CONNECTED_TO_pio_status_export,                     --                pio_status.export
-			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                     reset.reset_n
-			clock_95_clk                          => CONNECTED_TO_clock_95_clk                           --                  clock_95.clk
+			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                     reset.reset_n
 		);
 

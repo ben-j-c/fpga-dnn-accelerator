@@ -211,11 +211,11 @@ module ghrd_top(
   wire        hps_debug_reset;
   wire [27:0] stm_hw_events;
   
-  wire [31:0] fifo_to_copro_out_readdata;
+  wire [63:0] fifo_to_copro_out_readdata;
   wire fifo_to_copro_out_read;
   wire fifo_to_copro_out_waitrequest;
   
-  wire [31:0] fifo_to_hps_in_writedata;
+  wire [63:0] fifo_to_hps_in_writedata;
   wire fifo_to_hps_in_write;
   wire fifo_to_hps_in_waitrequest;
   wire backpressure;
@@ -241,7 +241,7 @@ module ghrd_top(
 			.backpressure_out(backpressure),
 			.q(fifo_to_hps_in_writedata[15:0])
 		);
-		for (j = 2;j < 2; j = j + 2) begin: Gen_Mult
+		for (j = 2;j < 4; j = j + 2) begin: Gen_Mult
 		mult_bp mult_inst(
 			.clk(CLOCK_95),
 			.areset(!hps_fpga_reset_n),

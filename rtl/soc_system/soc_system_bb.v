@@ -1,6 +1,7 @@
 
 module soc_system (
 	clk_clk,
+	clock_95_clk,
 	fifo_to_copro_out_readdata,
 	fifo_to_copro_out_read,
 	fifo_to_copro_out_waitrequest,
@@ -84,14 +85,14 @@ module soc_system (
 	memory_mem_dm,
 	memory_oct_rzqin,
 	pio_status_export,
-	reset_reset_n,
-	clock_95_clk);	
+	reset_reset_n);	
 
 	input		clk_clk;
-	output	[31:0]	fifo_to_copro_out_readdata;
+	output		clock_95_clk;
+	output	[63:0]	fifo_to_copro_out_readdata;
 	input		fifo_to_copro_out_read;
 	output		fifo_to_copro_out_waitrequest;
-	input	[31:0]	fifo_to_hps_in_writedata;
+	input	[63:0]	fifo_to_hps_in_writedata;
 	input		fifo_to_hps_in_write;
 	output		fifo_to_hps_in_waitrequest;
 	input		hps_0_f2h_cold_reset_req_reset_n;
@@ -172,5 +173,4 @@ module soc_system (
 	input		memory_oct_rzqin;
 	input	[31:0]	pio_status_export;
 	input		reset_reset_n;
-	output		clock_95_clk;
 endmodule

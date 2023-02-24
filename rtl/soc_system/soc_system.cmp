@@ -2,10 +2,10 @@
 		port (
 			clk_clk                               : in    std_logic                     := 'X';             -- clk
 			clock_95_clk                          : out   std_logic;                                        -- clk
-			fifo_to_copro_out_readdata            : out   std_logic_vector(31 downto 0);                    -- readdata
+			fifo_to_copro_out_readdata            : out   std_logic_vector(63 downto 0);                    -- readdata
 			fifo_to_copro_out_read                : in    std_logic                     := 'X';             -- read
 			fifo_to_copro_out_waitrequest         : out   std_logic;                                        -- waitrequest
-			fifo_to_hps_in_writedata              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			fifo_to_hps_in_writedata              : in    std_logic_vector(63 downto 0) := (others => 'X'); -- writedata
 			fifo_to_hps_in_write                  : in    std_logic                     := 'X';             -- write
 			fifo_to_hps_in_waitrequest            : out   std_logic;                                        -- waitrequest
 			hps_0_f2h_cold_reset_req_reset_n      : in    std_logic                     := 'X';             -- reset_n

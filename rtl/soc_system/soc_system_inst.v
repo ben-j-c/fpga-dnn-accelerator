@@ -1,5 +1,6 @@
 	soc_system u0 (
 		.clk_clk                               (<connected-to-clk_clk>),                               //                       clk.clk
+		.clock_95_clk                          (<connected-to-clock_95_clk>),                          //                  clock_95.clk
 		.fifo_to_copro_out_readdata            (<connected-to-fifo_to_copro_out_readdata>),            //         fifo_to_copro_out.readdata
 		.fifo_to_copro_out_read                (<connected-to-fifo_to_copro_out_read>),                //                          .read
 		.fifo_to_copro_out_waitrequest         (<connected-to-fifo_to_copro_out_waitrequest>),         //                          .waitrequest
@@ -83,7 +84,6 @@
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                          .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                          .oct_rzqin
 		.pio_status_export                     (<connected-to-pio_status_export>),                     //                pio_status.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                     reset.reset_n
-		.clock_95_clk                          (<connected-to-clock_95_clk>)                           //                  clock_95.clk
+		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                     reset.reset_n
 	);
 

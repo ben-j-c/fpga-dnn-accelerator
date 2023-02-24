@@ -36,18 +36,18 @@ module soc_system_fifo_to_copro_single_clock_fifo (
 
   output           empty;
   output           full;
-  output  [ 31: 0] q;
+  output  [ 63: 0] q;
   output  [  7: 0] usedw;
   input            aclr;
   input            clock;
-  input   [ 31: 0] data;
+  input   [ 63: 0] data;
   input            rdreq;
   input            wrreq;
 
 
 wire             empty;
 wire             full;
-wire    [ 31: 0] q;
+wire    [ 63: 0] q;
 wire    [  7: 0] usedw;
   scfifo single_clock_fifo
     (
@@ -67,7 +67,7 @@ wire    [  7: 0] usedw;
            single_clock_fifo.lpm_numwords = 256,
            single_clock_fifo.lpm_showahead = "OFF",
            single_clock_fifo.lpm_type = "scfifo",
-           single_clock_fifo.lpm_width = 32,
+           single_clock_fifo.lpm_width = 64,
            single_clock_fifo.lpm_widthu = 8,
            single_clock_fifo.overflow_checking = "ON",
            single_clock_fifo.underflow_checking = "ON",
@@ -107,10 +107,10 @@ module soc_system_fifo_to_copro_scfifo_with_controls (
 
   output           empty;
   output           full;
-  output  [ 31: 0] q;
+  output  [ 63: 0] q;
   output  [ 31: 0] wrclk_control_slave_readdata;
   input            clock;
-  input   [ 31: 0] data;
+  input   [ 63: 0] data;
   input            rdreq;
   input            reset_n;
   input   [  2: 0] wrclk_control_slave_address;
@@ -124,7 +124,7 @@ wire             empty;
 wire             full;
 wire    [  8: 0] level;
 wire             overflow;
-wire    [ 31: 0] q;
+wire    [ 63: 0] q;
 wire             underflow;
 wire    [  7: 0] usedw;
 reg              wrclk_control_slave_almostempty_n_reg;
@@ -476,13 +476,13 @@ module soc_system_fifo_to_copro (
                                 )
 ;
 
-  output  [ 31: 0] avalonmm_read_slave_readdata;
+  output  [ 63: 0] avalonmm_read_slave_readdata;
   output           avalonmm_read_slave_waitrequest;
   output           avalonmm_write_slave_waitrequest;
   output  [ 31: 0] wrclk_control_slave_readdata;
   input            avalonmm_read_slave_read;
   input            avalonmm_write_slave_write;
-  input   [ 31: 0] avalonmm_write_slave_writedata;
+  input   [ 63: 0] avalonmm_write_slave_writedata;
   input            reset_n;
   input   [  2: 0] wrclk_control_slave_address;
   input            wrclk_control_slave_read;
@@ -491,14 +491,14 @@ module soc_system_fifo_to_copro (
   input            wrclock;
 
 
-wire    [ 31: 0] avalonmm_read_slave_readdata;
+wire    [ 63: 0] avalonmm_read_slave_readdata;
 wire             avalonmm_read_slave_waitrequest;
 wire             avalonmm_write_slave_waitrequest;
 wire             clock;
-wire    [ 31: 0] data;
+wire    [ 63: 0] data;
 wire             empty;
 wire             full;
-wire    [ 31: 0] q;
+wire    [ 63: 0] q;
 wire             rdreq;
 wire    [ 31: 0] wrclk_control_slave_readdata;
 wire             wrreq;

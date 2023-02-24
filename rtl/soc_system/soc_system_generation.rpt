@@ -30,6 +30,8 @@ Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
+Warning: soc_system.fifo_to_copro: The Nios II HAL drivers for the Altera Avalon FIFO support only 32-bit data width.         If you connect this FIFO to a Nios II CPU, you will need to access the registers directly.
+Warning: soc_system.fifo_to_hps: The Nios II HAL drivers for the Altera Avalon FIFO support only 32-bit data width.         If you connect this FIFO to a Nios II CPU, you will need to access the registers directly.
 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Warning: soc_system.hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
@@ -53,11 +55,11 @@ Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
 Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
 Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
 Info: fifo_to_copro: Starting RTL generation for module 'soc_system_fifo_to_copro'
-Info: fifo_to_copro:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_to_copro --dir=/tmp/alt9412_8341206511831041036.dir/0002_fifo_to_copro_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_8341206511831041036.dir/0002_fifo_to_copro_gen//soc_system_fifo_to_copro_component_configuration.pl  --do_build_sim=0  ]
+Info: fifo_to_copro:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_to_copro --dir=/tmp/alt9412_759072719222924242.dir/0002_fifo_to_copro_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_759072719222924242.dir/0002_fifo_to_copro_gen//soc_system_fifo_to_copro_component_configuration.pl  --do_build_sim=0  ]
 Info: fifo_to_copro: Done RTL generation for module 'soc_system_fifo_to_copro'
 Info: fifo_to_copro: "soc_system" instantiated altera_avalon_fifo "fifo_to_copro"
 Info: fifo_to_hps: Starting RTL generation for module 'soc_system_fifo_to_hps'
-Info: fifo_to_hps:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_to_hps --dir=/tmp/alt9412_8341206511831041036.dir/0003_fifo_to_hps_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_8341206511831041036.dir/0003_fifo_to_hps_gen//soc_system_fifo_to_hps_component_configuration.pl  --do_build_sim=0  ]
+Info: fifo_to_hps:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_to_hps --dir=/tmp/alt9412_759072719222924242.dir/0003_fifo_to_hps_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_759072719222924242.dir/0003_fifo_to_hps_gen//soc_system_fifo_to_hps_component_configuration.pl  --do_build_sim=0  ]
 Info: fifo_to_hps: Done RTL generation for module 'soc_system_fifo_to_hps'
 Info: fifo_to_hps: "soc_system" instantiated altera_avalon_fifo "fifo_to_hps"
 Info: hps_0: "Running  for module: hps_0"
@@ -68,7 +70,7 @@ Warning: hps_0: "QSPI clock frequency" (desired_qspi_clk_mhz) requested 400.0 MH
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: pio_0: Starting RTL generation for module 'soc_system_pio_0'
-Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9412_8341206511831041036.dir/0004_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_8341206511831041036.dir/0004_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9412_759072719222924242.dir/0004_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9412_759072719222924242.dir/0004_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_0: Done RTL generation for module 'soc_system_pio_0'
 Info: pio_0: "soc_system" instantiated altera_avalon_pio "pio_0"
 Info: pll_0: "soc_system" instantiated altera_pll "pll_0"
@@ -88,6 +90,7 @@ Info: fifo_to_copro_in_agent: "mm_interconnect_0" instantiated altera_merlin_sla
 Info: fifo_to_copro_in_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "fifo_to_copro_in_agent_rsp_fifo"
 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
 Info: hps_0_h2f_axi_master_wr_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "hps_0_h2f_axi_master_wr_limiter"
 Info: Reusing file /home/ben/repo/systolic/rtl/soc_system/synthesis/submodules/altera_avalon_sc_fifo.v
 Info: fifo_to_copro_in_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "fifo_to_copro_in_burst_adapter"
@@ -99,14 +102,16 @@ Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "r
 Info: rsp_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_002"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file /home/ben/repo/systolic/rtl/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: fifo_to_copro_in_rsp_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "fifo_to_copro_in_rsp_width_adapter"
+Info: fifo_to_copro_in_csr_rsp_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "fifo_to_copro_in_csr_rsp_width_adapter"
 Info: Reusing file /home/ben/repo/systolic/rtl/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
 Info: Reusing file /home/ben/repo/systolic/rtl/soc_system/synthesis/submodules/altera_merlin_burst_uncompressor.sv
 Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
 Info: Reusing file /home/ben/repo/systolic/rtl/soc_system/synthesis/submodules/altera_avalon_st_pipeline_base.v
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 29 modules, 91 files
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: soc_system: Done "soc_system" with 32 modules, 94 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

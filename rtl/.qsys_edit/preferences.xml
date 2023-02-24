@@ -18,8 +18,7 @@
   </columns>
  </clocktable>
  <window width="2560" height="1396" x="0" y="0" />
- <library
-   expandedCategories="Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Basic Functions/Clocks; PLLs and Resets,Library/Basic Functions,Library/Interface Protocols/Ethernet,Library/University Program/Audio &amp; Video/Video,Library/Basic Functions/On Chip Memory,Project,Library/University Program/Clock,Library,Library/Qsys Interconnect/Interrupt,Library/University Program,Library/DSP/Video and Image Processing,Library/University Program/Audio &amp; Video,Library/Interface Protocols,Library/DSP,Library/Basic Functions/Simulation; Debug and Verification,Library/Qsys Interconnect,Library/Interface Protocols/Audio &amp; Video,Library/Basic Functions/Bridges and Adaptors/Clock,Library/Qsys Interconnect/Memory-Mapped Alpha,Library/Basic Functions/Bridges and Adaptors/Memory Mapped,Library/Interface Protocols/Ethernet/Reference Design Components,Library/Basic Functions/Bridges and Adaptors" />
+ <library expandedCategories="Project,Library" />
  <hdlexample language="VERILOG" />
  <generation block_symbol_file="0" />
 </preferences>

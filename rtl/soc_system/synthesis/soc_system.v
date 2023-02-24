@@ -6,10 +6,10 @@
 module soc_system (
 		input  wire        clk_clk,                               //                       clk.clk
 		output wire        clock_95_clk,                          //                  clock_95.clk
-		output wire [31:0] fifo_to_copro_out_readdata,            //         fifo_to_copro_out.readdata
+		output wire [63:0] fifo_to_copro_out_readdata,            //         fifo_to_copro_out.readdata
 		input  wire        fifo_to_copro_out_read,                //                          .read
 		output wire        fifo_to_copro_out_waitrequest,         //                          .waitrequest
-		input  wire [31:0] fifo_to_hps_in_writedata,              //            fifo_to_hps_in.writedata
+		input  wire [63:0] fifo_to_hps_in_writedata,              //            fifo_to_hps_in.writedata
 		input  wire        fifo_to_hps_in_write,                  //                          .write
 		output wire        fifo_to_hps_in_waitrequest,            //                          .waitrequest
 		input  wire        hps_0_f2h_cold_reset_req_reset_n,      //  hps_0_f2h_cold_reset_req.reset_n
@@ -130,13 +130,13 @@ module soc_system (
 	wire         hps_0_h2f_axi_master_rvalid;                      // mm_interconnect_0:hps_0_h2f_axi_master_rvalid -> hps_0:h2f_RVALID
 	wire         mm_interconnect_0_fifo_to_copro_in_waitrequest;   // fifo_to_copro:avalonmm_write_slave_waitrequest -> mm_interconnect_0:fifo_to_copro_in_waitrequest
 	wire         mm_interconnect_0_fifo_to_copro_in_write;         // mm_interconnect_0:fifo_to_copro_in_write -> fifo_to_copro:avalonmm_write_slave_write
-	wire  [31:0] mm_interconnect_0_fifo_to_copro_in_writedata;     // mm_interconnect_0:fifo_to_copro_in_writedata -> fifo_to_copro:avalonmm_write_slave_writedata
+	wire  [63:0] mm_interconnect_0_fifo_to_copro_in_writedata;     // mm_interconnect_0:fifo_to_copro_in_writedata -> fifo_to_copro:avalonmm_write_slave_writedata
 	wire  [31:0] mm_interconnect_0_fifo_to_copro_in_csr_readdata;  // fifo_to_copro:wrclk_control_slave_readdata -> mm_interconnect_0:fifo_to_copro_in_csr_readdata
 	wire   [2:0] mm_interconnect_0_fifo_to_copro_in_csr_address;   // mm_interconnect_0:fifo_to_copro_in_csr_address -> fifo_to_copro:wrclk_control_slave_address
 	wire         mm_interconnect_0_fifo_to_copro_in_csr_read;      // mm_interconnect_0:fifo_to_copro_in_csr_read -> fifo_to_copro:wrclk_control_slave_read
 	wire         mm_interconnect_0_fifo_to_copro_in_csr_write;     // mm_interconnect_0:fifo_to_copro_in_csr_write -> fifo_to_copro:wrclk_control_slave_write
 	wire  [31:0] mm_interconnect_0_fifo_to_copro_in_csr_writedata; // mm_interconnect_0:fifo_to_copro_in_csr_writedata -> fifo_to_copro:wrclk_control_slave_writedata
-	wire  [31:0] mm_interconnect_0_fifo_to_hps_out_readdata;       // fifo_to_hps:avalonmm_read_slave_readdata -> mm_interconnect_0:fifo_to_hps_out_readdata
+	wire  [63:0] mm_interconnect_0_fifo_to_hps_out_readdata;       // fifo_to_hps:avalonmm_read_slave_readdata -> mm_interconnect_0:fifo_to_hps_out_readdata
 	wire         mm_interconnect_0_fifo_to_hps_out_waitrequest;    // fifo_to_hps:avalonmm_read_slave_waitrequest -> mm_interconnect_0:fifo_to_hps_out_waitrequest
 	wire         mm_interconnect_0_fifo_to_hps_out_read;           // mm_interconnect_0:fifo_to_hps_out_read -> fifo_to_hps:avalonmm_read_slave_read
 	wire  [31:0] mm_interconnect_0_fifo_to_hps_out_csr_readdata;   // fifo_to_hps:rdclk_control_slave_readdata -> mm_interconnect_0:fifo_to_hps_out_csr_readdata

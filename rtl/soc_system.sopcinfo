@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 22.1 915 (Future versions may contain additional information.) -->
- <!-- 2023.02.24.17:10:23 -->
+ <!-- 2023.02.24.18:04:25 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1677276618</value>
+  <value>1677279855</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -699,7 +699,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.AVALONMM_AVALONMM_DATA_WIDTH</name>
-   <value>32</value>
+   <value>64</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.AVALONMM_AVALONST_DATA_WIDTH</name>
@@ -771,7 +771,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="avalonMMAvalonMMDataWidth">
    <type>int</type>
-   <value>32</value>
+   <value>64</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1106,7 +1106,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4</value>
+    <value>8</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -1405,7 +1405,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalonmm_write_slave_writedata</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>64</width>
     <role>writedata</role>
    </port>
    <port>
@@ -1459,7 +1459,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4</value>
+    <value>8</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -1758,7 +1758,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalonmm_read_slave_readdata</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>64</width>
     <role>readdata</role>
    </port>
    <port>
@@ -2149,7 +2149,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.AVALONMM_AVALONMM_DATA_WIDTH</name>
-   <value>32</value>
+   <value>64</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.AVALONMM_AVALONST_DATA_WIDTH</name>
@@ -2221,7 +2221,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="avalonMMAvalonMMDataWidth">
    <type>int</type>
-   <value>32</value>
+   <value>64</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2646,7 +2646,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4</value>
+    <value>8</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -2945,7 +2945,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalonmm_write_slave_writedata</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>64</width>
     <role>writedata</role>
    </port>
    <port>
@@ -2999,7 +2999,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4</value>
+    <value>8</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -3298,7 +3298,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalonmm_read_slave_readdata</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>64</width>
     <role>readdata</role>
    </port>
    <port>
@@ -19492,7 +19492,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>in</slaveName>
     <name>fifo_to_copro.in</name>
     <baseAddress>0</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -19508,7 +19508,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>out</slaveName>
     <name>fifo_to_hps.out</name>
     <baseAddress>64</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -46834,7 +46834,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>in</slaveName>
     <name>fifo_to_copro.in</name>
     <baseAddress>0</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -46850,7 +46850,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>out</slaveName>
     <name>fifo_to_hps.out</name>
     <baseAddress>64</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -48741,7 +48741,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>in</slaveName>
     <name>fifo_to_copro.in</name>
     <baseAddress>3221225472</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -48757,7 +48757,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>out</slaveName>
     <name>fifo_to_hps.out</name>
     <baseAddress>3221225536</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -49604,7 +49604,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>in</slaveName>
     <name>fifo_to_copro.in</name>
     <baseAddress>3221225472</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -49620,7 +49620,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>out</slaveName>
     <name>fifo_to_hps.out</name>
     <baseAddress>3221225536</baseAddress>
-    <span>4</span>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>

@@ -36,13 +36,13 @@ module soc_system_fifo_to_hps_dual_clock_fifo (
                                               )
   /* synthesis ALTERA_ATTRIBUTE = "SUPPRESS_DA_RULE_INTERNAL=R101" */ ;
 
-  output  [ 31: 0] q;
+  output  [ 63: 0] q;
   output           rdempty;
   output           rdfull;
   output  [  7: 0] rdusedw;
   output           wrfull;
   input            aclr;
-  input   [ 31: 0] data;
+  input   [ 63: 0] data;
   input            rdclk;
   input            rdreq;
   input            wrclk;
@@ -51,7 +51,7 @@ module soc_system_fifo_to_hps_dual_clock_fifo (
 
 wire             int_rdfull;
 wire             int_wrfull;
-wire    [ 31: 0] q;
+wire    [ 63: 0] q;
 wire             rdempty;
 wire             rdfull;
 wire    [  7: 0] rdusedw;
@@ -82,7 +82,7 @@ wire    [  7: 0] wrusedw;
            dual_clock_fifo.lpm_numwords = 256,
            dual_clock_fifo.lpm_showahead = "OFF",
            dual_clock_fifo.lpm_type = "dcfifo",
-           dual_clock_fifo.lpm_width = 32,
+           dual_clock_fifo.lpm_width = 64,
            dual_clock_fifo.lpm_widthu = 8,
            dual_clock_fifo.overflow_checking = "ON",
            dual_clock_fifo.rdsync_delaypipe = 4,
@@ -126,11 +126,11 @@ module soc_system_fifo_to_hps_dcfifo_with_controls (
                                                    )
 ;
 
-  output  [ 31: 0] q;
+  output  [ 63: 0] q;
   output  [ 31: 0] rdclk_control_slave_readdata;
   output           rdempty;
   output           wrfull;
-  input   [ 31: 0] data;
+  input   [ 63: 0] data;
   input            rdclk;
   input   [  2: 0] rdclk_control_slave_address;
   input            rdclk_control_slave_read;
@@ -143,7 +143,7 @@ module soc_system_fifo_to_hps_dcfifo_with_controls (
   input            wrreset_n;
 
 
-wire    [ 31: 0] q;
+wire    [ 63: 0] q;
 reg              rdclk_control_slave_almostempty_n_reg;
 wire             rdclk_control_slave_almostempty_pulse;
 wire             rdclk_control_slave_almostempty_signal;
@@ -515,13 +515,13 @@ module soc_system_fifo_to_hps (
                               )
 ;
 
-  output  [ 31: 0] avalonmm_read_slave_readdata;
+  output  [ 63: 0] avalonmm_read_slave_readdata;
   output           avalonmm_read_slave_waitrequest;
   output           avalonmm_write_slave_waitrequest;
   output  [ 31: 0] rdclk_control_slave_readdata;
   input            avalonmm_read_slave_read;
   input            avalonmm_write_slave_write;
-  input   [ 31: 0] avalonmm_write_slave_writedata;
+  input   [ 63: 0] avalonmm_write_slave_writedata;
   input   [  2: 0] rdclk_control_slave_address;
   input            rdclk_control_slave_read;
   input            rdclk_control_slave_write;
@@ -532,11 +532,11 @@ module soc_system_fifo_to_hps (
   input            wrreset_n;
 
 
-wire    [ 31: 0] avalonmm_read_slave_readdata;
+wire    [ 63: 0] avalonmm_read_slave_readdata;
 wire             avalonmm_read_slave_waitrequest;
 wire             avalonmm_write_slave_waitrequest;
-wire    [ 31: 0] data;
-wire    [ 31: 0] q;
+wire    [ 63: 0] data;
+wire    [ 63: 0] q;
 wire             rdclk;
 wire    [ 31: 0] rdclk_control_slave_readdata;
 wire             rdempty;

@@ -49,7 +49,7 @@ module soc_system_mm_interconnect_0 (
 		input  wire        fifo_to_hps_reset_out_reset_bridge_in_reset_reset,                //                fifo_to_hps_reset_out_reset_bridge_in_reset.reset
 		input  wire        hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, // hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
 		output wire        fifo_to_copro_in_write,                                           //                                           fifo_to_copro_in.write
-		output wire [31:0] fifo_to_copro_in_writedata,                                       //                                                           .writedata
+		output wire [63:0] fifo_to_copro_in_writedata,                                       //                                                           .writedata
 		input  wire        fifo_to_copro_in_waitrequest,                                     //                                                           .waitrequest
 		output wire [2:0]  fifo_to_copro_in_csr_address,                                     //                                       fifo_to_copro_in_csr.address
 		output wire        fifo_to_copro_in_csr_write,                                       //                                                           .write
@@ -57,7 +57,7 @@ module soc_system_mm_interconnect_0 (
 		input  wire [31:0] fifo_to_copro_in_csr_readdata,                                    //                                                           .readdata
 		output wire [31:0] fifo_to_copro_in_csr_writedata,                                   //                                                           .writedata
 		output wire        fifo_to_hps_out_read,                                             //                                            fifo_to_hps_out.read
-		input  wire [31:0] fifo_to_hps_out_readdata,                                         //                                                           .readdata
+		input  wire [63:0] fifo_to_hps_out_readdata,                                         //                                                           .readdata
 		input  wire        fifo_to_hps_out_waitrequest,                                      //                                                           .waitrequest
 		output wire [2:0]  fifo_to_hps_out_csr_address,                                      //                                        fifo_to_hps_out_csr.address
 		output wire        fifo_to_hps_out_csr_write,                                        //                                                           .write
@@ -68,29 +68,29 @@ module soc_system_mm_interconnect_0 (
 		input  wire [31:0] pio_0_s1_readdata                                                 //                                                           .readdata
 	);
 
-	wire   [31:0] fifo_to_copro_in_agent_m0_readdata;                       // fifo_to_copro_in_translator:uav_readdata -> fifo_to_copro_in_agent:m0_readdata
+	wire   [63:0] fifo_to_copro_in_agent_m0_readdata;                       // fifo_to_copro_in_translator:uav_readdata -> fifo_to_copro_in_agent:m0_readdata
 	wire          fifo_to_copro_in_agent_m0_waitrequest;                    // fifo_to_copro_in_translator:uav_waitrequest -> fifo_to_copro_in_agent:m0_waitrequest
 	wire          fifo_to_copro_in_agent_m0_debugaccess;                    // fifo_to_copro_in_agent:m0_debugaccess -> fifo_to_copro_in_translator:uav_debugaccess
 	wire   [29:0] fifo_to_copro_in_agent_m0_address;                        // fifo_to_copro_in_agent:m0_address -> fifo_to_copro_in_translator:uav_address
-	wire    [3:0] fifo_to_copro_in_agent_m0_byteenable;                     // fifo_to_copro_in_agent:m0_byteenable -> fifo_to_copro_in_translator:uav_byteenable
+	wire    [7:0] fifo_to_copro_in_agent_m0_byteenable;                     // fifo_to_copro_in_agent:m0_byteenable -> fifo_to_copro_in_translator:uav_byteenable
 	wire          fifo_to_copro_in_agent_m0_read;                           // fifo_to_copro_in_agent:m0_read -> fifo_to_copro_in_translator:uav_read
 	wire          fifo_to_copro_in_agent_m0_readdatavalid;                  // fifo_to_copro_in_translator:uav_readdatavalid -> fifo_to_copro_in_agent:m0_readdatavalid
 	wire          fifo_to_copro_in_agent_m0_lock;                           // fifo_to_copro_in_agent:m0_lock -> fifo_to_copro_in_translator:uav_lock
-	wire   [31:0] fifo_to_copro_in_agent_m0_writedata;                      // fifo_to_copro_in_agent:m0_writedata -> fifo_to_copro_in_translator:uav_writedata
+	wire   [63:0] fifo_to_copro_in_agent_m0_writedata;                      // fifo_to_copro_in_agent:m0_writedata -> fifo_to_copro_in_translator:uav_writedata
 	wire          fifo_to_copro_in_agent_m0_write;                          // fifo_to_copro_in_agent:m0_write -> fifo_to_copro_in_translator:uav_write
-	wire    [2:0] fifo_to_copro_in_agent_m0_burstcount;                     // fifo_to_copro_in_agent:m0_burstcount -> fifo_to_copro_in_translator:uav_burstcount
+	wire    [3:0] fifo_to_copro_in_agent_m0_burstcount;                     // fifo_to_copro_in_agent:m0_burstcount -> fifo_to_copro_in_translator:uav_burstcount
 	wire          fifo_to_copro_in_agent_rf_source_valid;                   // fifo_to_copro_in_agent:rf_source_valid -> fifo_to_copro_in_agent_rsp_fifo:in_valid
-	wire  [127:0] fifo_to_copro_in_agent_rf_source_data;                    // fifo_to_copro_in_agent:rf_source_data -> fifo_to_copro_in_agent_rsp_fifo:in_data
+	wire  [163:0] fifo_to_copro_in_agent_rf_source_data;                    // fifo_to_copro_in_agent:rf_source_data -> fifo_to_copro_in_agent_rsp_fifo:in_data
 	wire          fifo_to_copro_in_agent_rf_source_ready;                   // fifo_to_copro_in_agent_rsp_fifo:in_ready -> fifo_to_copro_in_agent:rf_source_ready
 	wire          fifo_to_copro_in_agent_rf_source_startofpacket;           // fifo_to_copro_in_agent:rf_source_startofpacket -> fifo_to_copro_in_agent_rsp_fifo:in_startofpacket
 	wire          fifo_to_copro_in_agent_rf_source_endofpacket;             // fifo_to_copro_in_agent:rf_source_endofpacket -> fifo_to_copro_in_agent_rsp_fifo:in_endofpacket
 	wire          fifo_to_copro_in_agent_rsp_fifo_out_valid;                // fifo_to_copro_in_agent_rsp_fifo:out_valid -> fifo_to_copro_in_agent:rf_sink_valid
-	wire  [127:0] fifo_to_copro_in_agent_rsp_fifo_out_data;                 // fifo_to_copro_in_agent_rsp_fifo:out_data -> fifo_to_copro_in_agent:rf_sink_data
+	wire  [163:0] fifo_to_copro_in_agent_rsp_fifo_out_data;                 // fifo_to_copro_in_agent_rsp_fifo:out_data -> fifo_to_copro_in_agent:rf_sink_data
 	wire          fifo_to_copro_in_agent_rsp_fifo_out_ready;                // fifo_to_copro_in_agent:rf_sink_ready -> fifo_to_copro_in_agent_rsp_fifo:out_ready
 	wire          fifo_to_copro_in_agent_rsp_fifo_out_startofpacket;        // fifo_to_copro_in_agent_rsp_fifo:out_startofpacket -> fifo_to_copro_in_agent:rf_sink_startofpacket
 	wire          fifo_to_copro_in_agent_rsp_fifo_out_endofpacket;          // fifo_to_copro_in_agent_rsp_fifo:out_endofpacket -> fifo_to_copro_in_agent:rf_sink_endofpacket
 	wire          fifo_to_copro_in_agent_rdata_fifo_src_valid;              // fifo_to_copro_in_agent:rdata_fifo_src_valid -> fifo_to_copro_in_agent_rdata_fifo:in_valid
-	wire   [33:0] fifo_to_copro_in_agent_rdata_fifo_src_data;               // fifo_to_copro_in_agent:rdata_fifo_src_data -> fifo_to_copro_in_agent_rdata_fifo:in_data
+	wire   [65:0] fifo_to_copro_in_agent_rdata_fifo_src_data;               // fifo_to_copro_in_agent:rdata_fifo_src_data -> fifo_to_copro_in_agent_rdata_fifo:in_data
 	wire          fifo_to_copro_in_agent_rdata_fifo_src_ready;              // fifo_to_copro_in_agent_rdata_fifo:in_ready -> fifo_to_copro_in_agent:rdata_fifo_src_ready
 	wire   [31:0] fifo_to_copro_in_csr_agent_m0_readdata;                   // fifo_to_copro_in_csr_translator:uav_readdata -> fifo_to_copro_in_csr_agent:m0_readdata
 	wire          fifo_to_copro_in_csr_agent_m0_waitrequest;                // fifo_to_copro_in_csr_translator:uav_waitrequest -> fifo_to_copro_in_csr_agent:m0_waitrequest
@@ -116,29 +116,29 @@ module soc_system_mm_interconnect_0 (
 	wire          fifo_to_copro_in_csr_agent_rdata_fifo_src_valid;          // fifo_to_copro_in_csr_agent:rdata_fifo_src_valid -> fifo_to_copro_in_csr_agent_rdata_fifo:in_valid
 	wire   [33:0] fifo_to_copro_in_csr_agent_rdata_fifo_src_data;           // fifo_to_copro_in_csr_agent:rdata_fifo_src_data -> fifo_to_copro_in_csr_agent_rdata_fifo:in_data
 	wire          fifo_to_copro_in_csr_agent_rdata_fifo_src_ready;          // fifo_to_copro_in_csr_agent_rdata_fifo:in_ready -> fifo_to_copro_in_csr_agent:rdata_fifo_src_ready
-	wire   [31:0] fifo_to_hps_out_agent_m0_readdata;                        // fifo_to_hps_out_translator:uav_readdata -> fifo_to_hps_out_agent:m0_readdata
+	wire   [63:0] fifo_to_hps_out_agent_m0_readdata;                        // fifo_to_hps_out_translator:uav_readdata -> fifo_to_hps_out_agent:m0_readdata
 	wire          fifo_to_hps_out_agent_m0_waitrequest;                     // fifo_to_hps_out_translator:uav_waitrequest -> fifo_to_hps_out_agent:m0_waitrequest
 	wire          fifo_to_hps_out_agent_m0_debugaccess;                     // fifo_to_hps_out_agent:m0_debugaccess -> fifo_to_hps_out_translator:uav_debugaccess
 	wire   [29:0] fifo_to_hps_out_agent_m0_address;                         // fifo_to_hps_out_agent:m0_address -> fifo_to_hps_out_translator:uav_address
-	wire    [3:0] fifo_to_hps_out_agent_m0_byteenable;                      // fifo_to_hps_out_agent:m0_byteenable -> fifo_to_hps_out_translator:uav_byteenable
+	wire    [7:0] fifo_to_hps_out_agent_m0_byteenable;                      // fifo_to_hps_out_agent:m0_byteenable -> fifo_to_hps_out_translator:uav_byteenable
 	wire          fifo_to_hps_out_agent_m0_read;                            // fifo_to_hps_out_agent:m0_read -> fifo_to_hps_out_translator:uav_read
 	wire          fifo_to_hps_out_agent_m0_readdatavalid;                   // fifo_to_hps_out_translator:uav_readdatavalid -> fifo_to_hps_out_agent:m0_readdatavalid
 	wire          fifo_to_hps_out_agent_m0_lock;                            // fifo_to_hps_out_agent:m0_lock -> fifo_to_hps_out_translator:uav_lock
-	wire   [31:0] fifo_to_hps_out_agent_m0_writedata;                       // fifo_to_hps_out_agent:m0_writedata -> fifo_to_hps_out_translator:uav_writedata
+	wire   [63:0] fifo_to_hps_out_agent_m0_writedata;                       // fifo_to_hps_out_agent:m0_writedata -> fifo_to_hps_out_translator:uav_writedata
 	wire          fifo_to_hps_out_agent_m0_write;                           // fifo_to_hps_out_agent:m0_write -> fifo_to_hps_out_translator:uav_write
-	wire    [2:0] fifo_to_hps_out_agent_m0_burstcount;                      // fifo_to_hps_out_agent:m0_burstcount -> fifo_to_hps_out_translator:uav_burstcount
+	wire    [3:0] fifo_to_hps_out_agent_m0_burstcount;                      // fifo_to_hps_out_agent:m0_burstcount -> fifo_to_hps_out_translator:uav_burstcount
 	wire          fifo_to_hps_out_agent_rf_source_valid;                    // fifo_to_hps_out_agent:rf_source_valid -> fifo_to_hps_out_agent_rsp_fifo:in_valid
-	wire  [127:0] fifo_to_hps_out_agent_rf_source_data;                     // fifo_to_hps_out_agent:rf_source_data -> fifo_to_hps_out_agent_rsp_fifo:in_data
+	wire  [163:0] fifo_to_hps_out_agent_rf_source_data;                     // fifo_to_hps_out_agent:rf_source_data -> fifo_to_hps_out_agent_rsp_fifo:in_data
 	wire          fifo_to_hps_out_agent_rf_source_ready;                    // fifo_to_hps_out_agent_rsp_fifo:in_ready -> fifo_to_hps_out_agent:rf_source_ready
 	wire          fifo_to_hps_out_agent_rf_source_startofpacket;            // fifo_to_hps_out_agent:rf_source_startofpacket -> fifo_to_hps_out_agent_rsp_fifo:in_startofpacket
 	wire          fifo_to_hps_out_agent_rf_source_endofpacket;              // fifo_to_hps_out_agent:rf_source_endofpacket -> fifo_to_hps_out_agent_rsp_fifo:in_endofpacket
 	wire          fifo_to_hps_out_agent_rsp_fifo_out_valid;                 // fifo_to_hps_out_agent_rsp_fifo:out_valid -> fifo_to_hps_out_agent:rf_sink_valid
-	wire  [127:0] fifo_to_hps_out_agent_rsp_fifo_out_data;                  // fifo_to_hps_out_agent_rsp_fifo:out_data -> fifo_to_hps_out_agent:rf_sink_data
+	wire  [163:0] fifo_to_hps_out_agent_rsp_fifo_out_data;                  // fifo_to_hps_out_agent_rsp_fifo:out_data -> fifo_to_hps_out_agent:rf_sink_data
 	wire          fifo_to_hps_out_agent_rsp_fifo_out_ready;                 // fifo_to_hps_out_agent:rf_sink_ready -> fifo_to_hps_out_agent_rsp_fifo:out_ready
 	wire          fifo_to_hps_out_agent_rsp_fifo_out_startofpacket;         // fifo_to_hps_out_agent_rsp_fifo:out_startofpacket -> fifo_to_hps_out_agent:rf_sink_startofpacket
 	wire          fifo_to_hps_out_agent_rsp_fifo_out_endofpacket;           // fifo_to_hps_out_agent_rsp_fifo:out_endofpacket -> fifo_to_hps_out_agent:rf_sink_endofpacket
 	wire          fifo_to_hps_out_agent_rdata_fifo_src_valid;               // fifo_to_hps_out_agent:rdata_fifo_src_valid -> fifo_to_hps_out_agent_rdata_fifo:in_valid
-	wire   [33:0] fifo_to_hps_out_agent_rdata_fifo_src_data;                // fifo_to_hps_out_agent:rdata_fifo_src_data -> fifo_to_hps_out_agent_rdata_fifo:in_data
+	wire   [65:0] fifo_to_hps_out_agent_rdata_fifo_src_data;                // fifo_to_hps_out_agent:rdata_fifo_src_data -> fifo_to_hps_out_agent_rdata_fifo:in_data
 	wire          fifo_to_hps_out_agent_rdata_fifo_src_ready;               // fifo_to_hps_out_agent_rdata_fifo:in_ready -> fifo_to_hps_out_agent:rdata_fifo_src_ready
 	wire   [31:0] fifo_to_hps_out_csr_agent_m0_readdata;                    // fifo_to_hps_out_csr_translator:uav_readdata -> fifo_to_hps_out_csr_agent:m0_readdata
 	wire          fifo_to_hps_out_csr_agent_m0_waitrequest;                 // fifo_to_hps_out_csr_translator:uav_waitrequest -> fifo_to_hps_out_csr_agent:m0_waitrequest
@@ -199,20 +199,32 @@ module soc_system_mm_interconnect_0 (
 	wire          hps_0_h2f_axi_master_agent_read_cp_startofpacket;         // hps_0_h2f_axi_master_agent:read_cp_startofpacket -> router_001:sink_startofpacket
 	wire          hps_0_h2f_axi_master_agent_read_cp_endofpacket;           // hps_0_h2f_axi_master_agent:read_cp_endofpacket -> router_001:sink_endofpacket
 	wire          fifo_to_copro_in_agent_rp_valid;                          // fifo_to_copro_in_agent:rp_valid -> router_002:sink_valid
-	wire  [126:0] fifo_to_copro_in_agent_rp_data;                           // fifo_to_copro_in_agent:rp_data -> router_002:sink_data
+	wire  [162:0] fifo_to_copro_in_agent_rp_data;                           // fifo_to_copro_in_agent:rp_data -> router_002:sink_data
 	wire          fifo_to_copro_in_agent_rp_ready;                          // router_002:sink_ready -> fifo_to_copro_in_agent:rp_ready
 	wire          fifo_to_copro_in_agent_rp_startofpacket;                  // fifo_to_copro_in_agent:rp_startofpacket -> router_002:sink_startofpacket
 	wire          fifo_to_copro_in_agent_rp_endofpacket;                    // fifo_to_copro_in_agent:rp_endofpacket -> router_002:sink_endofpacket
+	wire          router_002_src_valid;                                     // router_002:src_valid -> rsp_demux:sink_valid
+	wire  [162:0] router_002_src_data;                                      // router_002:src_data -> rsp_demux:sink_data
+	wire          router_002_src_ready;                                     // rsp_demux:sink_ready -> router_002:src_ready
+	wire    [4:0] router_002_src_channel;                                   // router_002:src_channel -> rsp_demux:sink_channel
+	wire          router_002_src_startofpacket;                             // router_002:src_startofpacket -> rsp_demux:sink_startofpacket
+	wire          router_002_src_endofpacket;                               // router_002:src_endofpacket -> rsp_demux:sink_endofpacket
 	wire          fifo_to_copro_in_csr_agent_rp_valid;                      // fifo_to_copro_in_csr_agent:rp_valid -> router_003:sink_valid
 	wire  [126:0] fifo_to_copro_in_csr_agent_rp_data;                       // fifo_to_copro_in_csr_agent:rp_data -> router_003:sink_data
 	wire          fifo_to_copro_in_csr_agent_rp_ready;                      // router_003:sink_ready -> fifo_to_copro_in_csr_agent:rp_ready
 	wire          fifo_to_copro_in_csr_agent_rp_startofpacket;              // fifo_to_copro_in_csr_agent:rp_startofpacket -> router_003:sink_startofpacket
 	wire          fifo_to_copro_in_csr_agent_rp_endofpacket;                // fifo_to_copro_in_csr_agent:rp_endofpacket -> router_003:sink_endofpacket
 	wire          fifo_to_hps_out_agent_rp_valid;                           // fifo_to_hps_out_agent:rp_valid -> router_004:sink_valid
-	wire  [126:0] fifo_to_hps_out_agent_rp_data;                            // fifo_to_hps_out_agent:rp_data -> router_004:sink_data
+	wire  [162:0] fifo_to_hps_out_agent_rp_data;                            // fifo_to_hps_out_agent:rp_data -> router_004:sink_data
 	wire          fifo_to_hps_out_agent_rp_ready;                           // router_004:sink_ready -> fifo_to_hps_out_agent:rp_ready
 	wire          fifo_to_hps_out_agent_rp_startofpacket;                   // fifo_to_hps_out_agent:rp_startofpacket -> router_004:sink_startofpacket
 	wire          fifo_to_hps_out_agent_rp_endofpacket;                     // fifo_to_hps_out_agent:rp_endofpacket -> router_004:sink_endofpacket
+	wire          router_004_src_valid;                                     // router_004:src_valid -> rsp_demux_002:sink_valid
+	wire  [162:0] router_004_src_data;                                      // router_004:src_data -> rsp_demux_002:sink_data
+	wire          router_004_src_ready;                                     // rsp_demux_002:sink_ready -> router_004:src_ready
+	wire    [4:0] router_004_src_channel;                                   // router_004:src_channel -> rsp_demux_002:sink_channel
+	wire          router_004_src_startofpacket;                             // router_004:src_startofpacket -> rsp_demux_002:sink_startofpacket
+	wire          router_004_src_endofpacket;                               // router_004:src_endofpacket -> rsp_demux_002:sink_endofpacket
 	wire          fifo_to_hps_out_csr_agent_rp_valid;                       // fifo_to_hps_out_csr_agent:rp_valid -> router_005:sink_valid
 	wire  [126:0] fifo_to_hps_out_csr_agent_rp_data;                        // fifo_to_hps_out_csr_agent:rp_data -> router_005:sink_data
 	wire          fifo_to_hps_out_csr_agent_rp_ready;                       // router_005:sink_ready -> fifo_to_hps_out_csr_agent:rp_ready
@@ -269,8 +281,14 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] hps_0_h2f_axi_master_rd_limiter_rsp_src_channel;          // hps_0_h2f_axi_master_rd_limiter:rsp_src_channel -> hps_0_h2f_axi_master_agent:read_rp_channel
 	wire          hps_0_h2f_axi_master_rd_limiter_rsp_src_startofpacket;    // hps_0_h2f_axi_master_rd_limiter:rsp_src_startofpacket -> hps_0_h2f_axi_master_agent:read_rp_startofpacket
 	wire          hps_0_h2f_axi_master_rd_limiter_rsp_src_endofpacket;      // hps_0_h2f_axi_master_rd_limiter:rsp_src_endofpacket -> hps_0_h2f_axi_master_agent:read_rp_endofpacket
+	wire          cmd_mux_src_valid;                                        // cmd_mux:src_valid -> fifo_to_copro_in_burst_adapter:sink0_valid
+	wire  [162:0] cmd_mux_src_data;                                         // cmd_mux:src_data -> fifo_to_copro_in_burst_adapter:sink0_data
+	wire          cmd_mux_src_ready;                                        // fifo_to_copro_in_burst_adapter:sink0_ready -> cmd_mux:src_ready
+	wire    [4:0] cmd_mux_src_channel;                                      // cmd_mux:src_channel -> fifo_to_copro_in_burst_adapter:sink0_channel
+	wire          cmd_mux_src_startofpacket;                                // cmd_mux:src_startofpacket -> fifo_to_copro_in_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_src_endofpacket;                                  // cmd_mux:src_endofpacket -> fifo_to_copro_in_burst_adapter:sink0_endofpacket
 	wire          fifo_to_copro_in_burst_adapter_source0_valid;             // fifo_to_copro_in_burst_adapter:source0_valid -> fifo_to_copro_in_agent:cp_valid
-	wire  [126:0] fifo_to_copro_in_burst_adapter_source0_data;              // fifo_to_copro_in_burst_adapter:source0_data -> fifo_to_copro_in_agent:cp_data
+	wire  [162:0] fifo_to_copro_in_burst_adapter_source0_data;              // fifo_to_copro_in_burst_adapter:source0_data -> fifo_to_copro_in_agent:cp_data
 	wire          fifo_to_copro_in_burst_adapter_source0_ready;             // fifo_to_copro_in_agent:cp_ready -> fifo_to_copro_in_burst_adapter:source0_ready
 	wire    [4:0] fifo_to_copro_in_burst_adapter_source0_channel;           // fifo_to_copro_in_burst_adapter:source0_channel -> fifo_to_copro_in_agent:cp_channel
 	wire          fifo_to_copro_in_burst_adapter_source0_startofpacket;     // fifo_to_copro_in_burst_adapter:source0_startofpacket -> fifo_to_copro_in_agent:cp_startofpacket
@@ -281,8 +299,14 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] fifo_to_copro_in_csr_burst_adapter_source0_channel;       // fifo_to_copro_in_csr_burst_adapter:source0_channel -> fifo_to_copro_in_csr_agent:cp_channel
 	wire          fifo_to_copro_in_csr_burst_adapter_source0_startofpacket; // fifo_to_copro_in_csr_burst_adapter:source0_startofpacket -> fifo_to_copro_in_csr_agent:cp_startofpacket
 	wire          fifo_to_copro_in_csr_burst_adapter_source0_endofpacket;   // fifo_to_copro_in_csr_burst_adapter:source0_endofpacket -> fifo_to_copro_in_csr_agent:cp_endofpacket
+	wire          cmd_mux_002_src_valid;                                    // cmd_mux_002:src_valid -> fifo_to_hps_out_burst_adapter:sink0_valid
+	wire  [162:0] cmd_mux_002_src_data;                                     // cmd_mux_002:src_data -> fifo_to_hps_out_burst_adapter:sink0_data
+	wire          cmd_mux_002_src_ready;                                    // fifo_to_hps_out_burst_adapter:sink0_ready -> cmd_mux_002:src_ready
+	wire    [4:0] cmd_mux_002_src_channel;                                  // cmd_mux_002:src_channel -> fifo_to_hps_out_burst_adapter:sink0_channel
+	wire          cmd_mux_002_src_startofpacket;                            // cmd_mux_002:src_startofpacket -> fifo_to_hps_out_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_002_src_endofpacket;                              // cmd_mux_002:src_endofpacket -> fifo_to_hps_out_burst_adapter:sink0_endofpacket
 	wire          fifo_to_hps_out_burst_adapter_source0_valid;              // fifo_to_hps_out_burst_adapter:source0_valid -> fifo_to_hps_out_agent:cp_valid
-	wire  [126:0] fifo_to_hps_out_burst_adapter_source0_data;               // fifo_to_hps_out_burst_adapter:source0_data -> fifo_to_hps_out_agent:cp_data
+	wire  [162:0] fifo_to_hps_out_burst_adapter_source0_data;               // fifo_to_hps_out_burst_adapter:source0_data -> fifo_to_hps_out_agent:cp_data
 	wire          fifo_to_hps_out_burst_adapter_source0_ready;              // fifo_to_hps_out_agent:cp_ready -> fifo_to_hps_out_burst_adapter:source0_ready
 	wire    [4:0] fifo_to_hps_out_burst_adapter_source0_channel;            // fifo_to_hps_out_burst_adapter:source0_channel -> fifo_to_hps_out_agent:cp_channel
 	wire          fifo_to_hps_out_burst_adapter_source0_startofpacket;      // fifo_to_hps_out_burst_adapter:source0_startofpacket -> fifo_to_hps_out_agent:cp_startofpacket
@@ -371,18 +395,6 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] rsp_demux_004_src1_channel;                               // rsp_demux_004:src1_channel -> rsp_mux_001:sink4_channel
 	wire          rsp_demux_004_src1_startofpacket;                         // rsp_demux_004:src1_startofpacket -> rsp_mux_001:sink4_startofpacket
 	wire          rsp_demux_004_src1_endofpacket;                           // rsp_demux_004:src1_endofpacket -> rsp_mux_001:sink4_endofpacket
-	wire          router_002_src_valid;                                     // router_002:src_valid -> fifo_to_copro_in_rsp_width_adapter:in_valid
-	wire  [126:0] router_002_src_data;                                      // router_002:src_data -> fifo_to_copro_in_rsp_width_adapter:in_data
-	wire          router_002_src_ready;                                     // fifo_to_copro_in_rsp_width_adapter:in_ready -> router_002:src_ready
-	wire    [4:0] router_002_src_channel;                                   // router_002:src_channel -> fifo_to_copro_in_rsp_width_adapter:in_channel
-	wire          router_002_src_startofpacket;                             // router_002:src_startofpacket -> fifo_to_copro_in_rsp_width_adapter:in_startofpacket
-	wire          router_002_src_endofpacket;                               // router_002:src_endofpacket -> fifo_to_copro_in_rsp_width_adapter:in_endofpacket
-	wire          fifo_to_copro_in_rsp_width_adapter_src_valid;             // fifo_to_copro_in_rsp_width_adapter:out_valid -> rsp_demux:sink_valid
-	wire  [162:0] fifo_to_copro_in_rsp_width_adapter_src_data;              // fifo_to_copro_in_rsp_width_adapter:out_data -> rsp_demux:sink_data
-	wire          fifo_to_copro_in_rsp_width_adapter_src_ready;             // rsp_demux:sink_ready -> fifo_to_copro_in_rsp_width_adapter:out_ready
-	wire    [4:0] fifo_to_copro_in_rsp_width_adapter_src_channel;           // fifo_to_copro_in_rsp_width_adapter:out_channel -> rsp_demux:sink_channel
-	wire          fifo_to_copro_in_rsp_width_adapter_src_startofpacket;     // fifo_to_copro_in_rsp_width_adapter:out_startofpacket -> rsp_demux:sink_startofpacket
-	wire          fifo_to_copro_in_rsp_width_adapter_src_endofpacket;       // fifo_to_copro_in_rsp_width_adapter:out_endofpacket -> rsp_demux:sink_endofpacket
 	wire          router_003_src_valid;                                     // router_003:src_valid -> fifo_to_copro_in_csr_rsp_width_adapter:in_valid
 	wire  [126:0] router_003_src_data;                                      // router_003:src_data -> fifo_to_copro_in_csr_rsp_width_adapter:in_data
 	wire          router_003_src_ready;                                     // fifo_to_copro_in_csr_rsp_width_adapter:in_ready -> router_003:src_ready
@@ -395,18 +407,6 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] fifo_to_copro_in_csr_rsp_width_adapter_src_channel;       // fifo_to_copro_in_csr_rsp_width_adapter:out_channel -> rsp_demux_001:sink_channel
 	wire          fifo_to_copro_in_csr_rsp_width_adapter_src_startofpacket; // fifo_to_copro_in_csr_rsp_width_adapter:out_startofpacket -> rsp_demux_001:sink_startofpacket
 	wire          fifo_to_copro_in_csr_rsp_width_adapter_src_endofpacket;   // fifo_to_copro_in_csr_rsp_width_adapter:out_endofpacket -> rsp_demux_001:sink_endofpacket
-	wire          router_004_src_valid;                                     // router_004:src_valid -> fifo_to_hps_out_rsp_width_adapter:in_valid
-	wire  [126:0] router_004_src_data;                                      // router_004:src_data -> fifo_to_hps_out_rsp_width_adapter:in_data
-	wire          router_004_src_ready;                                     // fifo_to_hps_out_rsp_width_adapter:in_ready -> router_004:src_ready
-	wire    [4:0] router_004_src_channel;                                   // router_004:src_channel -> fifo_to_hps_out_rsp_width_adapter:in_channel
-	wire          router_004_src_startofpacket;                             // router_004:src_startofpacket -> fifo_to_hps_out_rsp_width_adapter:in_startofpacket
-	wire          router_004_src_endofpacket;                               // router_004:src_endofpacket -> fifo_to_hps_out_rsp_width_adapter:in_endofpacket
-	wire          fifo_to_hps_out_rsp_width_adapter_src_valid;              // fifo_to_hps_out_rsp_width_adapter:out_valid -> rsp_demux_002:sink_valid
-	wire  [162:0] fifo_to_hps_out_rsp_width_adapter_src_data;               // fifo_to_hps_out_rsp_width_adapter:out_data -> rsp_demux_002:sink_data
-	wire          fifo_to_hps_out_rsp_width_adapter_src_ready;              // rsp_demux_002:sink_ready -> fifo_to_hps_out_rsp_width_adapter:out_ready
-	wire    [4:0] fifo_to_hps_out_rsp_width_adapter_src_channel;            // fifo_to_hps_out_rsp_width_adapter:out_channel -> rsp_demux_002:sink_channel
-	wire          fifo_to_hps_out_rsp_width_adapter_src_startofpacket;      // fifo_to_hps_out_rsp_width_adapter:out_startofpacket -> rsp_demux_002:sink_startofpacket
-	wire          fifo_to_hps_out_rsp_width_adapter_src_endofpacket;        // fifo_to_hps_out_rsp_width_adapter:out_endofpacket -> rsp_demux_002:sink_endofpacket
 	wire          router_005_src_valid;                                     // router_005:src_valid -> fifo_to_hps_out_csr_rsp_width_adapter:in_valid
 	wire  [126:0] router_005_src_data;                                      // router_005:src_data -> fifo_to_hps_out_csr_rsp_width_adapter:in_data
 	wire          router_005_src_ready;                                     // fifo_to_hps_out_csr_rsp_width_adapter:in_ready -> router_005:src_ready
@@ -431,18 +431,6 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] pio_0_s1_rsp_width_adapter_src_channel;                   // pio_0_s1_rsp_width_adapter:out_channel -> rsp_demux_004:sink_channel
 	wire          pio_0_s1_rsp_width_adapter_src_startofpacket;             // pio_0_s1_rsp_width_adapter:out_startofpacket -> rsp_demux_004:sink_startofpacket
 	wire          pio_0_s1_rsp_width_adapter_src_endofpacket;               // pio_0_s1_rsp_width_adapter:out_endofpacket -> rsp_demux_004:sink_endofpacket
-	wire          cmd_mux_src_valid;                                        // cmd_mux:src_valid -> fifo_to_copro_in_cmd_width_adapter:in_valid
-	wire  [162:0] cmd_mux_src_data;                                         // cmd_mux:src_data -> fifo_to_copro_in_cmd_width_adapter:in_data
-	wire          cmd_mux_src_ready;                                        // fifo_to_copro_in_cmd_width_adapter:in_ready -> cmd_mux:src_ready
-	wire    [4:0] cmd_mux_src_channel;                                      // cmd_mux:src_channel -> fifo_to_copro_in_cmd_width_adapter:in_channel
-	wire          cmd_mux_src_startofpacket;                                // cmd_mux:src_startofpacket -> fifo_to_copro_in_cmd_width_adapter:in_startofpacket
-	wire          cmd_mux_src_endofpacket;                                  // cmd_mux:src_endofpacket -> fifo_to_copro_in_cmd_width_adapter:in_endofpacket
-	wire          fifo_to_copro_in_cmd_width_adapter_src_valid;             // fifo_to_copro_in_cmd_width_adapter:out_valid -> fifo_to_copro_in_burst_adapter:sink0_valid
-	wire  [126:0] fifo_to_copro_in_cmd_width_adapter_src_data;              // fifo_to_copro_in_cmd_width_adapter:out_data -> fifo_to_copro_in_burst_adapter:sink0_data
-	wire          fifo_to_copro_in_cmd_width_adapter_src_ready;             // fifo_to_copro_in_burst_adapter:sink0_ready -> fifo_to_copro_in_cmd_width_adapter:out_ready
-	wire    [4:0] fifo_to_copro_in_cmd_width_adapter_src_channel;           // fifo_to_copro_in_cmd_width_adapter:out_channel -> fifo_to_copro_in_burst_adapter:sink0_channel
-	wire          fifo_to_copro_in_cmd_width_adapter_src_startofpacket;     // fifo_to_copro_in_cmd_width_adapter:out_startofpacket -> fifo_to_copro_in_burst_adapter:sink0_startofpacket
-	wire          fifo_to_copro_in_cmd_width_adapter_src_endofpacket;       // fifo_to_copro_in_cmd_width_adapter:out_endofpacket -> fifo_to_copro_in_burst_adapter:sink0_endofpacket
 	wire          cmd_mux_001_src_valid;                                    // cmd_mux_001:src_valid -> fifo_to_copro_in_csr_cmd_width_adapter:in_valid
 	wire  [162:0] cmd_mux_001_src_data;                                     // cmd_mux_001:src_data -> fifo_to_copro_in_csr_cmd_width_adapter:in_data
 	wire          cmd_mux_001_src_ready;                                    // fifo_to_copro_in_csr_cmd_width_adapter:in_ready -> cmd_mux_001:src_ready
@@ -455,18 +443,6 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] fifo_to_copro_in_csr_cmd_width_adapter_src_channel;       // fifo_to_copro_in_csr_cmd_width_adapter:out_channel -> fifo_to_copro_in_csr_burst_adapter:sink0_channel
 	wire          fifo_to_copro_in_csr_cmd_width_adapter_src_startofpacket; // fifo_to_copro_in_csr_cmd_width_adapter:out_startofpacket -> fifo_to_copro_in_csr_burst_adapter:sink0_startofpacket
 	wire          fifo_to_copro_in_csr_cmd_width_adapter_src_endofpacket;   // fifo_to_copro_in_csr_cmd_width_adapter:out_endofpacket -> fifo_to_copro_in_csr_burst_adapter:sink0_endofpacket
-	wire          cmd_mux_002_src_valid;                                    // cmd_mux_002:src_valid -> fifo_to_hps_out_cmd_width_adapter:in_valid
-	wire  [162:0] cmd_mux_002_src_data;                                     // cmd_mux_002:src_data -> fifo_to_hps_out_cmd_width_adapter:in_data
-	wire          cmd_mux_002_src_ready;                                    // fifo_to_hps_out_cmd_width_adapter:in_ready -> cmd_mux_002:src_ready
-	wire    [4:0] cmd_mux_002_src_channel;                                  // cmd_mux_002:src_channel -> fifo_to_hps_out_cmd_width_adapter:in_channel
-	wire          cmd_mux_002_src_startofpacket;                            // cmd_mux_002:src_startofpacket -> fifo_to_hps_out_cmd_width_adapter:in_startofpacket
-	wire          cmd_mux_002_src_endofpacket;                              // cmd_mux_002:src_endofpacket -> fifo_to_hps_out_cmd_width_adapter:in_endofpacket
-	wire          fifo_to_hps_out_cmd_width_adapter_src_valid;              // fifo_to_hps_out_cmd_width_adapter:out_valid -> fifo_to_hps_out_burst_adapter:sink0_valid
-	wire  [126:0] fifo_to_hps_out_cmd_width_adapter_src_data;               // fifo_to_hps_out_cmd_width_adapter:out_data -> fifo_to_hps_out_burst_adapter:sink0_data
-	wire          fifo_to_hps_out_cmd_width_adapter_src_ready;              // fifo_to_hps_out_burst_adapter:sink0_ready -> fifo_to_hps_out_cmd_width_adapter:out_ready
-	wire    [4:0] fifo_to_hps_out_cmd_width_adapter_src_channel;            // fifo_to_hps_out_cmd_width_adapter:out_channel -> fifo_to_hps_out_burst_adapter:sink0_channel
-	wire          fifo_to_hps_out_cmd_width_adapter_src_startofpacket;      // fifo_to_hps_out_cmd_width_adapter:out_startofpacket -> fifo_to_hps_out_burst_adapter:sink0_startofpacket
-	wire          fifo_to_hps_out_cmd_width_adapter_src_endofpacket;        // fifo_to_hps_out_cmd_width_adapter:out_endofpacket -> fifo_to_hps_out_burst_adapter:sink0_endofpacket
 	wire          cmd_mux_003_src_valid;                                    // cmd_mux_003:src_valid -> fifo_to_hps_out_csr_cmd_width_adapter:in_valid
 	wire  [162:0] cmd_mux_003_src_data;                                     // cmd_mux_003:src_data -> fifo_to_hps_out_csr_cmd_width_adapter:in_data
 	wire          cmd_mux_003_src_ready;                                    // fifo_to_hps_out_csr_cmd_width_adapter:in_ready -> cmd_mux_003:src_ready
@@ -590,10 +566,10 @@ module soc_system_mm_interconnect_0 (
 	wire    [4:0] hps_0_h2f_axi_master_wr_limiter_cmd_valid_data;           // hps_0_h2f_axi_master_wr_limiter:cmd_src_valid -> cmd_demux:sink_valid
 	wire    [4:0] hps_0_h2f_axi_master_rd_limiter_cmd_valid_data;           // hps_0_h2f_axi_master_rd_limiter:cmd_src_valid -> cmd_demux_001:sink_valid
 	wire          fifo_to_copro_in_agent_rdata_fifo_out_valid;              // fifo_to_copro_in_agent_rdata_fifo:out_valid -> avalon_st_adapter:in_0_valid
-	wire   [33:0] fifo_to_copro_in_agent_rdata_fifo_out_data;               // fifo_to_copro_in_agent_rdata_fifo:out_data -> avalon_st_adapter:in_0_data
+	wire   [65:0] fifo_to_copro_in_agent_rdata_fifo_out_data;               // fifo_to_copro_in_agent_rdata_fifo:out_data -> avalon_st_adapter:in_0_data
 	wire          fifo_to_copro_in_agent_rdata_fifo_out_ready;              // avalon_st_adapter:in_0_ready -> fifo_to_copro_in_agent_rdata_fifo:out_ready
 	wire          avalon_st_adapter_out_0_valid;                            // avalon_st_adapter:out_0_valid -> fifo_to_copro_in_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_out_0_data;                             // avalon_st_adapter:out_0_data -> fifo_to_copro_in_agent:rdata_fifo_sink_data
+	wire   [65:0] avalon_st_adapter_out_0_data;                             // avalon_st_adapter:out_0_data -> fifo_to_copro_in_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_out_0_ready;                            // fifo_to_copro_in_agent:rdata_fifo_sink_ready -> avalon_st_adapter:out_0_ready
 	wire    [0:0] avalon_st_adapter_out_0_error;                            // avalon_st_adapter:out_0_error -> fifo_to_copro_in_agent:rdata_fifo_sink_error
 	wire          fifo_to_copro_in_csr_agent_rdata_fifo_out_valid;          // fifo_to_copro_in_csr_agent_rdata_fifo:out_valid -> avalon_st_adapter_001:in_0_valid
@@ -604,10 +580,10 @@ module soc_system_mm_interconnect_0 (
 	wire          avalon_st_adapter_001_out_0_ready;                        // fifo_to_copro_in_csr_agent:rdata_fifo_sink_ready -> avalon_st_adapter_001:out_0_ready
 	wire    [0:0] avalon_st_adapter_001_out_0_error;                        // avalon_st_adapter_001:out_0_error -> fifo_to_copro_in_csr_agent:rdata_fifo_sink_error
 	wire          fifo_to_hps_out_agent_rdata_fifo_out_valid;               // fifo_to_hps_out_agent_rdata_fifo:out_valid -> avalon_st_adapter_002:in_0_valid
-	wire   [33:0] fifo_to_hps_out_agent_rdata_fifo_out_data;                // fifo_to_hps_out_agent_rdata_fifo:out_data -> avalon_st_adapter_002:in_0_data
+	wire   [65:0] fifo_to_hps_out_agent_rdata_fifo_out_data;                // fifo_to_hps_out_agent_rdata_fifo:out_data -> avalon_st_adapter_002:in_0_data
 	wire          fifo_to_hps_out_agent_rdata_fifo_out_ready;               // avalon_st_adapter_002:in_0_ready -> fifo_to_hps_out_agent_rdata_fifo:out_ready
 	wire          avalon_st_adapter_002_out_0_valid;                        // avalon_st_adapter_002:out_0_valid -> fifo_to_hps_out_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_002_out_0_data;                         // avalon_st_adapter_002:out_0_data -> fifo_to_hps_out_agent:rdata_fifo_sink_data
+	wire   [65:0] avalon_st_adapter_002_out_0_data;                         // avalon_st_adapter_002:out_0_data -> fifo_to_hps_out_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_002_out_0_ready;                        // fifo_to_hps_out_agent:rdata_fifo_sink_ready -> avalon_st_adapter_002:out_0_ready
 	wire    [0:0] avalon_st_adapter_002_out_0_error;                        // avalon_st_adapter_002:out_0_error -> fifo_to_hps_out_agent:rdata_fifo_sink_error
 	wire          fifo_to_hps_out_csr_agent_rdata_fifo_out_valid;           // fifo_to_hps_out_csr_agent_rdata_fifo:out_valid -> avalon_st_adapter_003:in_0_valid
@@ -627,20 +603,20 @@ module soc_system_mm_interconnect_0 (
 
 	altera_merlin_slave_translator #(
 		.AV_ADDRESS_W                   (1),
-		.AV_DATA_W                      (32),
-		.UAV_DATA_W                     (32),
+		.AV_DATA_W                      (64),
+		.UAV_DATA_W                     (64),
 		.AV_BURSTCOUNT_W                (1),
-		.AV_BYTEENABLE_W                (4),
-		.UAV_BYTEENABLE_W               (4),
+		.AV_BYTEENABLE_W                (8),
+		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (30),
-		.UAV_BURSTCOUNT_W               (3),
+		.UAV_BURSTCOUNT_W               (4),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
-		.AV_SYMBOLS_PER_WORD            (4),
+		.AV_SYMBOLS_PER_WORD            (8),
 		.AV_ADDRESS_SYMBOLS             (0),
 		.AV_BURSTCOUNT_SYMBOLS          (0),
 		.AV_CONSTANT_BURST_BEHAVIOR     (0),
@@ -652,41 +628,41 @@ module soc_system_mm_interconnect_0 (
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) fifo_to_copro_in_translator (
-		.clk                    (clock_bridge_0_out_clk_clk),                         //                      clk.clk
-		.reset                  (fifo_to_copro_reset_in_reset_bridge_in_reset_reset), //                    reset.reset
-		.uav_address            (fifo_to_copro_in_agent_m0_address),                  // avalon_universal_slave_0.address
-		.uav_burstcount         (fifo_to_copro_in_agent_m0_burstcount),               //                         .burstcount
-		.uav_read               (fifo_to_copro_in_agent_m0_read),                     //                         .read
-		.uav_write              (fifo_to_copro_in_agent_m0_write),                    //                         .write
-		.uav_waitrequest        (fifo_to_copro_in_agent_m0_waitrequest),              //                         .waitrequest
-		.uav_readdatavalid      (fifo_to_copro_in_agent_m0_readdatavalid),            //                         .readdatavalid
-		.uav_byteenable         (fifo_to_copro_in_agent_m0_byteenable),               //                         .byteenable
-		.uav_readdata           (fifo_to_copro_in_agent_m0_readdata),                 //                         .readdata
-		.uav_writedata          (fifo_to_copro_in_agent_m0_writedata),                //                         .writedata
-		.uav_lock               (fifo_to_copro_in_agent_m0_lock),                     //                         .lock
-		.uav_debugaccess        (fifo_to_copro_in_agent_m0_debugaccess),              //                         .debugaccess
-		.av_write               (fifo_to_copro_in_write),                             //      avalon_anti_slave_0.write
-		.av_writedata           (fifo_to_copro_in_writedata),                         //                         .writedata
-		.av_waitrequest         (fifo_to_copro_in_waitrequest),                       //                         .waitrequest
-		.av_address             (),                                                   //              (terminated)
-		.av_read                (),                                                   //              (terminated)
-		.av_readdata            (32'b11011110101011011101111010101101),               //              (terminated)
-		.av_begintransfer       (),                                                   //              (terminated)
-		.av_beginbursttransfer  (),                                                   //              (terminated)
-		.av_burstcount          (),                                                   //              (terminated)
-		.av_byteenable          (),                                                   //              (terminated)
-		.av_readdatavalid       (1'b0),                                               //              (terminated)
-		.av_writebyteenable     (),                                                   //              (terminated)
-		.av_lock                (),                                                   //              (terminated)
-		.av_chipselect          (),                                                   //              (terminated)
-		.av_clken               (),                                                   //              (terminated)
-		.uav_clken              (1'b0),                                               //              (terminated)
-		.av_debugaccess         (),                                                   //              (terminated)
-		.av_outputenable        (),                                                   //              (terminated)
-		.uav_response           (),                                                   //              (terminated)
-		.av_response            (2'b00),                                              //              (terminated)
-		.uav_writeresponsevalid (),                                                   //              (terminated)
-		.av_writeresponsevalid  (1'b0)                                                //              (terminated)
+		.clk                    (clock_bridge_0_out_clk_clk),                                           //                      clk.clk
+		.reset                  (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),                   //                    reset.reset
+		.uav_address            (fifo_to_copro_in_agent_m0_address),                                    // avalon_universal_slave_0.address
+		.uav_burstcount         (fifo_to_copro_in_agent_m0_burstcount),                                 //                         .burstcount
+		.uav_read               (fifo_to_copro_in_agent_m0_read),                                       //                         .read
+		.uav_write              (fifo_to_copro_in_agent_m0_write),                                      //                         .write
+		.uav_waitrequest        (fifo_to_copro_in_agent_m0_waitrequest),                                //                         .waitrequest
+		.uav_readdatavalid      (fifo_to_copro_in_agent_m0_readdatavalid),                              //                         .readdatavalid
+		.uav_byteenable         (fifo_to_copro_in_agent_m0_byteenable),                                 //                         .byteenable
+		.uav_readdata           (fifo_to_copro_in_agent_m0_readdata),                                   //                         .readdata
+		.uav_writedata          (fifo_to_copro_in_agent_m0_writedata),                                  //                         .writedata
+		.uav_lock               (fifo_to_copro_in_agent_m0_lock),                                       //                         .lock
+		.uav_debugaccess        (fifo_to_copro_in_agent_m0_debugaccess),                                //                         .debugaccess
+		.av_write               (fifo_to_copro_in_write),                                               //      avalon_anti_slave_0.write
+		.av_writedata           (fifo_to_copro_in_writedata),                                           //                         .writedata
+		.av_waitrequest         (fifo_to_copro_in_waitrequest),                                         //                         .waitrequest
+		.av_address             (),                                                                     //              (terminated)
+		.av_read                (),                                                                     //              (terminated)
+		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
+		.av_begintransfer       (),                                                                     //              (terminated)
+		.av_beginbursttransfer  (),                                                                     //              (terminated)
+		.av_burstcount          (),                                                                     //              (terminated)
+		.av_byteenable          (),                                                                     //              (terminated)
+		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
+		.av_writebyteenable     (),                                                                     //              (terminated)
+		.av_lock                (),                                                                     //              (terminated)
+		.av_chipselect          (),                                                                     //              (terminated)
+		.av_clken               (),                                                                     //              (terminated)
+		.uav_clken              (1'b0),                                                                 //              (terminated)
+		.av_debugaccess         (),                                                                     //              (terminated)
+		.av_outputenable        (),                                                                     //              (terminated)
+		.uav_response           (),                                                                     //              (terminated)
+		.av_response            (2'b00),                                                                //              (terminated)
+		.uav_writeresponsevalid (),                                                                     //              (terminated)
+		.av_writeresponsevalid  (1'b0)                                                                  //              (terminated)
 	);
 
 	altera_merlin_slave_translator #(
@@ -755,20 +731,20 @@ module soc_system_mm_interconnect_0 (
 
 	altera_merlin_slave_translator #(
 		.AV_ADDRESS_W                   (1),
-		.AV_DATA_W                      (32),
-		.UAV_DATA_W                     (32),
+		.AV_DATA_W                      (64),
+		.UAV_DATA_W                     (64),
 		.AV_BURSTCOUNT_W                (1),
-		.AV_BYTEENABLE_W                (4),
-		.UAV_BYTEENABLE_W               (4),
+		.AV_BYTEENABLE_W                (8),
+		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (30),
-		.UAV_BURSTCOUNT_W               (3),
+		.UAV_BURSTCOUNT_W               (4),
 		.AV_READLATENCY                 (1),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
 		.USE_UAV_CLKEN                  (0),
 		.USE_READRESPONSE               (0),
 		.USE_WRITERESPONSE              (0),
-		.AV_SYMBOLS_PER_WORD            (4),
+		.AV_SYMBOLS_PER_WORD            (8),
 		.AV_ADDRESS_SYMBOLS             (0),
 		.AV_BURSTCOUNT_SYMBOLS          (0),
 		.AV_CONSTANT_BURST_BEHAVIOR     (0),
@@ -1074,38 +1050,38 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_agent #(
-		.PKT_ORI_BURST_SIZE_H      (126),
-		.PKT_ORI_BURST_SIZE_L      (124),
-		.PKT_RESPONSE_STATUS_H     (123),
-		.PKT_RESPONSE_STATUS_L     (122),
-		.PKT_BURST_SIZE_H          (90),
-		.PKT_BURST_SIZE_L          (88),
-		.PKT_TRANS_LOCK            (70),
-		.PKT_BEGIN_BURST           (95),
-		.PKT_PROTECTION_H          (117),
-		.PKT_PROTECTION_L          (115),
-		.PKT_BURSTWRAP_H           (87),
-		.PKT_BURSTWRAP_L           (80),
-		.PKT_BYTE_CNT_H            (79),
-		.PKT_BYTE_CNT_L            (72),
-		.PKT_ADDR_H                (65),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (66),
-		.PKT_TRANS_POSTED          (67),
-		.PKT_TRANS_WRITE           (68),
-		.PKT_TRANS_READ            (69),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (162),
+		.PKT_ORI_BURST_SIZE_L      (160),
+		.PKT_RESPONSE_STATUS_H     (159),
+		.PKT_RESPONSE_STATUS_L     (158),
+		.PKT_BURST_SIZE_H          (126),
+		.PKT_BURST_SIZE_L          (124),
+		.PKT_TRANS_LOCK            (106),
+		.PKT_BEGIN_BURST           (131),
+		.PKT_PROTECTION_H          (153),
+		.PKT_PROTECTION_L          (151),
+		.PKT_BURSTWRAP_H           (123),
+		.PKT_BURSTWRAP_L           (116),
+		.PKT_BYTE_CNT_H            (115),
+		.PKT_BYTE_CNT_L            (108),
+		.PKT_ADDR_H                (101),
+		.PKT_ADDR_L                (72),
+		.PKT_TRANS_COMPRESSED_READ (102),
+		.PKT_TRANS_POSTED          (103),
+		.PKT_TRANS_WRITE           (104),
+		.PKT_TRANS_READ            (105),
+		.PKT_DATA_H                (63),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (99),
-		.PKT_SRC_ID_L              (97),
-		.PKT_DEST_ID_H             (102),
-		.PKT_DEST_ID_L             (100),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_SRC_ID_H              (135),
+		.PKT_SRC_ID_L              (133),
+		.PKT_DEST_ID_H             (138),
+		.PKT_DEST_ID_L             (136),
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (5),
-		.ST_DATA_W                 (127),
-		.AVS_BURSTCOUNT_W          (3),
+		.ST_DATA_W                 (163),
+		.AVS_BURSTCOUNT_W          (4),
 		.SUPPRESS_0_BYTEEN_CMD     (1),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -1159,7 +1135,7 @@ module soc_system_mm_interconnect_0 (
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (128),
+		.BITS_PER_SYMBOL     (164),
 		.FIFO_DEPTH          (2),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -1200,7 +1176,7 @@ module soc_system_mm_interconnect_0 (
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (34),
+		.BITS_PER_SYMBOL     (66),
 		.FIFO_DEPTH          (2),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -1406,38 +1382,38 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_agent #(
-		.PKT_ORI_BURST_SIZE_H      (126),
-		.PKT_ORI_BURST_SIZE_L      (124),
-		.PKT_RESPONSE_STATUS_H     (123),
-		.PKT_RESPONSE_STATUS_L     (122),
-		.PKT_BURST_SIZE_H          (90),
-		.PKT_BURST_SIZE_L          (88),
-		.PKT_TRANS_LOCK            (70),
-		.PKT_BEGIN_BURST           (95),
-		.PKT_PROTECTION_H          (117),
-		.PKT_PROTECTION_L          (115),
-		.PKT_BURSTWRAP_H           (87),
-		.PKT_BURSTWRAP_L           (80),
-		.PKT_BYTE_CNT_H            (79),
-		.PKT_BYTE_CNT_L            (72),
-		.PKT_ADDR_H                (65),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (66),
-		.PKT_TRANS_POSTED          (67),
-		.PKT_TRANS_WRITE           (68),
-		.PKT_TRANS_READ            (69),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (162),
+		.PKT_ORI_BURST_SIZE_L      (160),
+		.PKT_RESPONSE_STATUS_H     (159),
+		.PKT_RESPONSE_STATUS_L     (158),
+		.PKT_BURST_SIZE_H          (126),
+		.PKT_BURST_SIZE_L          (124),
+		.PKT_TRANS_LOCK            (106),
+		.PKT_BEGIN_BURST           (131),
+		.PKT_PROTECTION_H          (153),
+		.PKT_PROTECTION_L          (151),
+		.PKT_BURSTWRAP_H           (123),
+		.PKT_BURSTWRAP_L           (116),
+		.PKT_BYTE_CNT_H            (115),
+		.PKT_BYTE_CNT_L            (108),
+		.PKT_ADDR_H                (101),
+		.PKT_ADDR_L                (72),
+		.PKT_TRANS_COMPRESSED_READ (102),
+		.PKT_TRANS_POSTED          (103),
+		.PKT_TRANS_WRITE           (104),
+		.PKT_TRANS_READ            (105),
+		.PKT_DATA_H                (63),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (99),
-		.PKT_SRC_ID_L              (97),
-		.PKT_DEST_ID_H             (102),
-		.PKT_DEST_ID_L             (100),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_SRC_ID_H              (135),
+		.PKT_SRC_ID_L              (133),
+		.PKT_DEST_ID_H             (138),
+		.PKT_DEST_ID_L             (136),
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (5),
-		.ST_DATA_W                 (127),
-		.AVS_BURSTCOUNT_W          (3),
+		.ST_DATA_W                 (163),
+		.AVS_BURSTCOUNT_W          (4),
 		.SUPPRESS_0_BYTEEN_CMD     (1),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -1491,7 +1467,7 @@ module soc_system_mm_interconnect_0 (
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (128),
+		.BITS_PER_SYMBOL     (164),
 		.FIFO_DEPTH          (2),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -1532,7 +1508,7 @@ module soc_system_mm_interconnect_0 (
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (34),
+		.BITS_PER_SYMBOL     (66),
 		.FIFO_DEPTH          (2),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -1951,7 +1927,7 @@ module soc_system_mm_interconnect_0 (
 		.src_endofpacket    (router_002_src_endofpacket)                          //          .endofpacket
 	);
 
-	soc_system_mm_interconnect_0_router_002 router_003 (
+	soc_system_mm_interconnect_0_router_003 router_003 (
 		.sink_ready         (fifo_to_copro_in_csr_agent_rp_ready),                //      sink.ready
 		.sink_valid         (fifo_to_copro_in_csr_agent_rp_valid),                //          .valid
 		.sink_data          (fifo_to_copro_in_csr_agent_rp_data),                 //          .data
@@ -1983,7 +1959,7 @@ module soc_system_mm_interconnect_0 (
 		.src_endofpacket    (router_004_src_endofpacket)                         //          .endofpacket
 	);
 
-	soc_system_mm_interconnect_0_router_002 router_005 (
+	soc_system_mm_interconnect_0_router_003 router_005 (
 		.sink_ready         (fifo_to_hps_out_csr_agent_rp_ready),                //      sink.ready
 		.sink_valid         (fifo_to_hps_out_csr_agent_rp_valid),                //          .valid
 		.sink_data          (fifo_to_hps_out_csr_agent_rp_data),                 //          .data
@@ -1999,7 +1975,7 @@ module soc_system_mm_interconnect_0 (
 		.src_endofpacket    (router_005_src_endofpacket)                         //          .endofpacket
 	);
 
-	soc_system_mm_interconnect_0_router_002 router_006 (
+	soc_system_mm_interconnect_0_router_003 router_006 (
 		.sink_ready         (pio_0_s1_agent_rp_ready),                            //      sink.ready
 		.sink_valid         (pio_0_s1_agent_rp_valid),                            //          .valid
 		.sink_data          (pio_0_s1_agent_rp_data),                             //          .data
@@ -2116,30 +2092,30 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	altera_merlin_burst_adapter #(
-		.PKT_ADDR_H                (65),
-		.PKT_ADDR_L                (36),
-		.PKT_BEGIN_BURST           (95),
-		.PKT_BYTE_CNT_H            (79),
-		.PKT_BYTE_CNT_L            (72),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_BURST_SIZE_H          (90),
-		.PKT_BURST_SIZE_L          (88),
-		.PKT_BURST_TYPE_H          (92),
-		.PKT_BURST_TYPE_L          (91),
-		.PKT_BURSTWRAP_H           (87),
-		.PKT_BURSTWRAP_L           (80),
-		.PKT_TRANS_COMPRESSED_READ (66),
-		.PKT_TRANS_WRITE           (68),
-		.PKT_TRANS_READ            (69),
+		.PKT_ADDR_H                (101),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (131),
+		.PKT_BYTE_CNT_H            (115),
+		.PKT_BYTE_CNT_L            (108),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (126),
+		.PKT_BURST_SIZE_L          (124),
+		.PKT_BURST_TYPE_H          (128),
+		.PKT_BURST_TYPE_L          (127),
+		.PKT_BURSTWRAP_H           (123),
+		.PKT_BURSTWRAP_L           (116),
+		.PKT_TRANS_COMPRESSED_READ (102),
+		.PKT_TRANS_WRITE           (104),
+		.PKT_TRANS_READ            (105),
 		.OUT_NARROW_SIZE           (0),
 		.IN_NARROW_SIZE            (1),
 		.OUT_FIXED                 (0),
 		.OUT_COMPLETE_WRAP         (0),
-		.ST_DATA_W                 (127),
+		.ST_DATA_W                 (163),
 		.ST_CHANNEL_W              (5),
-		.OUT_BYTE_CNT_H            (74),
-		.OUT_BURSTWRAP_H           (87),
+		.OUT_BYTE_CNT_H            (111),
+		.OUT_BURSTWRAP_H           (123),
 		.COMPRESSED_READ_SUPPORT   (1),
 		.BYTEENABLE_SYNTHESIS      (1),
 		.PIPE_INPUTS               (0),
@@ -2151,12 +2127,12 @@ module soc_system_mm_interconnect_0 (
 	) fifo_to_copro_in_burst_adapter (
 		.clk                   (clock_bridge_0_out_clk_clk),                           //       cr0.clk
 		.reset                 (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),   // cr0_reset.reset
-		.sink0_valid           (fifo_to_copro_in_cmd_width_adapter_src_valid),         //     sink0.valid
-		.sink0_data            (fifo_to_copro_in_cmd_width_adapter_src_data),          //          .data
-		.sink0_channel         (fifo_to_copro_in_cmd_width_adapter_src_channel),       //          .channel
-		.sink0_startofpacket   (fifo_to_copro_in_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.sink0_endofpacket     (fifo_to_copro_in_cmd_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink0_ready           (fifo_to_copro_in_cmd_width_adapter_src_ready),         //          .ready
+		.sink0_valid           (cmd_mux_src_valid),                                    //     sink0.valid
+		.sink0_data            (cmd_mux_src_data),                                     //          .data
+		.sink0_channel         (cmd_mux_src_channel),                                  //          .channel
+		.sink0_startofpacket   (cmd_mux_src_startofpacket),                            //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_src_endofpacket),                              //          .endofpacket
+		.sink0_ready           (cmd_mux_src_ready),                                    //          .ready
 		.source0_valid         (fifo_to_copro_in_burst_adapter_source0_valid),         //   source0.valid
 		.source0_data          (fifo_to_copro_in_burst_adapter_source0_data),          //          .data
 		.source0_channel       (fifo_to_copro_in_burst_adapter_source0_channel),       //          .channel
@@ -2216,30 +2192,30 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	altera_merlin_burst_adapter #(
-		.PKT_ADDR_H                (65),
-		.PKT_ADDR_L                (36),
-		.PKT_BEGIN_BURST           (95),
-		.PKT_BYTE_CNT_H            (79),
-		.PKT_BYTE_CNT_L            (72),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_BURST_SIZE_H          (90),
-		.PKT_BURST_SIZE_L          (88),
-		.PKT_BURST_TYPE_H          (92),
-		.PKT_BURST_TYPE_L          (91),
-		.PKT_BURSTWRAP_H           (87),
-		.PKT_BURSTWRAP_L           (80),
-		.PKT_TRANS_COMPRESSED_READ (66),
-		.PKT_TRANS_WRITE           (68),
-		.PKT_TRANS_READ            (69),
+		.PKT_ADDR_H                (101),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (131),
+		.PKT_BYTE_CNT_H            (115),
+		.PKT_BYTE_CNT_L            (108),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (126),
+		.PKT_BURST_SIZE_L          (124),
+		.PKT_BURST_TYPE_H          (128),
+		.PKT_BURST_TYPE_L          (127),
+		.PKT_BURSTWRAP_H           (123),
+		.PKT_BURSTWRAP_L           (116),
+		.PKT_TRANS_COMPRESSED_READ (102),
+		.PKT_TRANS_WRITE           (104),
+		.PKT_TRANS_READ            (105),
 		.OUT_NARROW_SIZE           (0),
 		.IN_NARROW_SIZE            (1),
 		.OUT_FIXED                 (0),
 		.OUT_COMPLETE_WRAP         (0),
-		.ST_DATA_W                 (127),
+		.ST_DATA_W                 (163),
 		.ST_CHANNEL_W              (5),
-		.OUT_BYTE_CNT_H            (74),
-		.OUT_BURSTWRAP_H           (87),
+		.OUT_BYTE_CNT_H            (111),
+		.OUT_BURSTWRAP_H           (123),
 		.COMPRESSED_READ_SUPPORT   (1),
 		.BYTEENABLE_SYNTHESIS      (1),
 		.PIPE_INPUTS               (0),
@@ -2251,12 +2227,12 @@ module soc_system_mm_interconnect_0 (
 	) fifo_to_hps_out_burst_adapter (
 		.clk                   (clk_0_clk_clk),                                       //       cr0.clk
 		.reset                 (fifo_to_hps_reset_out_reset_bridge_in_reset_reset),   // cr0_reset.reset
-		.sink0_valid           (fifo_to_hps_out_cmd_width_adapter_src_valid),         //     sink0.valid
-		.sink0_data            (fifo_to_hps_out_cmd_width_adapter_src_data),          //          .data
-		.sink0_channel         (fifo_to_hps_out_cmd_width_adapter_src_channel),       //          .channel
-		.sink0_startofpacket   (fifo_to_hps_out_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.sink0_endofpacket     (fifo_to_hps_out_cmd_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink0_ready           (fifo_to_hps_out_cmd_width_adapter_src_ready),         //          .ready
+		.sink0_valid           (cmd_mux_002_src_valid),                               //     sink0.valid
+		.sink0_data            (cmd_mux_002_src_data),                                //          .data
+		.sink0_channel         (cmd_mux_002_src_channel),                             //          .channel
+		.sink0_startofpacket   (cmd_mux_002_src_startofpacket),                       //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_002_src_endofpacket),                         //          .endofpacket
+		.sink0_ready           (cmd_mux_002_src_ready),                               //          .ready
 		.source0_valid         (fifo_to_hps_out_burst_adapter_source0_valid),         //   source0.valid
 		.source0_data          (fifo_to_hps_out_burst_adapter_source0_data),          //          .data
 		.source0_channel       (fifo_to_hps_out_burst_adapter_source0_channel),       //          .channel
@@ -2563,26 +2539,26 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	soc_system_mm_interconnect_0_rsp_demux rsp_demux (
-		.clk                (clock_bridge_0_out_clk_clk),                           //       clk.clk
-		.reset              (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.sink_ready         (fifo_to_copro_in_rsp_width_adapter_src_ready),         //      sink.ready
-		.sink_channel       (fifo_to_copro_in_rsp_width_adapter_src_channel),       //          .channel
-		.sink_data          (fifo_to_copro_in_rsp_width_adapter_src_data),          //          .data
-		.sink_startofpacket (fifo_to_copro_in_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.sink_endofpacket   (fifo_to_copro_in_rsp_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink_valid         (fifo_to_copro_in_rsp_width_adapter_src_valid),         //          .valid
-		.src0_ready         (rsp_demux_src0_ready),                                 //      src0.ready
-		.src0_valid         (rsp_demux_src0_valid),                                 //          .valid
-		.src0_data          (rsp_demux_src0_data),                                  //          .data
-		.src0_channel       (rsp_demux_src0_channel),                               //          .channel
-		.src0_startofpacket (rsp_demux_src0_startofpacket),                         //          .startofpacket
-		.src0_endofpacket   (rsp_demux_src0_endofpacket),                           //          .endofpacket
-		.src1_ready         (rsp_demux_src1_ready),                                 //      src1.ready
-		.src1_valid         (rsp_demux_src1_valid),                                 //          .valid
-		.src1_data          (rsp_demux_src1_data),                                  //          .data
-		.src1_channel       (rsp_demux_src1_channel),                               //          .channel
-		.src1_startofpacket (rsp_demux_src1_startofpacket),                         //          .startofpacket
-		.src1_endofpacket   (rsp_demux_src1_endofpacket)                            //          .endofpacket
+		.clk                (clock_bridge_0_out_clk_clk),                         //       clk.clk
+		.reset              (fifo_to_copro_reset_in_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_002_src_ready),                               //      sink.ready
+		.sink_channel       (router_002_src_channel),                             //          .channel
+		.sink_data          (router_002_src_data),                                //          .data
+		.sink_startofpacket (router_002_src_startofpacket),                       //          .startofpacket
+		.sink_endofpacket   (router_002_src_endofpacket),                         //          .endofpacket
+		.sink_valid         (router_002_src_valid),                               //          .valid
+		.src0_ready         (rsp_demux_src0_ready),                               //      src0.ready
+		.src0_valid         (rsp_demux_src0_valid),                               //          .valid
+		.src0_data          (rsp_demux_src0_data),                                //          .data
+		.src0_channel       (rsp_demux_src0_channel),                             //          .channel
+		.src0_startofpacket (rsp_demux_src0_startofpacket),                       //          .startofpacket
+		.src0_endofpacket   (rsp_demux_src0_endofpacket),                         //          .endofpacket
+		.src1_ready         (rsp_demux_src1_ready),                               //      src1.ready
+		.src1_valid         (rsp_demux_src1_valid),                               //          .valid
+		.src1_data          (rsp_demux_src1_data),                                //          .data
+		.src1_channel       (rsp_demux_src1_channel),                             //          .channel
+		.src1_startofpacket (rsp_demux_src1_startofpacket),                       //          .startofpacket
+		.src1_endofpacket   (rsp_demux_src1_endofpacket)                          //          .endofpacket
 	);
 
 	soc_system_mm_interconnect_0_rsp_demux rsp_demux_001 (
@@ -2609,26 +2585,26 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	soc_system_mm_interconnect_0_rsp_demux_002 rsp_demux_002 (
-		.clk                (clk_0_clk_clk),                                       //       clk.clk
-		.reset              (fifo_to_hps_reset_out_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.sink_ready         (fifo_to_hps_out_rsp_width_adapter_src_ready),         //      sink.ready
-		.sink_channel       (fifo_to_hps_out_rsp_width_adapter_src_channel),       //          .channel
-		.sink_data          (fifo_to_hps_out_rsp_width_adapter_src_data),          //          .data
-		.sink_startofpacket (fifo_to_hps_out_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.sink_endofpacket   (fifo_to_hps_out_rsp_width_adapter_src_endofpacket),   //          .endofpacket
-		.sink_valid         (fifo_to_hps_out_rsp_width_adapter_src_valid),         //          .valid
-		.src0_ready         (rsp_demux_002_src0_ready),                            //      src0.ready
-		.src0_valid         (rsp_demux_002_src0_valid),                            //          .valid
-		.src0_data          (rsp_demux_002_src0_data),                             //          .data
-		.src0_channel       (rsp_demux_002_src0_channel),                          //          .channel
-		.src0_startofpacket (rsp_demux_002_src0_startofpacket),                    //          .startofpacket
-		.src0_endofpacket   (rsp_demux_002_src0_endofpacket),                      //          .endofpacket
-		.src1_ready         (rsp_demux_002_src1_ready),                            //      src1.ready
-		.src1_valid         (rsp_demux_002_src1_valid),                            //          .valid
-		.src1_data          (rsp_demux_002_src1_data),                             //          .data
-		.src1_channel       (rsp_demux_002_src1_channel),                          //          .channel
-		.src1_startofpacket (rsp_demux_002_src1_startofpacket),                    //          .startofpacket
-		.src1_endofpacket   (rsp_demux_002_src1_endofpacket)                       //          .endofpacket
+		.clk                (clk_0_clk_clk),                                     //       clk.clk
+		.reset              (fifo_to_hps_reset_out_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_004_src_ready),                              //      sink.ready
+		.sink_channel       (router_004_src_channel),                            //          .channel
+		.sink_data          (router_004_src_data),                               //          .data
+		.sink_startofpacket (router_004_src_startofpacket),                      //          .startofpacket
+		.sink_endofpacket   (router_004_src_endofpacket),                        //          .endofpacket
+		.sink_valid         (router_004_src_valid),                              //          .valid
+		.src0_ready         (rsp_demux_002_src0_ready),                          //      src0.ready
+		.src0_valid         (rsp_demux_002_src0_valid),                          //          .valid
+		.src0_data          (rsp_demux_002_src0_data),                           //          .data
+		.src0_channel       (rsp_demux_002_src0_channel),                        //          .channel
+		.src0_startofpacket (rsp_demux_002_src0_startofpacket),                  //          .startofpacket
+		.src0_endofpacket   (rsp_demux_002_src0_endofpacket),                    //          .endofpacket
+		.src1_ready         (rsp_demux_002_src1_ready),                          //      src1.ready
+		.src1_valid         (rsp_demux_002_src1_valid),                          //          .valid
+		.src1_data          (rsp_demux_002_src1_data),                           //          .data
+		.src1_channel       (rsp_demux_002_src1_channel),                        //          .channel
+		.src1_startofpacket (rsp_demux_002_src1_startofpacket),                  //          .startofpacket
+		.src1_endofpacket   (rsp_demux_002_src1_endofpacket)                     //          .endofpacket
 	);
 
 	soc_system_mm_interconnect_0_rsp_demux_002 rsp_demux_003 (
@@ -2807,72 +2783,6 @@ module soc_system_mm_interconnect_0 (
 		.CONSTANT_BURST_SIZE           (0),
 		.PACKING                       (1),
 		.ENABLE_ADDRESS_ALIGNMENT      (1)
-	) fifo_to_copro_in_rsp_width_adapter (
-		.clk                  (clock_bridge_0_out_clk_clk),                           //       clk.clk
-		.reset                (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.in_valid             (router_002_src_valid),                                 //      sink.valid
-		.in_channel           (router_002_src_channel),                               //          .channel
-		.in_startofpacket     (router_002_src_startofpacket),                         //          .startofpacket
-		.in_endofpacket       (router_002_src_endofpacket),                           //          .endofpacket
-		.in_ready             (router_002_src_ready),                                 //          .ready
-		.in_data              (router_002_src_data),                                  //          .data
-		.out_endofpacket      (fifo_to_copro_in_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (fifo_to_copro_in_rsp_width_adapter_src_data),          //          .data
-		.out_channel          (fifo_to_copro_in_rsp_width_adapter_src_channel),       //          .channel
-		.out_valid            (fifo_to_copro_in_rsp_width_adapter_src_valid),         //          .valid
-		.out_ready            (fifo_to_copro_in_rsp_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (fifo_to_copro_in_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (65),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (79),
-		.IN_PKT_BYTE_CNT_L             (72),
-		.IN_PKT_TRANS_COMPRESSED_READ  (66),
-		.IN_PKT_TRANS_WRITE            (68),
-		.IN_PKT_BURSTWRAP_H            (87),
-		.IN_PKT_BURSTWRAP_L            (80),
-		.IN_PKT_BURST_SIZE_H           (90),
-		.IN_PKT_BURST_SIZE_L           (88),
-		.IN_PKT_RESPONSE_STATUS_H      (123),
-		.IN_PKT_RESPONSE_STATUS_L      (122),
-		.IN_PKT_TRANS_EXCLUSIVE        (71),
-		.IN_PKT_BURST_TYPE_H           (92),
-		.IN_PKT_BURST_TYPE_L           (91),
-		.IN_PKT_ORI_BURST_SIZE_L       (124),
-		.IN_PKT_ORI_BURST_SIZE_H       (126),
-		.IN_ST_DATA_W                  (127),
-		.OUT_PKT_ADDR_H                (101),
-		.OUT_PKT_ADDR_L                (72),
-		.OUT_PKT_DATA_H                (63),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (71),
-		.OUT_PKT_BYTEEN_L              (64),
-		.OUT_PKT_BYTE_CNT_H            (115),
-		.OUT_PKT_BYTE_CNT_L            (108),
-		.OUT_PKT_TRANS_COMPRESSED_READ (102),
-		.OUT_PKT_BURST_SIZE_H          (126),
-		.OUT_PKT_BURST_SIZE_L          (124),
-		.OUT_PKT_RESPONSE_STATUS_H     (159),
-		.OUT_PKT_RESPONSE_STATUS_L     (158),
-		.OUT_PKT_TRANS_EXCLUSIVE       (107),
-		.OUT_PKT_BURST_TYPE_H          (128),
-		.OUT_PKT_BURST_TYPE_L          (127),
-		.OUT_PKT_ORI_BURST_SIZE_L      (160),
-		.OUT_PKT_ORI_BURST_SIZE_H      (162),
-		.OUT_ST_DATA_W                 (163),
-		.ST_CHANNEL_W                  (5),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (1),
-		.CONSTANT_BURST_SIZE           (0),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (1)
 	) fifo_to_copro_in_csr_rsp_width_adapter (
 		.clk                  (clock_bridge_0_out_clk_clk),                               //       clk.clk
 		.reset                (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),       // clk_reset.reset
@@ -2889,72 +2799,6 @@ module soc_system_mm_interconnect_0 (
 		.out_ready            (fifo_to_copro_in_csr_rsp_width_adapter_src_ready),         //          .ready
 		.out_startofpacket    (fifo_to_copro_in_csr_rsp_width_adapter_src_startofpacket), //          .startofpacket
 		.in_command_size_data (3'b000)                                                    // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (65),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (79),
-		.IN_PKT_BYTE_CNT_L             (72),
-		.IN_PKT_TRANS_COMPRESSED_READ  (66),
-		.IN_PKT_TRANS_WRITE            (68),
-		.IN_PKT_BURSTWRAP_H            (87),
-		.IN_PKT_BURSTWRAP_L            (80),
-		.IN_PKT_BURST_SIZE_H           (90),
-		.IN_PKT_BURST_SIZE_L           (88),
-		.IN_PKT_RESPONSE_STATUS_H      (123),
-		.IN_PKT_RESPONSE_STATUS_L      (122),
-		.IN_PKT_TRANS_EXCLUSIVE        (71),
-		.IN_PKT_BURST_TYPE_H           (92),
-		.IN_PKT_BURST_TYPE_L           (91),
-		.IN_PKT_ORI_BURST_SIZE_L       (124),
-		.IN_PKT_ORI_BURST_SIZE_H       (126),
-		.IN_ST_DATA_W                  (127),
-		.OUT_PKT_ADDR_H                (101),
-		.OUT_PKT_ADDR_L                (72),
-		.OUT_PKT_DATA_H                (63),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (71),
-		.OUT_PKT_BYTEEN_L              (64),
-		.OUT_PKT_BYTE_CNT_H            (115),
-		.OUT_PKT_BYTE_CNT_L            (108),
-		.OUT_PKT_TRANS_COMPRESSED_READ (102),
-		.OUT_PKT_BURST_SIZE_H          (126),
-		.OUT_PKT_BURST_SIZE_L          (124),
-		.OUT_PKT_RESPONSE_STATUS_H     (159),
-		.OUT_PKT_RESPONSE_STATUS_L     (158),
-		.OUT_PKT_TRANS_EXCLUSIVE       (107),
-		.OUT_PKT_BURST_TYPE_H          (128),
-		.OUT_PKT_BURST_TYPE_L          (127),
-		.OUT_PKT_ORI_BURST_SIZE_L      (160),
-		.OUT_PKT_ORI_BURST_SIZE_H      (162),
-		.OUT_ST_DATA_W                 (163),
-		.ST_CHANNEL_W                  (5),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (1),
-		.CONSTANT_BURST_SIZE           (0),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (1)
-	) fifo_to_hps_out_rsp_width_adapter (
-		.clk                  (clk_0_clk_clk),                                       //       clk.clk
-		.reset                (fifo_to_hps_reset_out_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.in_valid             (router_004_src_valid),                                //      sink.valid
-		.in_channel           (router_004_src_channel),                              //          .channel
-		.in_startofpacket     (router_004_src_startofpacket),                        //          .startofpacket
-		.in_endofpacket       (router_004_src_endofpacket),                          //          .endofpacket
-		.in_ready             (router_004_src_ready),                                //          .ready
-		.in_data              (router_004_src_data),                                 //          .data
-		.out_endofpacket      (fifo_to_hps_out_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (fifo_to_hps_out_rsp_width_adapter_src_data),          //          .data
-		.out_channel          (fifo_to_hps_out_rsp_width_adapter_src_channel),       //          .channel
-		.out_valid            (fifo_to_hps_out_rsp_width_adapter_src_valid),         //          .valid
-		.out_ready            (fifo_to_hps_out_rsp_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (fifo_to_hps_out_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                               // (terminated)
 	);
 
 	altera_merlin_width_adapter #(
@@ -3137,72 +2981,6 @@ module soc_system_mm_interconnect_0 (
 		.CONSTANT_BURST_SIZE           (0),
 		.PACKING                       (0),
 		.ENABLE_ADDRESS_ALIGNMENT      (1)
-	) fifo_to_copro_in_cmd_width_adapter (
-		.clk                  (clock_bridge_0_out_clk_clk),                           //       clk.clk
-		.reset                (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.in_valid             (cmd_mux_src_valid),                                    //      sink.valid
-		.in_channel           (cmd_mux_src_channel),                                  //          .channel
-		.in_startofpacket     (cmd_mux_src_startofpacket),                            //          .startofpacket
-		.in_endofpacket       (cmd_mux_src_endofpacket),                              //          .endofpacket
-		.in_ready             (cmd_mux_src_ready),                                    //          .ready
-		.in_data              (cmd_mux_src_data),                                     //          .data
-		.out_endofpacket      (fifo_to_copro_in_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (fifo_to_copro_in_cmd_width_adapter_src_data),          //          .data
-		.out_channel          (fifo_to_copro_in_cmd_width_adapter_src_channel),       //          .channel
-		.out_valid            (fifo_to_copro_in_cmd_width_adapter_src_valid),         //          .valid
-		.out_ready            (fifo_to_copro_in_cmd_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (fifo_to_copro_in_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                                // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (101),
-		.IN_PKT_ADDR_L                 (72),
-		.IN_PKT_DATA_H                 (63),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (71),
-		.IN_PKT_BYTEEN_L               (64),
-		.IN_PKT_BYTE_CNT_H             (115),
-		.IN_PKT_BYTE_CNT_L             (108),
-		.IN_PKT_TRANS_COMPRESSED_READ  (102),
-		.IN_PKT_TRANS_WRITE            (104),
-		.IN_PKT_BURSTWRAP_H            (123),
-		.IN_PKT_BURSTWRAP_L            (116),
-		.IN_PKT_BURST_SIZE_H           (126),
-		.IN_PKT_BURST_SIZE_L           (124),
-		.IN_PKT_RESPONSE_STATUS_H      (159),
-		.IN_PKT_RESPONSE_STATUS_L      (158),
-		.IN_PKT_TRANS_EXCLUSIVE        (107),
-		.IN_PKT_BURST_TYPE_H           (128),
-		.IN_PKT_BURST_TYPE_L           (127),
-		.IN_PKT_ORI_BURST_SIZE_L       (160),
-		.IN_PKT_ORI_BURST_SIZE_H       (162),
-		.IN_ST_DATA_W                  (163),
-		.OUT_PKT_ADDR_H                (65),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (79),
-		.OUT_PKT_BYTE_CNT_L            (72),
-		.OUT_PKT_TRANS_COMPRESSED_READ (66),
-		.OUT_PKT_BURST_SIZE_H          (90),
-		.OUT_PKT_BURST_SIZE_L          (88),
-		.OUT_PKT_RESPONSE_STATUS_H     (123),
-		.OUT_PKT_RESPONSE_STATUS_L     (122),
-		.OUT_PKT_TRANS_EXCLUSIVE       (71),
-		.OUT_PKT_BURST_TYPE_H          (92),
-		.OUT_PKT_BURST_TYPE_L          (91),
-		.OUT_PKT_ORI_BURST_SIZE_L      (124),
-		.OUT_PKT_ORI_BURST_SIZE_H      (126),
-		.OUT_ST_DATA_W                 (127),
-		.ST_CHANNEL_W                  (5),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (0),
-		.CONSTANT_BURST_SIZE           (0),
-		.PACKING                       (0),
-		.ENABLE_ADDRESS_ALIGNMENT      (1)
 	) fifo_to_copro_in_csr_cmd_width_adapter (
 		.clk                  (clock_bridge_0_out_clk_clk),                               //       clk.clk
 		.reset                (fifo_to_copro_reset_in_reset_bridge_in_reset_reset),       // clk_reset.reset
@@ -3219,72 +2997,6 @@ module soc_system_mm_interconnect_0 (
 		.out_ready            (fifo_to_copro_in_csr_cmd_width_adapter_src_ready),         //          .ready
 		.out_startofpacket    (fifo_to_copro_in_csr_cmd_width_adapter_src_startofpacket), //          .startofpacket
 		.in_command_size_data (3'b000)                                                    // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (101),
-		.IN_PKT_ADDR_L                 (72),
-		.IN_PKT_DATA_H                 (63),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (71),
-		.IN_PKT_BYTEEN_L               (64),
-		.IN_PKT_BYTE_CNT_H             (115),
-		.IN_PKT_BYTE_CNT_L             (108),
-		.IN_PKT_TRANS_COMPRESSED_READ  (102),
-		.IN_PKT_TRANS_WRITE            (104),
-		.IN_PKT_BURSTWRAP_H            (123),
-		.IN_PKT_BURSTWRAP_L            (116),
-		.IN_PKT_BURST_SIZE_H           (126),
-		.IN_PKT_BURST_SIZE_L           (124),
-		.IN_PKT_RESPONSE_STATUS_H      (159),
-		.IN_PKT_RESPONSE_STATUS_L      (158),
-		.IN_PKT_TRANS_EXCLUSIVE        (107),
-		.IN_PKT_BURST_TYPE_H           (128),
-		.IN_PKT_BURST_TYPE_L           (127),
-		.IN_PKT_ORI_BURST_SIZE_L       (160),
-		.IN_PKT_ORI_BURST_SIZE_H       (162),
-		.IN_ST_DATA_W                  (163),
-		.OUT_PKT_ADDR_H                (65),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (79),
-		.OUT_PKT_BYTE_CNT_L            (72),
-		.OUT_PKT_TRANS_COMPRESSED_READ (66),
-		.OUT_PKT_BURST_SIZE_H          (90),
-		.OUT_PKT_BURST_SIZE_L          (88),
-		.OUT_PKT_RESPONSE_STATUS_H     (123),
-		.OUT_PKT_RESPONSE_STATUS_L     (122),
-		.OUT_PKT_TRANS_EXCLUSIVE       (71),
-		.OUT_PKT_BURST_TYPE_H          (92),
-		.OUT_PKT_BURST_TYPE_L          (91),
-		.OUT_PKT_ORI_BURST_SIZE_L      (124),
-		.OUT_PKT_ORI_BURST_SIZE_H      (126),
-		.OUT_ST_DATA_W                 (127),
-		.ST_CHANNEL_W                  (5),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (0),
-		.CONSTANT_BURST_SIZE           (0),
-		.PACKING                       (0),
-		.ENABLE_ADDRESS_ALIGNMENT      (1)
-	) fifo_to_hps_out_cmd_width_adapter (
-		.clk                  (clk_0_clk_clk),                                       //       clk.clk
-		.reset                (fifo_to_hps_reset_out_reset_bridge_in_reset_reset),   // clk_reset.reset
-		.in_valid             (cmd_mux_002_src_valid),                               //      sink.valid
-		.in_channel           (cmd_mux_002_src_channel),                             //          .channel
-		.in_startofpacket     (cmd_mux_002_src_startofpacket),                       //          .startofpacket
-		.in_endofpacket       (cmd_mux_002_src_endofpacket),                         //          .endofpacket
-		.in_ready             (cmd_mux_002_src_ready),                               //          .ready
-		.in_data              (cmd_mux_002_src_data),                                //          .data
-		.out_endofpacket      (fifo_to_hps_out_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
-		.out_data             (fifo_to_hps_out_cmd_width_adapter_src_data),          //          .data
-		.out_channel          (fifo_to_hps_out_cmd_width_adapter_src_channel),       //          .channel
-		.out_valid            (fifo_to_hps_out_cmd_width_adapter_src_valid),         //          .valid
-		.out_ready            (fifo_to_hps_out_cmd_width_adapter_src_ready),         //          .ready
-		.out_startofpacket    (fifo_to_hps_out_cmd_width_adapter_src_startofpacket), //          .startofpacket
-		.in_command_size_data (3'b000)                                               // (terminated)
 	);
 
 	altera_merlin_width_adapter #(
@@ -3692,16 +3404,16 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	soc_system_mm_interconnect_0_avalon_st_adapter #(
-		.inBitsPerSymbol (34),
+		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
-		.inDataWidth     (34),
+		.inDataWidth     (66),
 		.inChannelWidth  (0),
 		.inErrorWidth    (0),
 		.inUseEmptyPort  (0),
 		.inUseValid      (1),
 		.inUseReady      (1),
 		.inReadyLatency  (0),
-		.outDataWidth    (34),
+		.outDataWidth    (66),
 		.outChannelWidth (0),
 		.outErrorWidth   (1),
 		.outUseEmptyPort (0),
@@ -3720,7 +3432,7 @@ module soc_system_mm_interconnect_0 (
 		.out_0_error    (avalon_st_adapter_out_0_error)                       //         .error
 	);
 
-	soc_system_mm_interconnect_0_avalon_st_adapter #(
+	soc_system_mm_interconnect_0_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (34),
 		.inUsePackets    (0),
 		.inDataWidth     (34),
@@ -3750,16 +3462,16 @@ module soc_system_mm_interconnect_0 (
 	);
 
 	soc_system_mm_interconnect_0_avalon_st_adapter #(
-		.inBitsPerSymbol (34),
+		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
-		.inDataWidth     (34),
+		.inDataWidth     (66),
 		.inChannelWidth  (0),
 		.inErrorWidth    (0),
 		.inUseEmptyPort  (0),
 		.inUseValid      (1),
 		.inUseReady      (1),
 		.inReadyLatency  (0),
-		.outDataWidth    (34),
+		.outDataWidth    (66),
 		.outChannelWidth (0),
 		.outErrorWidth   (1),
 		.outUseEmptyPort (0),
@@ -3778,7 +3490,7 @@ module soc_system_mm_interconnect_0 (
 		.out_0_error    (avalon_st_adapter_002_out_0_error)                  //         .error
 	);
 
-	soc_system_mm_interconnect_0_avalon_st_adapter #(
+	soc_system_mm_interconnect_0_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (34),
 		.inUsePackets    (0),
 		.inDataWidth     (34),
@@ -3807,7 +3519,7 @@ module soc_system_mm_interconnect_0 (
 		.out_0_error    (avalon_st_adapter_003_out_0_error)                  //         .error
 	);
 
-	soc_system_mm_interconnect_0_avalon_st_adapter #(
+	soc_system_mm_interconnect_0_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (34),
 		.inUsePackets    (0),
 		.inDataWidth     (34),

@@ -280,7 +280,7 @@
    kind="altera_avalon_fifo"
    version="22.1"
    enabled="1">
-  <parameter name="avalonMMAvalonMMDataWidth" value="32" />
+  <parameter name="avalonMMAvalonMMDataWidth" value="64" />
   <parameter name="avalonMMAvalonSTDataWidth" value="32" />
   <parameter name="bitsPerSymbol" value="16" />
   <parameter name="channelWidth" value="8" />
@@ -305,7 +305,7 @@
    kind="altera_avalon_fifo"
    version="22.1"
    enabled="1">
-  <parameter name="avalonMMAvalonMMDataWidth" value="32" />
+  <parameter name="avalonMMAvalonMMDataWidth" value="64" />
   <parameter name="avalonMMAvalonSTDataWidth" value="32" />
   <parameter name="bitsPerSymbol" value="16" />
   <parameter name="channelWidth" value="8" />
