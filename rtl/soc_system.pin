@@ -555,7 +555,7 @@ GND                          : F27       : gnd    :                   :         
 HPS_DDR3_ADDR[2]             : F28       : output : SSTL-15 Class I   :         : 6A        : N              
 HPS_DDR3_ADDR[6]             : F29       : output : SSTL-15 Class I   :         : 6A        : N              
 HPS_DDR3_ADDR[3]             : F30       : output : SSTL-15 Class I   :         : 6A        : N              
-GND                          : G1        :        :                   :         :           :                
+RREF                         : G1        :        :                   :         :           :                
 DNU                          : G2        :        :                   :         :           :                
 GND                          : G3        : gnd    :                   :         :           :                
 GND                          : G4        : gnd    :                   :         :           :                

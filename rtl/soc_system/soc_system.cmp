@@ -1,6 +1,7 @@
 	component soc_system is
 		port (
 			clk_clk                               : in    std_logic                     := 'X';             -- clk
+			clock_95_clk                          : out   std_logic;                                        -- clk
 			fifo_to_copro_out_readdata            : out   std_logic_vector(31 downto 0);                    -- readdata
 			fifo_to_copro_out_read                : in    std_logic                     := 'X';             -- read
 			fifo_to_copro_out_waitrequest         : out   std_logic;                                        -- waitrequest

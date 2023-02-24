@@ -83,6 +83,7 @@
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                          .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                          .oct_rzqin
 		.pio_status_export                     (<connected-to-pio_status_export>),                     //                pio_status.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                     reset.reset_n
+		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                     reset.reset_n
+		.clock_95_clk                          (<connected-to-clock_95_clk>)                           //                  clock_95.clk
 	);
 

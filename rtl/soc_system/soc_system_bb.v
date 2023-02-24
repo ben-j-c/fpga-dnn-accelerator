@@ -84,7 +84,8 @@ module soc_system (
 	memory_mem_dm,
 	memory_oct_rzqin,
 	pio_status_export,
-	reset_reset_n);	
+	reset_reset_n,
+	clock_95_clk);	
 
 	input		clk_clk;
 	output	[31:0]	fifo_to_copro_out_readdata;
@@ -171,4 +172,5 @@ module soc_system (
 	input		memory_oct_rzqin;
 	input	[31:0]	pio_status_export;
 	input		reset_reset_n;
+	output		clock_95_clk;
 endmodule

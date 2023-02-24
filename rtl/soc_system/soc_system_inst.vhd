@@ -84,7 +84,8 @@
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
 			pio_status_export                     : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
-			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
+			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
+			clock_95_clk                          : out   std_logic                                         -- clk
 		);
 	end component soc_system;
 
@@ -174,6 +175,7 @@
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                          .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                          .oct_rzqin
 			pio_status_export                     => CONNECTED_TO_pio_status_export,                     --                pio_status.export
-			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                     reset.reset_n
+			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                     reset.reset_n
+			clock_95_clk                          => CONNECTED_TO_clock_95_clk                           --                  clock_95.clk
 		);
 

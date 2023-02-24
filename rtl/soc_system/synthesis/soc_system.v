@@ -5,6 +5,7 @@
 `timescale 1 ps / 1 ps
 module soc_system (
 		input  wire        clk_clk,                               //                       clk.clk
+		output wire        clock_95_clk,                          //                  clock_95.clk
 		output wire [31:0] fifo_to_copro_out_readdata,            //         fifo_to_copro_out.readdata
 		input  wire        fifo_to_copro_out_read,                //                          .read
 		output wire        fifo_to_copro_out_waitrequest,         //                          .waitrequest
@@ -91,42 +92,42 @@ module soc_system (
 		input  wire        reset_reset_n                          //                     reset.reset_n
 	);
 
-	wire   [1:0] hps_0_h2f_lw_axi_master_awburst;                  // hps_0:h2f_lw_AWBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awburst
-	wire   [3:0] hps_0_h2f_lw_axi_master_arlen;                    // hps_0:h2f_lw_ARLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlen
-	wire   [3:0] hps_0_h2f_lw_axi_master_wstrb;                    // hps_0:h2f_lw_WSTRB -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wstrb
-	wire         hps_0_h2f_lw_axi_master_wready;                   // mm_interconnect_0:hps_0_h2f_lw_axi_master_wready -> hps_0:h2f_lw_WREADY
-	wire  [11:0] hps_0_h2f_lw_axi_master_rid;                      // mm_interconnect_0:hps_0_h2f_lw_axi_master_rid -> hps_0:h2f_lw_RID
-	wire         hps_0_h2f_lw_axi_master_rready;                   // hps_0:h2f_lw_RREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_rready
-	wire   [3:0] hps_0_h2f_lw_axi_master_awlen;                    // hps_0:h2f_lw_AWLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlen
-	wire  [11:0] hps_0_h2f_lw_axi_master_wid;                      // hps_0:h2f_lw_WID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wid
-	wire   [3:0] hps_0_h2f_lw_axi_master_arcache;                  // hps_0:h2f_lw_ARCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arcache
-	wire         hps_0_h2f_lw_axi_master_wvalid;                   // hps_0:h2f_lw_WVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wvalid
-	wire  [20:0] hps_0_h2f_lw_axi_master_araddr;                   // hps_0:h2f_lw_ARADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_araddr
-	wire   [2:0] hps_0_h2f_lw_axi_master_arprot;                   // hps_0:h2f_lw_ARPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arprot
-	wire   [2:0] hps_0_h2f_lw_axi_master_awprot;                   // hps_0:h2f_lw_AWPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awprot
-	wire  [31:0] hps_0_h2f_lw_axi_master_wdata;                    // hps_0:h2f_lw_WDATA -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wdata
-	wire         hps_0_h2f_lw_axi_master_arvalid;                  // hps_0:h2f_lw_ARVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arvalid
-	wire   [3:0] hps_0_h2f_lw_axi_master_awcache;                  // hps_0:h2f_lw_AWCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awcache
-	wire  [11:0] hps_0_h2f_lw_axi_master_arid;                     // hps_0:h2f_lw_ARID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arid
-	wire   [1:0] hps_0_h2f_lw_axi_master_arlock;                   // hps_0:h2f_lw_ARLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlock
-	wire   [1:0] hps_0_h2f_lw_axi_master_awlock;                   // hps_0:h2f_lw_AWLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlock
-	wire  [20:0] hps_0_h2f_lw_axi_master_awaddr;                   // hps_0:h2f_lw_AWADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awaddr
-	wire   [1:0] hps_0_h2f_lw_axi_master_bresp;                    // mm_interconnect_0:hps_0_h2f_lw_axi_master_bresp -> hps_0:h2f_lw_BRESP
-	wire         hps_0_h2f_lw_axi_master_arready;                  // mm_interconnect_0:hps_0_h2f_lw_axi_master_arready -> hps_0:h2f_lw_ARREADY
-	wire  [31:0] hps_0_h2f_lw_axi_master_rdata;                    // mm_interconnect_0:hps_0_h2f_lw_axi_master_rdata -> hps_0:h2f_lw_RDATA
-	wire         hps_0_h2f_lw_axi_master_awready;                  // mm_interconnect_0:hps_0_h2f_lw_axi_master_awready -> hps_0:h2f_lw_AWREADY
-	wire   [1:0] hps_0_h2f_lw_axi_master_arburst;                  // hps_0:h2f_lw_ARBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arburst
-	wire   [2:0] hps_0_h2f_lw_axi_master_arsize;                   // hps_0:h2f_lw_ARSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arsize
-	wire         hps_0_h2f_lw_axi_master_bready;                   // hps_0:h2f_lw_BREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_bready
-	wire         hps_0_h2f_lw_axi_master_rlast;                    // mm_interconnect_0:hps_0_h2f_lw_axi_master_rlast -> hps_0:h2f_lw_RLAST
-	wire         hps_0_h2f_lw_axi_master_wlast;                    // hps_0:h2f_lw_WLAST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wlast
-	wire   [1:0] hps_0_h2f_lw_axi_master_rresp;                    // mm_interconnect_0:hps_0_h2f_lw_axi_master_rresp -> hps_0:h2f_lw_RRESP
-	wire  [11:0] hps_0_h2f_lw_axi_master_awid;                     // hps_0:h2f_lw_AWID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awid
-	wire  [11:0] hps_0_h2f_lw_axi_master_bid;                      // mm_interconnect_0:hps_0_h2f_lw_axi_master_bid -> hps_0:h2f_lw_BID
-	wire         hps_0_h2f_lw_axi_master_bvalid;                   // mm_interconnect_0:hps_0_h2f_lw_axi_master_bvalid -> hps_0:h2f_lw_BVALID
-	wire   [2:0] hps_0_h2f_lw_axi_master_awsize;                   // hps_0:h2f_lw_AWSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awsize
-	wire         hps_0_h2f_lw_axi_master_awvalid;                  // hps_0:h2f_lw_AWVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awvalid
-	wire         hps_0_h2f_lw_axi_master_rvalid;                   // mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
+	wire   [1:0] hps_0_h2f_axi_master_awburst;                     // hps_0:h2f_AWBURST -> mm_interconnect_0:hps_0_h2f_axi_master_awburst
+	wire   [3:0] hps_0_h2f_axi_master_arlen;                       // hps_0:h2f_ARLEN -> mm_interconnect_0:hps_0_h2f_axi_master_arlen
+	wire   [7:0] hps_0_h2f_axi_master_wstrb;                       // hps_0:h2f_WSTRB -> mm_interconnect_0:hps_0_h2f_axi_master_wstrb
+	wire         hps_0_h2f_axi_master_wready;                      // mm_interconnect_0:hps_0_h2f_axi_master_wready -> hps_0:h2f_WREADY
+	wire  [11:0] hps_0_h2f_axi_master_rid;                         // mm_interconnect_0:hps_0_h2f_axi_master_rid -> hps_0:h2f_RID
+	wire         hps_0_h2f_axi_master_rready;                      // hps_0:h2f_RREADY -> mm_interconnect_0:hps_0_h2f_axi_master_rready
+	wire   [3:0] hps_0_h2f_axi_master_awlen;                       // hps_0:h2f_AWLEN -> mm_interconnect_0:hps_0_h2f_axi_master_awlen
+	wire  [11:0] hps_0_h2f_axi_master_wid;                         // hps_0:h2f_WID -> mm_interconnect_0:hps_0_h2f_axi_master_wid
+	wire   [3:0] hps_0_h2f_axi_master_arcache;                     // hps_0:h2f_ARCACHE -> mm_interconnect_0:hps_0_h2f_axi_master_arcache
+	wire         hps_0_h2f_axi_master_wvalid;                      // hps_0:h2f_WVALID -> mm_interconnect_0:hps_0_h2f_axi_master_wvalid
+	wire  [29:0] hps_0_h2f_axi_master_araddr;                      // hps_0:h2f_ARADDR -> mm_interconnect_0:hps_0_h2f_axi_master_araddr
+	wire   [2:0] hps_0_h2f_axi_master_arprot;                      // hps_0:h2f_ARPROT -> mm_interconnect_0:hps_0_h2f_axi_master_arprot
+	wire   [2:0] hps_0_h2f_axi_master_awprot;                      // hps_0:h2f_AWPROT -> mm_interconnect_0:hps_0_h2f_axi_master_awprot
+	wire  [63:0] hps_0_h2f_axi_master_wdata;                       // hps_0:h2f_WDATA -> mm_interconnect_0:hps_0_h2f_axi_master_wdata
+	wire         hps_0_h2f_axi_master_arvalid;                     // hps_0:h2f_ARVALID -> mm_interconnect_0:hps_0_h2f_axi_master_arvalid
+	wire   [3:0] hps_0_h2f_axi_master_awcache;                     // hps_0:h2f_AWCACHE -> mm_interconnect_0:hps_0_h2f_axi_master_awcache
+	wire  [11:0] hps_0_h2f_axi_master_arid;                        // hps_0:h2f_ARID -> mm_interconnect_0:hps_0_h2f_axi_master_arid
+	wire   [1:0] hps_0_h2f_axi_master_arlock;                      // hps_0:h2f_ARLOCK -> mm_interconnect_0:hps_0_h2f_axi_master_arlock
+	wire   [1:0] hps_0_h2f_axi_master_awlock;                      // hps_0:h2f_AWLOCK -> mm_interconnect_0:hps_0_h2f_axi_master_awlock
+	wire  [29:0] hps_0_h2f_axi_master_awaddr;                      // hps_0:h2f_AWADDR -> mm_interconnect_0:hps_0_h2f_axi_master_awaddr
+	wire   [1:0] hps_0_h2f_axi_master_bresp;                       // mm_interconnect_0:hps_0_h2f_axi_master_bresp -> hps_0:h2f_BRESP
+	wire         hps_0_h2f_axi_master_arready;                     // mm_interconnect_0:hps_0_h2f_axi_master_arready -> hps_0:h2f_ARREADY
+	wire  [63:0] hps_0_h2f_axi_master_rdata;                       // mm_interconnect_0:hps_0_h2f_axi_master_rdata -> hps_0:h2f_RDATA
+	wire         hps_0_h2f_axi_master_awready;                     // mm_interconnect_0:hps_0_h2f_axi_master_awready -> hps_0:h2f_AWREADY
+	wire   [1:0] hps_0_h2f_axi_master_arburst;                     // hps_0:h2f_ARBURST -> mm_interconnect_0:hps_0_h2f_axi_master_arburst
+	wire   [2:0] hps_0_h2f_axi_master_arsize;                      // hps_0:h2f_ARSIZE -> mm_interconnect_0:hps_0_h2f_axi_master_arsize
+	wire         hps_0_h2f_axi_master_bready;                      // hps_0:h2f_BREADY -> mm_interconnect_0:hps_0_h2f_axi_master_bready
+	wire         hps_0_h2f_axi_master_rlast;                       // mm_interconnect_0:hps_0_h2f_axi_master_rlast -> hps_0:h2f_RLAST
+	wire         hps_0_h2f_axi_master_wlast;                       // hps_0:h2f_WLAST -> mm_interconnect_0:hps_0_h2f_axi_master_wlast
+	wire   [1:0] hps_0_h2f_axi_master_rresp;                       // mm_interconnect_0:hps_0_h2f_axi_master_rresp -> hps_0:h2f_RRESP
+	wire  [11:0] hps_0_h2f_axi_master_awid;                        // hps_0:h2f_AWID -> mm_interconnect_0:hps_0_h2f_axi_master_awid
+	wire  [11:0] hps_0_h2f_axi_master_bid;                         // mm_interconnect_0:hps_0_h2f_axi_master_bid -> hps_0:h2f_BID
+	wire         hps_0_h2f_axi_master_bvalid;                      // mm_interconnect_0:hps_0_h2f_axi_master_bvalid -> hps_0:h2f_BVALID
+	wire   [2:0] hps_0_h2f_axi_master_awsize;                      // hps_0:h2f_AWSIZE -> mm_interconnect_0:hps_0_h2f_axi_master_awsize
+	wire         hps_0_h2f_axi_master_awvalid;                     // hps_0:h2f_AWVALID -> mm_interconnect_0:hps_0_h2f_axi_master_awvalid
+	wire         hps_0_h2f_axi_master_rvalid;                      // mm_interconnect_0:hps_0_h2f_axi_master_rvalid -> hps_0:h2f_RVALID
 	wire         mm_interconnect_0_fifo_to_copro_in_waitrequest;   // fifo_to_copro:avalonmm_write_slave_waitrequest -> mm_interconnect_0:fifo_to_copro_in_waitrequest
 	wire         mm_interconnect_0_fifo_to_copro_in_write;         // mm_interconnect_0:fifo_to_copro_in_write -> fifo_to_copro:avalonmm_write_slave_write
 	wire  [31:0] mm_interconnect_0_fifo_to_copro_in_writedata;     // mm_interconnect_0:fifo_to_copro_in_writedata -> fifo_to_copro:avalonmm_write_slave_writedata
@@ -147,11 +148,12 @@ module soc_system (
 	wire   [1:0] mm_interconnect_0_pio_0_s1_address;               // mm_interconnect_0:pio_0_s1_address -> pio_0:address
 	wire  [31:0] hps_0_f2h_irq0_irq;                               // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
 	wire  [31:0] hps_0_f2h_irq1_irq;                               // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
-	wire         rst_controller_reset_out_reset;                   // rst_controller:reset_out -> [fifo_to_copro:reset_n, fifo_to_hps:rdreset_n, fifo_to_hps:wrreset_n, mm_interconnect_0:fifo_to_copro_reset_in_reset_bridge_in_reset_reset, pio_0:reset_n]
-	wire         rst_controller_001_reset_out_reset;               // rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
+	wire         rst_controller_reset_out_reset;                   // rst_controller:reset_out -> [fifo_to_copro:reset_n, fifo_to_hps:wrreset_n, mm_interconnect_0:fifo_to_copro_reset_in_reset_bridge_in_reset_reset, pio_0:reset_n]
+	wire         rst_controller_001_reset_out_reset;               // rst_controller_001:reset_out -> [fifo_to_hps:rdreset_n, mm_interconnect_0:fifo_to_hps_reset_out_reset_bridge_in_reset_reset]
+	wire         rst_controller_002_reset_out_reset;               // rst_controller_002:reset_out -> mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 
 	soc_system_fifo_to_copro fifo_to_copro (
-		.wrclock                          (clk_clk),                                          //   clk_in.clk
+		.wrclock                          (clock_95_clk),                                     //   clk_in.clk
 		.reset_n                          (~rst_controller_reset_out_reset),                  // reset_in.reset_n
 		.avalonmm_write_slave_writedata   (mm_interconnect_0_fifo_to_copro_in_writedata),     //       in.writedata
 		.avalonmm_write_slave_write       (mm_interconnect_0_fifo_to_copro_in_write),         //         .write
@@ -167,10 +169,10 @@ module soc_system (
 	);
 
 	soc_system_fifo_to_hps fifo_to_hps (
-		.wrclock                          (clk_clk),                                         //    clk_in.clk
+		.wrclock                          (clock_95_clk),                                    //    clk_in.clk
 		.wrreset_n                        (~rst_controller_reset_out_reset),                 //  reset_in.reset_n
 		.rdclock                          (clk_clk),                                         //   clk_out.clk
-		.rdreset_n                        (~rst_controller_reset_out_reset),                 // reset_out.reset_n
+		.rdreset_n                        (~rst_controller_001_reset_out_reset),             // reset_out.reset_n
 		.avalonmm_write_slave_writedata   (fifo_to_hps_in_writedata),                        //        in.writedata
 		.avalonmm_write_slave_write       (fifo_to_hps_in_write),                            //          .write
 		.avalonmm_write_slave_waitrequest (fifo_to_hps_in_waitrequest),                      //          .waitrequest
@@ -264,44 +266,44 @@ module soc_system (
 		.hps_io_gpio_inst_GPIO54  (hps_0_hps_io_hps_io_gpio_inst_GPIO54),  //                    .hps_io_gpio_inst_GPIO54
 		.hps_io_gpio_inst_GPIO61  (hps_0_hps_io_hps_io_gpio_inst_GPIO61),  //                    .hps_io_gpio_inst_GPIO61
 		.h2f_rst_n                (hps_0_h2f_reset_reset_n),               //           h2f_reset.reset_n
-		.h2f_axi_clk              (clk_clk),                               //       h2f_axi_clock.clk
-		.h2f_AWID                 (),                                      //      h2f_axi_master.awid
-		.h2f_AWADDR               (),                                      //                    .awaddr
-		.h2f_AWLEN                (),                                      //                    .awlen
-		.h2f_AWSIZE               (),                                      //                    .awsize
-		.h2f_AWBURST              (),                                      //                    .awburst
-		.h2f_AWLOCK               (),                                      //                    .awlock
-		.h2f_AWCACHE              (),                                      //                    .awcache
-		.h2f_AWPROT               (),                                      //                    .awprot
-		.h2f_AWVALID              (),                                      //                    .awvalid
-		.h2f_AWREADY              (),                                      //                    .awready
-		.h2f_WID                  (),                                      //                    .wid
-		.h2f_WDATA                (),                                      //                    .wdata
-		.h2f_WSTRB                (),                                      //                    .wstrb
-		.h2f_WLAST                (),                                      //                    .wlast
-		.h2f_WVALID               (),                                      //                    .wvalid
-		.h2f_WREADY               (),                                      //                    .wready
-		.h2f_BID                  (),                                      //                    .bid
-		.h2f_BRESP                (),                                      //                    .bresp
-		.h2f_BVALID               (),                                      //                    .bvalid
-		.h2f_BREADY               (),                                      //                    .bready
-		.h2f_ARID                 (),                                      //                    .arid
-		.h2f_ARADDR               (),                                      //                    .araddr
-		.h2f_ARLEN                (),                                      //                    .arlen
-		.h2f_ARSIZE               (),                                      //                    .arsize
-		.h2f_ARBURST              (),                                      //                    .arburst
-		.h2f_ARLOCK               (),                                      //                    .arlock
-		.h2f_ARCACHE              (),                                      //                    .arcache
-		.h2f_ARPROT               (),                                      //                    .arprot
-		.h2f_ARVALID              (),                                      //                    .arvalid
-		.h2f_ARREADY              (),                                      //                    .arready
-		.h2f_RID                  (),                                      //                    .rid
-		.h2f_RDATA                (),                                      //                    .rdata
-		.h2f_RRESP                (),                                      //                    .rresp
-		.h2f_RLAST                (),                                      //                    .rlast
-		.h2f_RVALID               (),                                      //                    .rvalid
-		.h2f_RREADY               (),                                      //                    .rready
-		.f2h_axi_clk              (clk_clk),                               //       f2h_axi_clock.clk
+		.h2f_axi_clk              (clock_95_clk),                          //       h2f_axi_clock.clk
+		.h2f_AWID                 (hps_0_h2f_axi_master_awid),             //      h2f_axi_master.awid
+		.h2f_AWADDR               (hps_0_h2f_axi_master_awaddr),           //                    .awaddr
+		.h2f_AWLEN                (hps_0_h2f_axi_master_awlen),            //                    .awlen
+		.h2f_AWSIZE               (hps_0_h2f_axi_master_awsize),           //                    .awsize
+		.h2f_AWBURST              (hps_0_h2f_axi_master_awburst),          //                    .awburst
+		.h2f_AWLOCK               (hps_0_h2f_axi_master_awlock),           //                    .awlock
+		.h2f_AWCACHE              (hps_0_h2f_axi_master_awcache),          //                    .awcache
+		.h2f_AWPROT               (hps_0_h2f_axi_master_awprot),           //                    .awprot
+		.h2f_AWVALID              (hps_0_h2f_axi_master_awvalid),          //                    .awvalid
+		.h2f_AWREADY              (hps_0_h2f_axi_master_awready),          //                    .awready
+		.h2f_WID                  (hps_0_h2f_axi_master_wid),              //                    .wid
+		.h2f_WDATA                (hps_0_h2f_axi_master_wdata),            //                    .wdata
+		.h2f_WSTRB                (hps_0_h2f_axi_master_wstrb),            //                    .wstrb
+		.h2f_WLAST                (hps_0_h2f_axi_master_wlast),            //                    .wlast
+		.h2f_WVALID               (hps_0_h2f_axi_master_wvalid),           //                    .wvalid
+		.h2f_WREADY               (hps_0_h2f_axi_master_wready),           //                    .wready
+		.h2f_BID                  (hps_0_h2f_axi_master_bid),              //                    .bid
+		.h2f_BRESP                (hps_0_h2f_axi_master_bresp),            //                    .bresp
+		.h2f_BVALID               (hps_0_h2f_axi_master_bvalid),           //                    .bvalid
+		.h2f_BREADY               (hps_0_h2f_axi_master_bready),           //                    .bready
+		.h2f_ARID                 (hps_0_h2f_axi_master_arid),             //                    .arid
+		.h2f_ARADDR               (hps_0_h2f_axi_master_araddr),           //                    .araddr
+		.h2f_ARLEN                (hps_0_h2f_axi_master_arlen),            //                    .arlen
+		.h2f_ARSIZE               (hps_0_h2f_axi_master_arsize),           //                    .arsize
+		.h2f_ARBURST              (hps_0_h2f_axi_master_arburst),          //                    .arburst
+		.h2f_ARLOCK               (hps_0_h2f_axi_master_arlock),           //                    .arlock
+		.h2f_ARCACHE              (hps_0_h2f_axi_master_arcache),          //                    .arcache
+		.h2f_ARPROT               (hps_0_h2f_axi_master_arprot),           //                    .arprot
+		.h2f_ARVALID              (hps_0_h2f_axi_master_arvalid),          //                    .arvalid
+		.h2f_ARREADY              (hps_0_h2f_axi_master_arready),          //                    .arready
+		.h2f_RID                  (hps_0_h2f_axi_master_rid),              //                    .rid
+		.h2f_RDATA                (hps_0_h2f_axi_master_rdata),            //                    .rdata
+		.h2f_RRESP                (hps_0_h2f_axi_master_rresp),            //                    .rresp
+		.h2f_RLAST                (hps_0_h2f_axi_master_rlast),            //                    .rlast
+		.h2f_RVALID               (hps_0_h2f_axi_master_rvalid),           //                    .rvalid
+		.h2f_RREADY               (hps_0_h2f_axi_master_rready),           //                    .rready
+		.f2h_axi_clk              (clock_95_clk),                          //       f2h_axi_clock.clk
 		.f2h_AWID                 (),                                      //       f2h_axi_slave.awid
 		.f2h_AWADDR               (),                                      //                    .awaddr
 		.f2h_AWLEN                (),                                      //                    .awlen
@@ -340,113 +342,122 @@ module soc_system (
 		.f2h_RLAST                (),                                      //                    .rlast
 		.f2h_RVALID               (),                                      //                    .rvalid
 		.f2h_RREADY               (),                                      //                    .rready
-		.h2f_lw_axi_clk           (clk_clk),                               //    h2f_lw_axi_clock.clk
-		.h2f_lw_AWID              (hps_0_h2f_lw_axi_master_awid),          //   h2f_lw_axi_master.awid
-		.h2f_lw_AWADDR            (hps_0_h2f_lw_axi_master_awaddr),        //                    .awaddr
-		.h2f_lw_AWLEN             (hps_0_h2f_lw_axi_master_awlen),         //                    .awlen
-		.h2f_lw_AWSIZE            (hps_0_h2f_lw_axi_master_awsize),        //                    .awsize
-		.h2f_lw_AWBURST           (hps_0_h2f_lw_axi_master_awburst),       //                    .awburst
-		.h2f_lw_AWLOCK            (hps_0_h2f_lw_axi_master_awlock),        //                    .awlock
-		.h2f_lw_AWCACHE           (hps_0_h2f_lw_axi_master_awcache),       //                    .awcache
-		.h2f_lw_AWPROT            (hps_0_h2f_lw_axi_master_awprot),        //                    .awprot
-		.h2f_lw_AWVALID           (hps_0_h2f_lw_axi_master_awvalid),       //                    .awvalid
-		.h2f_lw_AWREADY           (hps_0_h2f_lw_axi_master_awready),       //                    .awready
-		.h2f_lw_WID               (hps_0_h2f_lw_axi_master_wid),           //                    .wid
-		.h2f_lw_WDATA             (hps_0_h2f_lw_axi_master_wdata),         //                    .wdata
-		.h2f_lw_WSTRB             (hps_0_h2f_lw_axi_master_wstrb),         //                    .wstrb
-		.h2f_lw_WLAST             (hps_0_h2f_lw_axi_master_wlast),         //                    .wlast
-		.h2f_lw_WVALID            (hps_0_h2f_lw_axi_master_wvalid),        //                    .wvalid
-		.h2f_lw_WREADY            (hps_0_h2f_lw_axi_master_wready),        //                    .wready
-		.h2f_lw_BID               (hps_0_h2f_lw_axi_master_bid),           //                    .bid
-		.h2f_lw_BRESP             (hps_0_h2f_lw_axi_master_bresp),         //                    .bresp
-		.h2f_lw_BVALID            (hps_0_h2f_lw_axi_master_bvalid),        //                    .bvalid
-		.h2f_lw_BREADY            (hps_0_h2f_lw_axi_master_bready),        //                    .bready
-		.h2f_lw_ARID              (hps_0_h2f_lw_axi_master_arid),          //                    .arid
-		.h2f_lw_ARADDR            (hps_0_h2f_lw_axi_master_araddr),        //                    .araddr
-		.h2f_lw_ARLEN             (hps_0_h2f_lw_axi_master_arlen),         //                    .arlen
-		.h2f_lw_ARSIZE            (hps_0_h2f_lw_axi_master_arsize),        //                    .arsize
-		.h2f_lw_ARBURST           (hps_0_h2f_lw_axi_master_arburst),       //                    .arburst
-		.h2f_lw_ARLOCK            (hps_0_h2f_lw_axi_master_arlock),        //                    .arlock
-		.h2f_lw_ARCACHE           (hps_0_h2f_lw_axi_master_arcache),       //                    .arcache
-		.h2f_lw_ARPROT            (hps_0_h2f_lw_axi_master_arprot),        //                    .arprot
-		.h2f_lw_ARVALID           (hps_0_h2f_lw_axi_master_arvalid),       //                    .arvalid
-		.h2f_lw_ARREADY           (hps_0_h2f_lw_axi_master_arready),       //                    .arready
-		.h2f_lw_RID               (hps_0_h2f_lw_axi_master_rid),           //                    .rid
-		.h2f_lw_RDATA             (hps_0_h2f_lw_axi_master_rdata),         //                    .rdata
-		.h2f_lw_RRESP             (hps_0_h2f_lw_axi_master_rresp),         //                    .rresp
-		.h2f_lw_RLAST             (hps_0_h2f_lw_axi_master_rlast),         //                    .rlast
-		.h2f_lw_RVALID            (hps_0_h2f_lw_axi_master_rvalid),        //                    .rvalid
-		.h2f_lw_RREADY            (hps_0_h2f_lw_axi_master_rready),        //                    .rready
+		.h2f_lw_axi_clk           (clock_95_clk),                          //    h2f_lw_axi_clock.clk
+		.h2f_lw_AWID              (),                                      //   h2f_lw_axi_master.awid
+		.h2f_lw_AWADDR            (),                                      //                    .awaddr
+		.h2f_lw_AWLEN             (),                                      //                    .awlen
+		.h2f_lw_AWSIZE            (),                                      //                    .awsize
+		.h2f_lw_AWBURST           (),                                      //                    .awburst
+		.h2f_lw_AWLOCK            (),                                      //                    .awlock
+		.h2f_lw_AWCACHE           (),                                      //                    .awcache
+		.h2f_lw_AWPROT            (),                                      //                    .awprot
+		.h2f_lw_AWVALID           (),                                      //                    .awvalid
+		.h2f_lw_AWREADY           (),                                      //                    .awready
+		.h2f_lw_WID               (),                                      //                    .wid
+		.h2f_lw_WDATA             (),                                      //                    .wdata
+		.h2f_lw_WSTRB             (),                                      //                    .wstrb
+		.h2f_lw_WLAST             (),                                      //                    .wlast
+		.h2f_lw_WVALID            (),                                      //                    .wvalid
+		.h2f_lw_WREADY            (),                                      //                    .wready
+		.h2f_lw_BID               (),                                      //                    .bid
+		.h2f_lw_BRESP             (),                                      //                    .bresp
+		.h2f_lw_BVALID            (),                                      //                    .bvalid
+		.h2f_lw_BREADY            (),                                      //                    .bready
+		.h2f_lw_ARID              (),                                      //                    .arid
+		.h2f_lw_ARADDR            (),                                      //                    .araddr
+		.h2f_lw_ARLEN             (),                                      //                    .arlen
+		.h2f_lw_ARSIZE            (),                                      //                    .arsize
+		.h2f_lw_ARBURST           (),                                      //                    .arburst
+		.h2f_lw_ARLOCK            (),                                      //                    .arlock
+		.h2f_lw_ARCACHE           (),                                      //                    .arcache
+		.h2f_lw_ARPROT            (),                                      //                    .arprot
+		.h2f_lw_ARVALID           (),                                      //                    .arvalid
+		.h2f_lw_ARREADY           (),                                      //                    .arready
+		.h2f_lw_RID               (),                                      //                    .rid
+		.h2f_lw_RDATA             (),                                      //                    .rdata
+		.h2f_lw_RRESP             (),                                      //                    .rresp
+		.h2f_lw_RLAST             (),                                      //                    .rlast
+		.h2f_lw_RVALID            (),                                      //                    .rvalid
+		.h2f_lw_RREADY            (),                                      //                    .rready
 		.f2h_irq_p0               (hps_0_f2h_irq0_irq),                    //            f2h_irq0.irq
 		.f2h_irq_p1               (hps_0_f2h_irq1_irq)                     //            f2h_irq1.irq
 	);
 
 	soc_system_pio_0 pio_0 (
-		.clk      (clk_clk),                             //                 clk.clk
+		.clk      (clock_95_clk),                        //                 clk.clk
 		.reset_n  (~rst_controller_reset_out_reset),     //               reset.reset_n
 		.address  (mm_interconnect_0_pio_0_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_0_pio_0_s1_readdata), //                    .readdata
 		.in_port  (pio_status_export)                    // external_connection.export
 	);
 
+	soc_system_pll_0 pll_0 (
+		.refclk   (clk_clk),        //  refclk.clk
+		.rst      (~reset_reset_n), //   reset.reset
+		.outclk_0 (clock_95_clk),   // outclk0.clk
+		.locked   ()                //  locked.export
+	);
+
 	soc_system_mm_interconnect_0 mm_interconnect_0 (
-		.hps_0_h2f_lw_axi_master_awid                                        (hps_0_h2f_lw_axi_master_awid),                     //                                       hps_0_h2f_lw_axi_master.awid
-		.hps_0_h2f_lw_axi_master_awaddr                                      (hps_0_h2f_lw_axi_master_awaddr),                   //                                                              .awaddr
-		.hps_0_h2f_lw_axi_master_awlen                                       (hps_0_h2f_lw_axi_master_awlen),                    //                                                              .awlen
-		.hps_0_h2f_lw_axi_master_awsize                                      (hps_0_h2f_lw_axi_master_awsize),                   //                                                              .awsize
-		.hps_0_h2f_lw_axi_master_awburst                                     (hps_0_h2f_lw_axi_master_awburst),                  //                                                              .awburst
-		.hps_0_h2f_lw_axi_master_awlock                                      (hps_0_h2f_lw_axi_master_awlock),                   //                                                              .awlock
-		.hps_0_h2f_lw_axi_master_awcache                                     (hps_0_h2f_lw_axi_master_awcache),                  //                                                              .awcache
-		.hps_0_h2f_lw_axi_master_awprot                                      (hps_0_h2f_lw_axi_master_awprot),                   //                                                              .awprot
-		.hps_0_h2f_lw_axi_master_awvalid                                     (hps_0_h2f_lw_axi_master_awvalid),                  //                                                              .awvalid
-		.hps_0_h2f_lw_axi_master_awready                                     (hps_0_h2f_lw_axi_master_awready),                  //                                                              .awready
-		.hps_0_h2f_lw_axi_master_wid                                         (hps_0_h2f_lw_axi_master_wid),                      //                                                              .wid
-		.hps_0_h2f_lw_axi_master_wdata                                       (hps_0_h2f_lw_axi_master_wdata),                    //                                                              .wdata
-		.hps_0_h2f_lw_axi_master_wstrb                                       (hps_0_h2f_lw_axi_master_wstrb),                    //                                                              .wstrb
-		.hps_0_h2f_lw_axi_master_wlast                                       (hps_0_h2f_lw_axi_master_wlast),                    //                                                              .wlast
-		.hps_0_h2f_lw_axi_master_wvalid                                      (hps_0_h2f_lw_axi_master_wvalid),                   //                                                              .wvalid
-		.hps_0_h2f_lw_axi_master_wready                                      (hps_0_h2f_lw_axi_master_wready),                   //                                                              .wready
-		.hps_0_h2f_lw_axi_master_bid                                         (hps_0_h2f_lw_axi_master_bid),                      //                                                              .bid
-		.hps_0_h2f_lw_axi_master_bresp                                       (hps_0_h2f_lw_axi_master_bresp),                    //                                                              .bresp
-		.hps_0_h2f_lw_axi_master_bvalid                                      (hps_0_h2f_lw_axi_master_bvalid),                   //                                                              .bvalid
-		.hps_0_h2f_lw_axi_master_bready                                      (hps_0_h2f_lw_axi_master_bready),                   //                                                              .bready
-		.hps_0_h2f_lw_axi_master_arid                                        (hps_0_h2f_lw_axi_master_arid),                     //                                                              .arid
-		.hps_0_h2f_lw_axi_master_araddr                                      (hps_0_h2f_lw_axi_master_araddr),                   //                                                              .araddr
-		.hps_0_h2f_lw_axi_master_arlen                                       (hps_0_h2f_lw_axi_master_arlen),                    //                                                              .arlen
-		.hps_0_h2f_lw_axi_master_arsize                                      (hps_0_h2f_lw_axi_master_arsize),                   //                                                              .arsize
-		.hps_0_h2f_lw_axi_master_arburst                                     (hps_0_h2f_lw_axi_master_arburst),                  //                                                              .arburst
-		.hps_0_h2f_lw_axi_master_arlock                                      (hps_0_h2f_lw_axi_master_arlock),                   //                                                              .arlock
-		.hps_0_h2f_lw_axi_master_arcache                                     (hps_0_h2f_lw_axi_master_arcache),                  //                                                              .arcache
-		.hps_0_h2f_lw_axi_master_arprot                                      (hps_0_h2f_lw_axi_master_arprot),                   //                                                              .arprot
-		.hps_0_h2f_lw_axi_master_arvalid                                     (hps_0_h2f_lw_axi_master_arvalid),                  //                                                              .arvalid
-		.hps_0_h2f_lw_axi_master_arready                                     (hps_0_h2f_lw_axi_master_arready),                  //                                                              .arready
-		.hps_0_h2f_lw_axi_master_rid                                         (hps_0_h2f_lw_axi_master_rid),                      //                                                              .rid
-		.hps_0_h2f_lw_axi_master_rdata                                       (hps_0_h2f_lw_axi_master_rdata),                    //                                                              .rdata
-		.hps_0_h2f_lw_axi_master_rresp                                       (hps_0_h2f_lw_axi_master_rresp),                    //                                                              .rresp
-		.hps_0_h2f_lw_axi_master_rlast                                       (hps_0_h2f_lw_axi_master_rlast),                    //                                                              .rlast
-		.hps_0_h2f_lw_axi_master_rvalid                                      (hps_0_h2f_lw_axi_master_rvalid),                   //                                                              .rvalid
-		.hps_0_h2f_lw_axi_master_rready                                      (hps_0_h2f_lw_axi_master_rready),                   //                                                              .rready
-		.clk_0_clk_clk                                                       (clk_clk),                                          //                                                     clk_0_clk.clk
-		.fifo_to_copro_reset_in_reset_bridge_in_reset_reset                  (rst_controller_reset_out_reset),                   //                  fifo_to_copro_reset_in_reset_bridge_in_reset.reset
-		.hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_001_reset_out_reset),               // hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
-		.fifo_to_copro_in_write                                              (mm_interconnect_0_fifo_to_copro_in_write),         //                                              fifo_to_copro_in.write
-		.fifo_to_copro_in_writedata                                          (mm_interconnect_0_fifo_to_copro_in_writedata),     //                                                              .writedata
-		.fifo_to_copro_in_waitrequest                                        (mm_interconnect_0_fifo_to_copro_in_waitrequest),   //                                                              .waitrequest
-		.fifo_to_copro_in_csr_address                                        (mm_interconnect_0_fifo_to_copro_in_csr_address),   //                                          fifo_to_copro_in_csr.address
-		.fifo_to_copro_in_csr_write                                          (mm_interconnect_0_fifo_to_copro_in_csr_write),     //                                                              .write
-		.fifo_to_copro_in_csr_read                                           (mm_interconnect_0_fifo_to_copro_in_csr_read),      //                                                              .read
-		.fifo_to_copro_in_csr_readdata                                       (mm_interconnect_0_fifo_to_copro_in_csr_readdata),  //                                                              .readdata
-		.fifo_to_copro_in_csr_writedata                                      (mm_interconnect_0_fifo_to_copro_in_csr_writedata), //                                                              .writedata
-		.fifo_to_hps_out_read                                                (mm_interconnect_0_fifo_to_hps_out_read),           //                                               fifo_to_hps_out.read
-		.fifo_to_hps_out_readdata                                            (mm_interconnect_0_fifo_to_hps_out_readdata),       //                                                              .readdata
-		.fifo_to_hps_out_waitrequest                                         (mm_interconnect_0_fifo_to_hps_out_waitrequest),    //                                                              .waitrequest
-		.fifo_to_hps_out_csr_address                                         (mm_interconnect_0_fifo_to_hps_out_csr_address),    //                                           fifo_to_hps_out_csr.address
-		.fifo_to_hps_out_csr_write                                           (mm_interconnect_0_fifo_to_hps_out_csr_write),      //                                                              .write
-		.fifo_to_hps_out_csr_read                                            (mm_interconnect_0_fifo_to_hps_out_csr_read),       //                                                              .read
-		.fifo_to_hps_out_csr_readdata                                        (mm_interconnect_0_fifo_to_hps_out_csr_readdata),   //                                                              .readdata
-		.fifo_to_hps_out_csr_writedata                                       (mm_interconnect_0_fifo_to_hps_out_csr_writedata),  //                                                              .writedata
-		.pio_0_s1_address                                                    (mm_interconnect_0_pio_0_s1_address),               //                                                      pio_0_s1.address
-		.pio_0_s1_readdata                                                   (mm_interconnect_0_pio_0_s1_readdata)               //                                                              .readdata
+		.hps_0_h2f_axi_master_awid                                        (hps_0_h2f_axi_master_awid),                        //                                       hps_0_h2f_axi_master.awid
+		.hps_0_h2f_axi_master_awaddr                                      (hps_0_h2f_axi_master_awaddr),                      //                                                           .awaddr
+		.hps_0_h2f_axi_master_awlen                                       (hps_0_h2f_axi_master_awlen),                       //                                                           .awlen
+		.hps_0_h2f_axi_master_awsize                                      (hps_0_h2f_axi_master_awsize),                      //                                                           .awsize
+		.hps_0_h2f_axi_master_awburst                                     (hps_0_h2f_axi_master_awburst),                     //                                                           .awburst
+		.hps_0_h2f_axi_master_awlock                                      (hps_0_h2f_axi_master_awlock),                      //                                                           .awlock
+		.hps_0_h2f_axi_master_awcache                                     (hps_0_h2f_axi_master_awcache),                     //                                                           .awcache
+		.hps_0_h2f_axi_master_awprot                                      (hps_0_h2f_axi_master_awprot),                      //                                                           .awprot
+		.hps_0_h2f_axi_master_awvalid                                     (hps_0_h2f_axi_master_awvalid),                     //                                                           .awvalid
+		.hps_0_h2f_axi_master_awready                                     (hps_0_h2f_axi_master_awready),                     //                                                           .awready
+		.hps_0_h2f_axi_master_wid                                         (hps_0_h2f_axi_master_wid),                         //                                                           .wid
+		.hps_0_h2f_axi_master_wdata                                       (hps_0_h2f_axi_master_wdata),                       //                                                           .wdata
+		.hps_0_h2f_axi_master_wstrb                                       (hps_0_h2f_axi_master_wstrb),                       //                                                           .wstrb
+		.hps_0_h2f_axi_master_wlast                                       (hps_0_h2f_axi_master_wlast),                       //                                                           .wlast
+		.hps_0_h2f_axi_master_wvalid                                      (hps_0_h2f_axi_master_wvalid),                      //                                                           .wvalid
+		.hps_0_h2f_axi_master_wready                                      (hps_0_h2f_axi_master_wready),                      //                                                           .wready
+		.hps_0_h2f_axi_master_bid                                         (hps_0_h2f_axi_master_bid),                         //                                                           .bid
+		.hps_0_h2f_axi_master_bresp                                       (hps_0_h2f_axi_master_bresp),                       //                                                           .bresp
+		.hps_0_h2f_axi_master_bvalid                                      (hps_0_h2f_axi_master_bvalid),                      //                                                           .bvalid
+		.hps_0_h2f_axi_master_bready                                      (hps_0_h2f_axi_master_bready),                      //                                                           .bready
+		.hps_0_h2f_axi_master_arid                                        (hps_0_h2f_axi_master_arid),                        //                                                           .arid
+		.hps_0_h2f_axi_master_araddr                                      (hps_0_h2f_axi_master_araddr),                      //                                                           .araddr
+		.hps_0_h2f_axi_master_arlen                                       (hps_0_h2f_axi_master_arlen),                       //                                                           .arlen
+		.hps_0_h2f_axi_master_arsize                                      (hps_0_h2f_axi_master_arsize),                      //                                                           .arsize
+		.hps_0_h2f_axi_master_arburst                                     (hps_0_h2f_axi_master_arburst),                     //                                                           .arburst
+		.hps_0_h2f_axi_master_arlock                                      (hps_0_h2f_axi_master_arlock),                      //                                                           .arlock
+		.hps_0_h2f_axi_master_arcache                                     (hps_0_h2f_axi_master_arcache),                     //                                                           .arcache
+		.hps_0_h2f_axi_master_arprot                                      (hps_0_h2f_axi_master_arprot),                      //                                                           .arprot
+		.hps_0_h2f_axi_master_arvalid                                     (hps_0_h2f_axi_master_arvalid),                     //                                                           .arvalid
+		.hps_0_h2f_axi_master_arready                                     (hps_0_h2f_axi_master_arready),                     //                                                           .arready
+		.hps_0_h2f_axi_master_rid                                         (hps_0_h2f_axi_master_rid),                         //                                                           .rid
+		.hps_0_h2f_axi_master_rdata                                       (hps_0_h2f_axi_master_rdata),                       //                                                           .rdata
+		.hps_0_h2f_axi_master_rresp                                       (hps_0_h2f_axi_master_rresp),                       //                                                           .rresp
+		.hps_0_h2f_axi_master_rlast                                       (hps_0_h2f_axi_master_rlast),                       //                                                           .rlast
+		.hps_0_h2f_axi_master_rvalid                                      (hps_0_h2f_axi_master_rvalid),                      //                                                           .rvalid
+		.hps_0_h2f_axi_master_rready                                      (hps_0_h2f_axi_master_rready),                      //                                                           .rready
+		.clk_0_clk_clk                                                    (clk_clk),                                          //                                                  clk_0_clk.clk
+		.clock_bridge_0_out_clk_clk                                       (clock_95_clk),                                     //                                     clock_bridge_0_out_clk.clk
+		.fifo_to_copro_reset_in_reset_bridge_in_reset_reset               (rst_controller_reset_out_reset),                   //               fifo_to_copro_reset_in_reset_bridge_in_reset.reset
+		.fifo_to_hps_reset_out_reset_bridge_in_reset_reset                (rst_controller_001_reset_out_reset),               //                fifo_to_hps_reset_out_reset_bridge_in_reset.reset
+		.hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),               // hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
+		.fifo_to_copro_in_write                                           (mm_interconnect_0_fifo_to_copro_in_write),         //                                           fifo_to_copro_in.write
+		.fifo_to_copro_in_writedata                                       (mm_interconnect_0_fifo_to_copro_in_writedata),     //                                                           .writedata
+		.fifo_to_copro_in_waitrequest                                     (mm_interconnect_0_fifo_to_copro_in_waitrequest),   //                                                           .waitrequest
+		.fifo_to_copro_in_csr_address                                     (mm_interconnect_0_fifo_to_copro_in_csr_address),   //                                       fifo_to_copro_in_csr.address
+		.fifo_to_copro_in_csr_write                                       (mm_interconnect_0_fifo_to_copro_in_csr_write),     //                                                           .write
+		.fifo_to_copro_in_csr_read                                        (mm_interconnect_0_fifo_to_copro_in_csr_read),      //                                                           .read
+		.fifo_to_copro_in_csr_readdata                                    (mm_interconnect_0_fifo_to_copro_in_csr_readdata),  //                                                           .readdata
+		.fifo_to_copro_in_csr_writedata                                   (mm_interconnect_0_fifo_to_copro_in_csr_writedata), //                                                           .writedata
+		.fifo_to_hps_out_read                                             (mm_interconnect_0_fifo_to_hps_out_read),           //                                            fifo_to_hps_out.read
+		.fifo_to_hps_out_readdata                                         (mm_interconnect_0_fifo_to_hps_out_readdata),       //                                                           .readdata
+		.fifo_to_hps_out_waitrequest                                      (mm_interconnect_0_fifo_to_hps_out_waitrequest),    //                                                           .waitrequest
+		.fifo_to_hps_out_csr_address                                      (mm_interconnect_0_fifo_to_hps_out_csr_address),    //                                        fifo_to_hps_out_csr.address
+		.fifo_to_hps_out_csr_write                                        (mm_interconnect_0_fifo_to_hps_out_csr_write),      //                                                           .write
+		.fifo_to_hps_out_csr_read                                         (mm_interconnect_0_fifo_to_hps_out_csr_read),       //                                                           .read
+		.fifo_to_hps_out_csr_readdata                                     (mm_interconnect_0_fifo_to_hps_out_csr_readdata),   //                                                           .readdata
+		.fifo_to_hps_out_csr_writedata                                    (mm_interconnect_0_fifo_to_hps_out_csr_writedata),  //                                                           .writedata
+		.pio_0_s1_address                                                 (mm_interconnect_0_pio_0_s1_address),               //                                                   pio_0_s1.address
+		.pio_0_s1_readdata                                                (mm_interconnect_0_pio_0_s1_readdata)               //                                                           .readdata
 	);
 
 	soc_system_irq_mapper irq_mapper (
@@ -488,7 +499,7 @@ module soc_system (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller (
 		.reset_in0      (~reset_reset_n),                 // reset_in0.reset
-		.clk            (clk_clk),                        //       clk.clk
+		.clk            (clock_95_clk),                   //       clk.clk
 		.reset_out      (rst_controller_reset_out_reset), // reset_out.reset
 		.reset_req      (),                               // (terminated)
 		.reset_req_in0  (1'b0),                           // (terminated)
@@ -550,9 +561,72 @@ module soc_system (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_001 (
-		.reset_in0      (~hps_0_h2f_reset_reset_n),           // reset_in0.reset
+		.reset_in0      (~reset_reset_n),                     // reset_in0.reset
 		.clk            (clk_clk),                            //       clk.clk
 		.reset_out      (rst_controller_001_reset_out_reset), // reset_out.reset
+		.reset_req      (),                                   // (terminated)
+		.reset_req_in0  (1'b0),                               // (terminated)
+		.reset_in1      (1'b0),                               // (terminated)
+		.reset_req_in1  (1'b0),                               // (terminated)
+		.reset_in2      (1'b0),                               // (terminated)
+		.reset_req_in2  (1'b0),                               // (terminated)
+		.reset_in3      (1'b0),                               // (terminated)
+		.reset_req_in3  (1'b0),                               // (terminated)
+		.reset_in4      (1'b0),                               // (terminated)
+		.reset_req_in4  (1'b0),                               // (terminated)
+		.reset_in5      (1'b0),                               // (terminated)
+		.reset_req_in5  (1'b0),                               // (terminated)
+		.reset_in6      (1'b0),                               // (terminated)
+		.reset_req_in6  (1'b0),                               // (terminated)
+		.reset_in7      (1'b0),                               // (terminated)
+		.reset_req_in7  (1'b0),                               // (terminated)
+		.reset_in8      (1'b0),                               // (terminated)
+		.reset_req_in8  (1'b0),                               // (terminated)
+		.reset_in9      (1'b0),                               // (terminated)
+		.reset_req_in9  (1'b0),                               // (terminated)
+		.reset_in10     (1'b0),                               // (terminated)
+		.reset_req_in10 (1'b0),                               // (terminated)
+		.reset_in11     (1'b0),                               // (terminated)
+		.reset_req_in11 (1'b0),                               // (terminated)
+		.reset_in12     (1'b0),                               // (terminated)
+		.reset_req_in12 (1'b0),                               // (terminated)
+		.reset_in13     (1'b0),                               // (terminated)
+		.reset_req_in13 (1'b0),                               // (terminated)
+		.reset_in14     (1'b0),                               // (terminated)
+		.reset_req_in14 (1'b0),                               // (terminated)
+		.reset_in15     (1'b0),                               // (terminated)
+		.reset_req_in15 (1'b0)                                // (terminated)
+	);
+
+	altera_reset_controller #(
+		.NUM_RESET_INPUTS          (1),
+		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
+		.SYNC_DEPTH                (2),
+		.RESET_REQUEST_PRESENT     (0),
+		.RESET_REQ_WAIT_TIME       (1),
+		.MIN_RST_ASSERTION_TIME    (3),
+		.RESET_REQ_EARLY_DSRT_TIME (1),
+		.USE_RESET_REQUEST_IN0     (0),
+		.USE_RESET_REQUEST_IN1     (0),
+		.USE_RESET_REQUEST_IN2     (0),
+		.USE_RESET_REQUEST_IN3     (0),
+		.USE_RESET_REQUEST_IN4     (0),
+		.USE_RESET_REQUEST_IN5     (0),
+		.USE_RESET_REQUEST_IN6     (0),
+		.USE_RESET_REQUEST_IN7     (0),
+		.USE_RESET_REQUEST_IN8     (0),
+		.USE_RESET_REQUEST_IN9     (0),
+		.USE_RESET_REQUEST_IN10    (0),
+		.USE_RESET_REQUEST_IN11    (0),
+		.USE_RESET_REQUEST_IN12    (0),
+		.USE_RESET_REQUEST_IN13    (0),
+		.USE_RESET_REQUEST_IN14    (0),
+		.USE_RESET_REQUEST_IN15    (0),
+		.ADAPT_RESET_REQUEST       (0)
+	) rst_controller_002 (
+		.reset_in0      (~hps_0_h2f_reset_reset_n),           // reset_in0.reset
+		.clk            (clock_95_clk),                       //       clk.clk
+		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)
 		.reset_req_in0  (1'b0),                               // (terminated)
 		.reset_in1      (1'b0),                               // (terminated)

@@ -220,6 +220,8 @@ module ghrd_top(
   wire fifo_to_hps_in_waitrequest;
   wire backpressure;
   
+  wire CLOCK_95;
+  
   
 
 // connection of internal logics
@@ -229,7 +231,7 @@ module ghrd_top(
 	genvar j;
 	generate
 		mult_bp mult_inst0(
-			.clk(CLOCK_50),
+			.clk(CLOCK_95),
 			.areset(!hps_fpga_reset_n),
 			.ab_valid(fifo_to_copro_out_read),
 			.a(fifo_to_copro_out_readdata[15:0]),
@@ -241,7 +243,7 @@ module ghrd_top(
 		);
 		for (j = 2;j < 2; j = j + 2) begin: Gen_Mult
 		mult_bp mult_inst(
-			.clk(CLOCK_50),
+			.clk(CLOCK_95),
 			.areset(!hps_fpga_reset_n),
 			.ab_valid(fifo_to_copro_out_read),
 			.a(fifo_to_copro_out_readdata[j*16+15:j*16]),
@@ -253,7 +255,7 @@ module ghrd_top(
 	endgenerate
 
 	reg [31: 0] in_count;
-	always @(posedge CLOCK_50, negedge hps_fpga_reset_n) begin
+	always @(posedge CLOCK_95, negedge hps_fpga_reset_n) begin
 		if (!hps_fpga_reset_n) begin
 			in_count <= 0;
 		end
@@ -273,6 +275,7 @@ module ghrd_top(
 		.fifo_to_hps_in_write                  (fifo_to_hps_in_write),
 		.fifo_to_hps_in_waitrequest            (fifo_to_hps_in_waitrequest),
 		.pio_status_export							(in_count),
+		.clock_95_clk									(CLOCK_95),
 	 
         .memory_mem_a                          ( HPS_DDR3_ADDR),                          //          memory.mem_a
         .memory_mem_ba                         ( HPS_DDR3_BA),                         //                .mem_ba
