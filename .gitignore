@@ -1,3 +1,12 @@
 
 rtl/db/**
 rtl/incremental_db/**
+rtl/soc_system.asm.rpt
+rtl/soc_system.done
+rtl/soc_system.fit.rpt
+rtl/soc_system.fit.summary
+rtl/soc_system.flow.rpt
+rtl/soc_system.map.rpt
+rtl/soc_system.map.summary
+rtl/soc_system.sof
+rtl/soc_system.sta.rpt
