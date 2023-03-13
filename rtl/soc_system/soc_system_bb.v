@@ -85,7 +85,19 @@ module soc_system (
 	memory_mem_dm,
 	memory_oct_rzqin,
 	pio_status_export,
-	reset_reset_n);	
+	reset_reset_n,
+	sdram0_data_address,
+	sdram0_data_burstcount,
+	sdram0_data_waitrequest,
+	sdram0_data_readdata,
+	sdram0_data_readdatavalid,
+	sdram0_data_read,
+	sdram1_data_address,
+	sdram1_data_burstcount,
+	sdram1_data_waitrequest,
+	sdram1_data_writedata,
+	sdram1_data_byteenable,
+	sdram1_data_write);	
 
 	input		clk_clk;
 	output		clock_95_clk;
@@ -173,4 +185,16 @@ module soc_system (
 	input		memory_oct_rzqin;
 	input	[31:0]	pio_status_export;
 	input		reset_reset_n;
+	input	[26:0]	sdram0_data_address;
+	input	[7:0]	sdram0_data_burstcount;
+	output		sdram0_data_waitrequest;
+	output	[255:0]	sdram0_data_readdata;
+	output		sdram0_data_readdatavalid;
+	input		sdram0_data_read;
+	input	[26:0]	sdram1_data_address;
+	input	[7:0]	sdram1_data_burstcount;
+	output		sdram1_data_waitrequest;
+	input	[255:0]	sdram1_data_writedata;
+	input	[31:0]	sdram1_data_byteenable;
+	input		sdram1_data_write;
 endmodule

@@ -39,7 +39,7 @@ module soc_system_fifo_to_hps_dual_clock_fifo (
   output  [ 63: 0] q;
   output           rdempty;
   output           rdfull;
-  output  [  7: 0] rdusedw;
+  output  [  8: 0] rdusedw;
   output           wrfull;
   input            aclr;
   input   [ 63: 0] data;
@@ -54,11 +54,11 @@ wire             int_wrfull;
 wire    [ 63: 0] q;
 wire             rdempty;
 wire             rdfull;
-wire    [  7: 0] rdusedw;
+wire    [  8: 0] rdusedw;
 wire             wrfull;
-wire    [  7: 0] wrusedw;
-  assign wrfull = (wrusedw >= 256-3) | int_wrfull;
-  assign rdfull = (rdusedw >= 256-3) | int_rdfull;
+wire    [  8: 0] wrusedw;
+  assign wrfull = (wrusedw >= 512-3) | int_wrfull;
+  assign rdfull = (rdusedw >= 512-3) | int_rdfull;
   dcfifo dual_clock_fifo
     (
       .aclr (aclr),
@@ -79,11 +79,11 @@ wire    [  7: 0] wrusedw;
            dual_clock_fifo.clocks_are_synchronized = "FALSE",
            dual_clock_fifo.intended_device_family = "CYCLONEV",
            dual_clock_fifo.lpm_hint = "DISABLE_DCFIFO_EMBEDDED_TIMING_CONSTRAINT",
-           dual_clock_fifo.lpm_numwords = 256,
+           dual_clock_fifo.lpm_numwords = 512,
            dual_clock_fifo.lpm_showahead = "OFF",
            dual_clock_fifo.lpm_type = "dcfifo",
            dual_clock_fifo.lpm_width = 64,
-           dual_clock_fifo.lpm_widthu = 8,
+           dual_clock_fifo.lpm_widthu = 9,
            dual_clock_fifo.overflow_checking = "ON",
            dual_clock_fifo.rdsync_delaypipe = 4,
            dual_clock_fifo.read_aclr_synch = "ON",
@@ -147,11 +147,11 @@ wire    [ 63: 0] q;
 reg              rdclk_control_slave_almostempty_n_reg;
 wire             rdclk_control_slave_almostempty_pulse;
 wire             rdclk_control_slave_almostempty_signal;
-reg     [  8: 0] rdclk_control_slave_almostempty_threshold_register;
+reg     [  9: 0] rdclk_control_slave_almostempty_threshold_register;
 reg              rdclk_control_slave_almostfull_n_reg;
 wire             rdclk_control_slave_almostfull_pulse;
 wire             rdclk_control_slave_almostfull_signal;
-reg     [  8: 0] rdclk_control_slave_almostfull_threshold_register;
+reg     [  9: 0] rdclk_control_slave_almostfull_threshold_register;
 reg              rdclk_control_slave_empty_n_reg;
 wire             rdclk_control_slave_empty_pulse;
 wire             rdclk_control_slave_empty_signal;
@@ -172,7 +172,7 @@ reg              rdclk_control_slave_full_n_reg;
 wire             rdclk_control_slave_full_pulse;
 wire             rdclk_control_slave_full_signal;
 reg     [  5: 0] rdclk_control_slave_ienable_register;
-wire    [  8: 0] rdclk_control_slave_level_register;
+wire    [  9: 0] rdclk_control_slave_level_register;
 wire    [ 31: 0] rdclk_control_slave_read_mux;
 reg     [ 31: 0] rdclk_control_slave_readdata;
 reg              rdclk_control_slave_status_almostempty_q;
@@ -188,13 +188,13 @@ wire             rdclk_control_slave_status_overflow_signal;
 wire    [  5: 0] rdclk_control_slave_status_register;
 reg              rdclk_control_slave_status_underflow_q;
 wire             rdclk_control_slave_status_underflow_signal;
-wire    [  8: 0] rdclk_control_slave_threshold_writedata;
+wire    [  9: 0] rdclk_control_slave_threshold_writedata;
 wire             rdempty;
 wire             rdfull;
-wire    [  8: 0] rdlevel;
+wire    [  9: 0] rdlevel;
 wire             rdoverflow;
 wire             rdunderflow;
-wire    [  7: 0] rdusedw;
+wire    [  8: 0] rdusedw;
 wire             wrfull;
 wire             wrreq_sync;
 wire             wrreq_valid;
@@ -231,8 +231,8 @@ wire             wrreq_valid;
   assign rdoverflow = wrreq_sync & rdfull;
   assign rdunderflow = rdreq & rdempty;
   assign rdclk_control_slave_threshold_writedata = (rdclk_control_slave_writedata < 1) ? 1 :
-    (rdclk_control_slave_writedata > 252) ? 252 :
-    rdclk_control_slave_writedata[8 : 0];
+    (rdclk_control_slave_writedata > 508) ? 508 :
+    rdclk_control_slave_writedata[9 : 0];
 
   assign rdclk_control_slave_event_almostfull_signal = rdclk_control_slave_almostfull_pulse;
   assign rdclk_control_slave_event_almostempty_signal = rdclk_control_slave_almostempty_pulse;
@@ -302,7 +302,7 @@ wire             wrreq_valid;
   always @(posedge rdclk or negedge rdreset_n)
     begin
       if (rdreset_n == 0)
-          rdclk_control_slave_almostfull_threshold_register <= 252;
+          rdclk_control_slave_almostfull_threshold_register <= 508;
       else if ((rdclk_control_slave_address == 4) & rdclk_control_slave_write)
           rdclk_control_slave_almostfull_threshold_register <= rdclk_control_slave_threshold_writedata;
     end

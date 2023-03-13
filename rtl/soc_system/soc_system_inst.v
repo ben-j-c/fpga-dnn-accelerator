@@ -84,6 +84,18 @@
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                          .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                          .oct_rzqin
 		.pio_status_export                     (<connected-to-pio_status_export>),                     //                pio_status.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                     reset.reset_n
+		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                     reset.reset_n
+		.sdram0_data_address                   (<connected-to-sdram0_data_address>),                   //               sdram0_data.address
+		.sdram0_data_burstcount                (<connected-to-sdram0_data_burstcount>),                //                          .burstcount
+		.sdram0_data_waitrequest               (<connected-to-sdram0_data_waitrequest>),               //                          .waitrequest
+		.sdram0_data_readdata                  (<connected-to-sdram0_data_readdata>),                  //                          .readdata
+		.sdram0_data_readdatavalid             (<connected-to-sdram0_data_readdatavalid>),             //                          .readdatavalid
+		.sdram0_data_read                      (<connected-to-sdram0_data_read>),                      //                          .read
+		.sdram1_data_address                   (<connected-to-sdram1_data_address>),                   //               sdram1_data.address
+		.sdram1_data_burstcount                (<connected-to-sdram1_data_burstcount>),                //                          .burstcount
+		.sdram1_data_waitrequest               (<connected-to-sdram1_data_waitrequest>),               //                          .waitrequest
+		.sdram1_data_writedata                 (<connected-to-sdram1_data_writedata>),                 //                          .writedata
+		.sdram1_data_byteenable                (<connected-to-sdram1_data_byteenable>),                //                          .byteenable
+		.sdram1_data_write                     (<connected-to-sdram1_data_write>)                      //                          .write
 	);
 
