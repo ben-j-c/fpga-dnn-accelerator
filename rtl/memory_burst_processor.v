@@ -18,7 +18,19 @@ module memory_burst_processor(
 	input wire sdram0_data_readdatavalid,
 	output reg sdram0_data_read,
 	
-	output reg is_reading
+	output reg is_reading,
+	
+	input [26:0] sdram1_data_address,
+	input [7:0]	sdram1_data_burstcount,
+	output sdram1_data_waitrequest,
+	input [255:0] sdram1_data_writedata,
+	input [31:0] sdram1_data_byteenable,
+	input sdram1_data_write,
+	
+	input [31:0] b_cols,
+	input [31:0] b_rows,
+	input [31:0] a_cols,
+	input [31:0] a_rows
 	);
 	localparam BYTES_PER_ADDR = 32;
 	localparam BURST_N = 128;
@@ -28,15 +40,18 @@ module memory_burst_processor(
 	reg [31:0] burst_count;
 	reg [31:0] sum;
 	wire [31:0] sum_next;
-	assign sum_next = sum 
-		+ sdram0_data_readdata[31:0]
-		+ sdram0_data_readdata[63:32]
-		+ sdram0_data_readdata[95:64]
-		+ sdram0_data_readdata[127:96]
-		+ sdram0_data_readdata[159:128]
-		+ sdram0_data_readdata[191:160]
-		+ sdram0_data_readdata[223:192]
-		+ sdram0_data_readdata[255:224];
+	
+	wire [127:0] systolic_out_data;
+	systolic_16x16 systolic_inst(
+		.CLOCK(CLOCK),
+		.input_valid(sdram0_data_readdatavalid),
+		.reset(!reset_n),
+		.mult_over(0),
+		.in_col(sdram0_data_readdata[255:128]),
+		.in_row(sdram0_data_readdata[127:0]),
+		.in_data(0),
+		.out_data(systolic_out_data),
+	);
 	always @(posedge CLOCK, negedge reset_n) begin
 		if (!reset_n) begin
 			read_addr <= 0;

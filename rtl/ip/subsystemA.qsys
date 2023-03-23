@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element pio_A_cols
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element pio_A_rows
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element pio_B_cols
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element pio_B_rows
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="5CSEMA5F31C6" />
+ <parameter name="deviceFamily" value="Cyclone V" />
+ <parameter name="deviceSpeedGrade" value="6" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="false" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="pio_A_cols_clk"
+   internal="pio_A_cols.clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="pio_A_cols_external_connection"
+   internal="pio_A_cols.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_A_cols_reset"
+   internal="pio_A_cols.reset"
+   type="reset"
+   dir="end" />
+ <interface name="pio_A_cols_s1" internal="pio_A_cols.s1" type="avalon" dir="end" />
+ <interface
+   name="pio_A_rows_clk"
+   internal="pio_A_rows.clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="pio_A_rows_external_connection"
+   internal="pio_A_rows.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_A_rows_reset"
+   internal="pio_A_rows.reset"
+   type="reset"
+   dir="end" />
+ <interface name="pio_A_rows_s1" internal="pio_A_rows.s1" type="avalon" dir="end" />
+ <interface
+   name="pio_B_cols_clk"
+   internal="pio_B_cols.clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="pio_B_cols_external_connection"
+   internal="pio_B_cols.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_B_cols_reset"
+   internal="pio_B_cols.reset"
+   type="reset"
+   dir="end" />
+ <interface name="pio_B_cols_s1" internal="pio_B_cols.s1" type="avalon" dir="end" />
+ <interface
+   name="pio_B_rows_clk"
+   internal="pio_B_rows.clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="pio_B_rows_external_connection"
+   internal="pio_B_rows.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_B_rows_reset"
+   internal="pio_B_rows.reset"
+   type="reset"
+   dir="end" />
+ <interface name="pio_B_rows_s1" internal="pio_B_rows.s1" type="avalon" dir="end" />
+ <module name="pio_A_cols" kind="altera_avalon_pio" version="22.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="0" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="pio_A_rows" kind="altera_avalon_pio" version="22.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="0" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="pio_B_cols" kind="altera_avalon_pio" version="22.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="0" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <module name="pio_B_rows" kind="altera_avalon_pio" version="22.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="0" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

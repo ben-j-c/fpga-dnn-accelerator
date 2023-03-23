@@ -1,12 +1,6 @@
 	soc_system u0 (
 		.clk_clk                               (<connected-to-clk_clk>),                               //                       clk.clk
 		.clock_95_clk                          (<connected-to-clock_95_clk>),                          //                  clock_95.clk
-		.fifo_to_copro_out_readdata            (<connected-to-fifo_to_copro_out_readdata>),            //         fifo_to_copro_out.readdata
-		.fifo_to_copro_out_read                (<connected-to-fifo_to_copro_out_read>),                //                          .read
-		.fifo_to_copro_out_waitrequest         (<connected-to-fifo_to_copro_out_waitrequest>),         //                          .waitrequest
-		.fifo_to_hps_in_writedata              (<connected-to-fifo_to_hps_in_writedata>),              //            fifo_to_hps_in.writedata
-		.fifo_to_hps_in_write                  (<connected-to-fifo_to_hps_in_write>),                  //                          .write
-		.fifo_to_hps_in_waitrequest            (<connected-to-fifo_to_hps_in_waitrequest>),            //                          .waitrequest
 		.hps_0_f2h_cold_reset_req_reset_n      (<connected-to-hps_0_f2h_cold_reset_req_reset_n>),      //  hps_0_f2h_cold_reset_req.reset_n
 		.hps_0_f2h_debug_reset_req_reset_n     (<connected-to-hps_0_f2h_debug_reset_req_reset_n>),     // hps_0_f2h_debug_reset_req.reset_n
 		.hps_0_f2h_stm_hw_events_stm_hwevents  (<connected-to-hps_0_f2h_stm_hw_events_stm_hwevents>),  //   hps_0_f2h_stm_hw_events.stm_hwevents
@@ -84,18 +78,6 @@
 		.memory_mem_dm                         (<connected-to-memory_mem_dm>),                         //                          .mem_dm
 		.memory_oct_rzqin                      (<connected-to-memory_oct_rzqin>),                      //                          .oct_rzqin
 		.pio_status_export                     (<connected-to-pio_status_export>),                     //                pio_status.export
-		.reset_reset_n                         (<connected-to-reset_reset_n>),                         //                     reset.reset_n
-		.sdram0_data_address                   (<connected-to-sdram0_data_address>),                   //               sdram0_data.address
-		.sdram0_data_burstcount                (<connected-to-sdram0_data_burstcount>),                //                          .burstcount
-		.sdram0_data_waitrequest               (<connected-to-sdram0_data_waitrequest>),               //                          .waitrequest
-		.sdram0_data_readdata                  (<connected-to-sdram0_data_readdata>),                  //                          .readdata
-		.sdram0_data_readdatavalid             (<connected-to-sdram0_data_readdatavalid>),             //                          .readdatavalid
-		.sdram0_data_read                      (<connected-to-sdram0_data_read>),                      //                          .read
-		.sdram1_data_address                   (<connected-to-sdram1_data_address>),                   //               sdram1_data.address
-		.sdram1_data_burstcount                (<connected-to-sdram1_data_burstcount>),                //                          .burstcount
-		.sdram1_data_waitrequest               (<connected-to-sdram1_data_waitrequest>),               //                          .waitrequest
-		.sdram1_data_writedata                 (<connected-to-sdram1_data_writedata>),                 //                          .writedata
-		.sdram1_data_byteenable                (<connected-to-sdram1_data_byteenable>),                //                          .byteenable
-		.sdram1_data_write                     (<connected-to-sdram1_data_write>)                      //                          .write
+		.reset_reset_n                         (<connected-to-reset_reset_n>)                          //                     reset.reset_n
 	);
 

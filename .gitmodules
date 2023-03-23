@@ -1,3 +1,6 @@
 [submodule "arm"]
 	path = arm
 	url = https://github.com/ben-j-c/fpga-dnn-accelerator-host
+[submodule "tensorflow_src"]
+	path = tensorflow_src
+	url = ./tensorflow_src/

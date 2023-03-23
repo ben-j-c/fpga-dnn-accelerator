@@ -1,36 +1,3 @@
-// ============================================================================
-// Copyright (c) 2013 by Terasic Technologies Inc.
-// ============================================================================
-//
-// Permission:
-//
-//   Terasic grants permission to use and modify this code for use
-//   in synthesis for all Terasic Development Boards and Altera Development 
-//   Kits made by Terasic.  Other use of this code, including the selling 
-//   ,duplication, or modification of any portion is strictly prohibited.
-//
-// Disclaimer:
-//
-//   This VHDL/Verilog or C/C++ source code is intended as a design reference
-//   which illustrates how these types of functions can be implemented.
-//   It is the user's responsibility to verify their design for
-//   consistency and functionality through the use of formal
-//   verification methods.  Terasic provides no warranty regarding the use 
-//   or functionality of this code.
-//
-// ============================================================================
-//			   
-//  Terasic Technologies Inc
-//  9F., No.176, Sec.2, Gongdao 5th Rd, East Dist, Hsinchu City, 30070. Taiwan
-//  
-//  
-//						     web: http://www.terasic.com/  
-//						     email: support@terasic.com
-//
-// ============================================================================
-//Date:  Mon Jun 17 20:35:29 2013
-// ============================================================================
-
 `define ENABLE_HPS
 
 module ghrd_top(
@@ -210,65 +177,11 @@ module ghrd_top(
 	wire			hps_warm_reset;
 	wire			hps_debug_reset;
 	wire [27:0] stm_hw_events;
-
-	wire [63:0] fifo_to_copro_out_readdata;
-	wire fifo_to_copro_out_read;
-	wire fifo_to_copro_out_waitrequest;
-	
-	wire [63:0] fifo_to_hps_in_writedata;
-	wire fifo_to_hps_in_write;
-	wire fifo_to_hps_in_waitrequest;
-  
-	wire [26:0] sdram0_data_address;
-	wire [7:0] sdram0_data_burstcount;
-	wire sdram0_data_waitrequest;
-	wire [255:0] sdram0_data_readdata;
-	wire sdram0_data_readdatavalid;
-	wire sdram0_data_read;
-	
-	reg [26:0] sdram1_data_address;
-	reg [7:0] sdram1_data_burstcount;
-	wire sdram1_data_waitrequest;
-	reg [255:0] sdram1_data_writedata;
-	reg [31:0] sdram1_data_byteenable;
-	reg sdram1_data_write;
-	
-	wire is_reading;
 	
 	wire CLOCK_95;
 	
 	// connection of internal logics
 	assign stm_hw_events    = {{3{1'b0}},SW, fpga_led_internal, fpga_debounced_buttons};
-	
-	memory_burst_processor bp(
-		.CLOCK(CLOCK_95),
-		.reset_n(hps_fpga_reset_n),
-		.in_count(in_count),
-		.fifo_in_read(fifo_to_copro_out_read),
-		.fifo_in_readdata(fifo_to_copro_out_readdata),
-		.fifo_in_waitrequest(fifo_to_copro_out_waitrequest),
-		.fifo_out_write(fifo_to_hps_in_write),
-		.fifo_out_writedata(fifo_to_hps_in_writedata),
-		.fifo_out_waitrequest(fifo_to_hps_in_waitrequest),
-		.sdram0_data_address(sdram0_data_address),
-		.sdram0_data_burstcount(sdram0_data_burstcount),
-		.sdram0_data_waitrequest(sdram0_data_waitrequest),
-		.sdram0_data_readdata(sdram0_data_readdata),
-		.sdram0_data_readdatavalid(sdram0_data_readdatavalid),
-		.sdram0_data_read(sdram0_data_read),
-		.is_reading(is_reading),
-	);
-	
-	//assign LEDR = SW[0] ? counter1: (SW[1] ? counter2: (SW[2] ? counter3: (counter4)));
-	assign LEDR[0] = fifo_to_copro_out_read;
-	assign LEDR[1] = fifo_to_copro_out_waitrequest;
-	assign LEDR[2] = fifo_to_hps_in_write;
-	assign LEDR[3] = fifo_to_hps_in_waitrequest;
-	assign LEDR[4] = sdram0_data_read;
-	assign LEDR[5] = sdram0_data_waitrequest;
-	assign LEDR[6] = sdram0_data_readdatavalid;
-	assign LEDR[7] = is_reading;
-	assign LEDR[9] = in_count[22];
 
 	reg [31: 0] in_count;
 	always @(posedge CLOCK_95, negedge hps_fpga_reset_n) begin
@@ -281,31 +194,8 @@ module ghrd_top(
 	end
 
 	soc_system u0 (
-		.fifo_to_copro_out_readdata				(fifo_to_copro_out_readdata),
-		.fifo_to_copro_out_read						(fifo_to_copro_out_read),
-		.fifo_to_copro_out_waitrequest			(fifo_to_copro_out_waitrequest),
-		
-		.fifo_to_hps_in_writedata					(fifo_to_hps_in_writedata),
-		.fifo_to_hps_in_write						(fifo_to_hps_in_write),
-		.fifo_to_hps_in_waitrequest				(fifo_to_hps_in_waitrequest),
-		.pio_status_export							(in_count),
-		
-		.sdram0_data_address(sdram0_data_address),
-		.sdram0_data_burstcount(sdram0_data_burstcount),
-		.sdram0_data_waitrequest(sdram0_data_waitrequest),
-		.sdram0_data_readdata(sdram0_data_readdata),
-		.sdram0_data_readdatavalid(sdram0_data_readdatavalid),
-		.sdram0_data_read(sdram0_data_read),
-		
-		.sdram1_data_address(sdram1_data_address),
-		.sdram1_data_burstcount(sdram1_data_burstcount),
-		.sdram1_data_waitrequest(sdram1_data_waitrequest),
-		.sdram1_data_writedata(sdram1_data_writedata),
-		.sdram1_data_byteenable(sdram1_data_byteenable),
-		.sdram1_data_write(sdram1_data_write),
-		
-		.clock_95_clk									(CLOCK_95),
-	 
+			.pio_status_export							(in_count),
+			.clock_95_clk									(CLOCK_95),
 			.memory_mem_a									  ( HPS_DDR3_ADDR),									  //			  memory.mem_a
 			.memory_mem_ba									 ( HPS_DDR3_BA),									 //						.mem_ba
 			.memory_mem_ck									 ( HPS_DDR3_CK_P),									 //						.mem_ck
@@ -323,7 +213,7 @@ module ghrd_top(
 			.memory_mem_dm									 ( HPS_DDR3_DM),									 //						.mem_dm
 			.memory_oct_rzqin						      ( HPS_DDR3_RZQ),						      //						.oct_rzqin
        		
-	    .hps_0_hps_io_hps_io_emac1_inst_TX_CLK ( HPS_ENET_GTX_CLK), //hps_0_hps_io.hps_io_emac1_inst_TX_CLK
+			.hps_0_hps_io_hps_io_emac1_inst_TX_CLK ( HPS_ENET_GTX_CLK), //hps_0_hps_io.hps_io_emac1_inst_TX_CLK
 			.hps_0_hps_io_hps_io_emac1_inst_TXD0   ( HPS_ENET_TX_DATA[0] ),   //.hps_io_emac1_inst_TXD0
 			.hps_0_hps_io_hps_io_emac1_inst_TXD1   ( HPS_ENET_TX_DATA[1] ),   //.hps_io_emac1_inst_TXD1
 			.hps_0_hps_io_hps_io_emac1_inst_TXD2   ( HPS_ENET_TX_DATA[2] ),   //.hps_io_emac1_inst_TXD2
@@ -433,5 +323,3 @@ module ghrd_top(
 	defparam pulse_debug_reset.EDGE_TYPE = 1;
 	defparam pulse_debug_reset.IGNORE_RST_WHILE_BUSY = 1;
 endmodule
-
-  
