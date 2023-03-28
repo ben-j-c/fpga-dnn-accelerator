@@ -10,3 +10,5 @@ rtl/soc_system.map.rpt
 rtl/soc_system.map.summary
 rtl/soc_system.sof
 rtl/soc_system.sta.rpt
+
+tflite_build
