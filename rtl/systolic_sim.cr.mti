@@ -1,0 +1,16 @@
+/home/ben/repo/systolic/rtl/systolic_arrays.v {0 {vlog -work work -O0 -novopt -stats=none /home/ben/repo/systolic/rtl/systolic_arrays.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+** Error (suppressible): (vlog-12110) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+
+} {} {}} /home/ben/repo/systolic/rtl/systolic_arrays_buffered.v {1 {vlog -work work -O0 -vopt -stats=none /home/ben/repo/systolic/rtl/systolic_arrays_buffered.v
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module systolic_array_top
+-- Compiling module systolic_16x16_buffered
+-- Compiling module systolic_32x32_buffered
+-- Compiling module wide_delay
+
+Top level modules:
+	systolic_array_top
+	systolic_16x16_buffered
+
+} {} {}}

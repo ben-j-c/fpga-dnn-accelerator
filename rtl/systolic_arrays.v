@@ -146,7 +146,7 @@ module systolic_4x4(
 		.mult_over(mult_over),
 		
 		.in_col(internal_col[15:0]),
-		.in_row(in_row[15:8]),
+		.in_row(in_row[31:16]),
 		.in_data(internal_data[31:16]),
 		
 		.out_col(out_col[15:0]),
@@ -214,7 +214,7 @@ module systolic_8x8(
 		.out_row(internal_row[31:0]),
 		.out_data(out_data[31:0])
 	);
-	systolic_2x2 m10(
+	systolic_4x4 m10(
 		.CLOCK(CLOCK),
 		.input_valid(input_valid),
 		.reset(reset),

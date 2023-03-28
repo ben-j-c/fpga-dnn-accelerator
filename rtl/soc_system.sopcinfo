@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 22.1 915 (Future versions may contain additional information.) -->
- <!-- 2023.03.22.23:30:06 -->
+ <!-- 2023.03.27.02:36:50 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1679542202</value>
+  <value>1679899004</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -4554,15 +4554,15 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>sc_fifo_rhs</moduleName>
+    <moduleName>sc_fifo_cols</moduleName>
     <slaveName>clk</slaveName>
-    <name>sc_fifo_rhs.clk</name>
+    <name>sc_fifo_cols.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>sc_fifo_lhs</moduleName>
+    <moduleName>sc_fifo_rows</moduleName>
     <slaveName>clk</slaveName>
-    <name>sc_fifo_lhs.clk</name>
+    <name>sc_fifo_rows.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -4584,9 +4584,9 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>systolic_array_buffered_0</moduleName>
+    <moduleName>systolic_core</moduleName>
     <slaveName>clock_sink</slaveName>
-    <name>systolic_array_buffered_0.clock_sink</name>
+    <name>systolic_core.clock_sink</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -5373,7 +5373,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.USE_WRITE_CONTROL</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <parameter name="avalonMMAvalonMMDataWidth">
    <type>int</type>
@@ -5483,7 +5483,7 @@ the requested settings for a module instance. -->
    <type>boolean</type>
    <value>false</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -5513,7 +5513,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="useWriteControl">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -6168,6 +6168,371 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>ready</role>
+   </port>
+  </interface>
+  <interface name="in_csr" kind="avalon_slave" version="22.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <assignment>
+    <name>embeddedsw.configuration.isFlash</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isMemoryDevice</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isNonVolatileStorage</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isPrintableDevice</name>
+    <value>0</value>
+   </assignment>
+   <parameter name="addressAlignment">
+    <type>com.altera.sopcmodel.avalon.AvalonConnectionPoint$AddressAlignment</type>
+    <value>DYNAMIC</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressGroup">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressSpan">
+    <type>java.math.BigInteger</type>
+    <value>32</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressUnits">
+    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
+    <value>WORDS</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="alwaysBurstMaxBurst">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clk_in</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_in</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bitsPerSymbol">
+    <type>int</type>
+    <value>8</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedAddressOffset">
+    <type>java.math.BigInteger</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToMaster">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="burstOnBurstBoundariesOnly">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="burstcountUnits">
+    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
+    <value>WORDS</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="constantBurstBehavior">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="explicitAddressSpan">
+    <type>java.math.BigInteger</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="holdTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="interleaveBursts">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isBigEndian">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isFlash">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isMemoryDevice">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isNonVolatileStorage">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="linewrapBursts">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="maximumPendingReadTransactions">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>false</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="maximumPendingWriteTransactions">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>false</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="minimumUninterruptedRunLength">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="printableDevice">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readLatency">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readWaitStates">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readWaitTime">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="registerIncomingSignals">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="registerOutgoingSignals">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="setupTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="timingUnits">
+    <type>com.altera.sopcmodel.avalon.TimingUnits</type>
+    <value>Cycles</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="transparentBridge">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="wellBehavedWaitrequest">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeLatency">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeWaitStates">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeWaitTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>avalon</type>
+   <isStart>false</isStart>
+   <port>
+    <name>wrclk_control_slave_address</name>
+    <direction>Input</direction>
+    <width>3</width>
+    <role>address</role>
+   </port>
+   <port>
+    <name>wrclk_control_slave_read</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>read</role>
+   </port>
+   <port>
+    <name>wrclk_control_slave_writedata</name>
+    <direction>Input</direction>
+    <width>32</width>
+    <role>writedata</role>
+   </port>
+   <port>
+    <name>wrclk_control_slave_write</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>write</role>
+   </port>
+   <port>
+    <name>wrclk_control_slave_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
   </interface>
  </module>
@@ -22859,9 +23224,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>systolic_array_buffered_0</moduleName>
+    <moduleName>systolic_core</moduleName>
     <slaveName>csr</slaveName>
-    <name>systolic_array_buffered_0.csr</name>
+    <name>systolic_core.csr</name>
     <baseAddress>0</baseAddress>
     <span>1024</span>
    </memoryBlock>
@@ -22888,6 +23253,14 @@ parameters are a RESULT of the module parameters. -->
     <name>fifo_instr.in</name>
     <baseAddress>2048</baseAddress>
     <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>fifo_instr</moduleName>
+    <slaveName>in_csr</slaveName>
+    <name>fifo_instr.in_csr</name>
+    <baseAddress>2080</baseAddress>
+    <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -48963,9 +49336,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>systolic_array_buffered_0</moduleName>
+    <moduleName>systolic_core</moduleName>
     <slaveName>csr</slaveName>
-    <name>systolic_array_buffered_0.csr</name>
+    <name>systolic_core.csr</name>
     <baseAddress>0</baseAddress>
     <span>1024</span>
    </memoryBlock>
@@ -48992,6 +49365,14 @@ parameters are a RESULT of the module parameters. -->
     <name>fifo_instr.in</name>
     <baseAddress>2048</baseAddress>
     <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>fifo_instr</moduleName>
+    <slaveName>in_csr</slaveName>
+    <name>fifo_instr.in_csr</name>
+    <baseAddress>2080</baseAddress>
+    <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -51002,9 +51383,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>systolic_array_buffered_0</moduleName>
+    <moduleName>systolic_core</moduleName>
     <slaveName>csr</slaveName>
-    <name>systolic_array_buffered_0.csr</name>
+    <name>systolic_core.csr</name>
     <baseAddress>3221225472</baseAddress>
     <span>1024</span>
    </memoryBlock>
@@ -51031,6 +51412,14 @@ parameters are a RESULT of the module parameters. -->
     <name>fifo_instr.in</name>
     <baseAddress>3221227520</baseAddress>
     <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>fifo_instr</moduleName>
+    <slaveName>in_csr</slaveName>
+    <name>fifo_instr.in_csr</name>
+    <baseAddress>3221227552</baseAddress>
+    <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -51873,9 +52262,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>systolic_array_buffered_0</moduleName>
+    <moduleName>systolic_core</moduleName>
     <slaveName>csr</slaveName>
-    <name>systolic_array_buffered_0.csr</name>
+    <name>systolic_core.csr</name>
     <baseAddress>3221225472</baseAddress>
     <span>1024</span>
    </memoryBlock>
@@ -51902,6 +52291,14 @@ parameters are a RESULT of the module parameters. -->
     <name>fifo_instr.in</name>
     <baseAddress>3221227520</baseAddress>
     <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>fifo_instr</moduleName>
+    <slaveName>in_csr</slaveName>
+    <name>fifo_instr.in_csr</name>
+    <baseAddress>3221227552</baseAddress>
+    <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -83925,10 +84322,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="sc_fifo_lhs"
+   name="sc_fifo_cols"
    kind="altera_avalon_sc_fifo"
    version="22.1"
-   path="sc_fifo_lhs">
+   path="sc_fifo_cols">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -84433,10 +84830,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="sc_fifo_rhs"
+   name="sc_fifo_rows"
    kind="altera_avalon_sc_fifo"
    version="22.1"
-   path="sc_fifo_rhs">
+   path="sc_fifo_rows">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -84941,10 +85338,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="systolic_array_buffered_0"
+   name="systolic_core"
    kind="systolic_array_buffered"
    version="1.0"
-   path="systolic_array_buffered_0">
+   path="systolic_core">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -94054,11 +94451,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>csr</endConnectionPoint>
  </connection>
  <connection
-   name="hps_0_bridges.h2f/systolic_array_buffered_0.csr"
+   name="hps_0_bridges.h2f/systolic_core.csr"
    kind="avalon"
    version="22.1"
    start="hps_0_bridges.h2f"
-   end="systolic_array_buffered_0.csr">
+   end="systolic_core.csr">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -94101,7 +94498,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>hps_0_bridges</startModule>
   <startConnectionPoint>h2f</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>csr</endConnectionPoint>
  </connection>
  <connection
@@ -94258,6 +94655,57 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>in</endConnectionPoint>
  </connection>
  <connection
+   name="hps_0_bridges.h2f/fifo_instr.in_csr"
+   kind="avalon"
+   version="22.1"
+   start="hps_0_bridges.h2f"
+   end="fifo_instr.in_csr">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0820</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>hps_0_bridges</startModule>
+  <startConnectionPoint>h2f</startConnectionPoint>
+  <endModule>fifo_instr</endModule>
+  <endConnectionPoint>in_csr</endConnectionPoint>
+ </connection>
+ <connection
    name="hps_0_bridges.h2f/pio_0.s1"
    kind="avalon"
    version="22.1"
@@ -94411,10 +94859,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>f2h_sdram1_data</endConnectionPoint>
  </connection>
  <connection
-   name="systolic_array_buffered_0.data_out/msgdma_write.st_sink"
+   name="systolic_core.data_out/msgdma_write.st_sink"
    kind="avalon_streaming"
    version="22.1"
-   start="systolic_array_buffered_0.data_out"
+   start="systolic_core.data_out"
    end="msgdma_write.st_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -94432,17 +94880,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>systolic_array_buffered_0</startModule>
+  <startModule>systolic_core</startModule>
   <startConnectionPoint>data_out</startConnectionPoint>
   <endModule>msgdma_write</endModule>
   <endConnectionPoint>st_sink</endConnectionPoint>
  </connection>
  <connection
-   name="sc_fifo_rhs.out/systolic_array_buffered_0.st_cols"
+   name="sc_fifo_cols.out/systolic_core.st_cols"
    kind="avalon_streaming"
    version="22.1"
-   start="sc_fifo_rhs.out"
-   end="systolic_array_buffered_0.st_cols">
+   start="sc_fifo_cols.out"
+   end="systolic_core.st_cols">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94459,17 +94907,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>sc_fifo_rhs</startModule>
+  <startModule>sc_fifo_cols</startModule>
   <startConnectionPoint>out</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>st_cols</endConnectionPoint>
  </connection>
  <connection
-   name="fifo_instr.out/systolic_array_buffered_0.st_instr"
+   name="fifo_instr.out/systolic_core.st_instr"
    kind="avalon_streaming"
    version="22.1"
    start="fifo_instr.out"
-   end="systolic_array_buffered_0.st_instr">
+   end="systolic_core.st_instr">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94488,15 +94936,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>fifo_instr</startModule>
   <startConnectionPoint>out</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>st_instr</endConnectionPoint>
  </connection>
  <connection
-   name="sc_fifo_lhs.out/systolic_array_buffered_0.st_rows"
+   name="sc_fifo_rows.out/systolic_core.st_rows"
    kind="avalon_streaming"
    version="22.1"
-   start="sc_fifo_lhs.out"
-   end="systolic_array_buffered_0.st_rows">
+   start="sc_fifo_rows.out"
+   end="systolic_core.st_rows">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94513,17 +94961,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>sc_fifo_lhs</startModule>
+  <startModule>sc_fifo_rows</startModule>
   <startConnectionPoint>out</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>st_rows</endConnectionPoint>
  </connection>
  <connection
-   name="demux_cols_rows.out0/sc_fifo_rhs.in"
+   name="demux_cols_rows.out0/sc_fifo_cols.in"
    kind="avalon_streaming"
    version="22.1"
    start="demux_cols_rows.out0"
-   end="sc_fifo_rhs.in">
+   end="sc_fifo_cols.in">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94542,15 +94990,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>demux_cols_rows</startModule>
   <startConnectionPoint>out0</startConnectionPoint>
-  <endModule>sc_fifo_rhs</endModule>
+  <endModule>sc_fifo_cols</endModule>
   <endConnectionPoint>in</endConnectionPoint>
  </connection>
  <connection
-   name="demux_cols_rows.out1/sc_fifo_lhs.in"
+   name="demux_cols_rows.out1/sc_fifo_rows.in"
    kind="avalon_streaming"
    version="22.1"
    start="demux_cols_rows.out1"
-   end="sc_fifo_lhs.in">
+   end="sc_fifo_rows.in">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94569,7 +95017,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>demux_cols_rows</startModule>
   <startConnectionPoint>out1</startConnectionPoint>
-  <endModule>sc_fifo_lhs</endModule>
+  <endModule>sc_fifo_rows</endModule>
   <endConnectionPoint>in</endConnectionPoint>
  </connection>
  <connection
@@ -94681,11 +95129,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clock_bridge_0.out_clk/sc_fifo_rhs.clk"
+   name="clock_bridge_0.out_clk/sc_fifo_cols.clk"
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="sc_fifo_rhs.clk">
+   end="sc_fifo_cols.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94704,15 +95152,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clock_bridge_0</startModule>
   <startConnectionPoint>out_clk</startConnectionPoint>
-  <endModule>sc_fifo_rhs</endModule>
+  <endModule>sc_fifo_cols</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clock_bridge_0.out_clk/sc_fifo_lhs.clk"
+   name="clock_bridge_0.out_clk/sc_fifo_rows.clk"
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="sc_fifo_lhs.clk">
+   end="sc_fifo_rows.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94731,7 +95179,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clock_bridge_0</startModule>
   <startConnectionPoint>out_clk</startConnectionPoint>
-  <endModule>sc_fifo_lhs</endModule>
+  <endModule>sc_fifo_rows</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
@@ -94816,11 +95264,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="clock_bridge_0.out_clk/systolic_array_buffered_0.clock_sink"
+   name="clock_bridge_0.out_clk/systolic_core.clock_sink"
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="systolic_array_buffered_0.clock_sink">
+   end="systolic_core.clock_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94839,7 +95287,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clock_bridge_0</startModule>
   <startConnectionPoint>out_clk</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>clock_sink</endConnectionPoint>
  </connection>
  <connection
@@ -94951,11 +95399,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>in_clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/sc_fifo_rhs.clk_reset"
+   name="clk_0.clk_reset/sc_fifo_cols.clk_reset"
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="sc_fifo_rhs.clk_reset">
+   end="sc_fifo_cols.clk_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -94974,15 +95422,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>sc_fifo_rhs</endModule>
+  <endModule>sc_fifo_cols</endModule>
   <endConnectionPoint>clk_reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/sc_fifo_lhs.clk_reset"
+   name="clk_0.clk_reset/sc_fifo_rows.clk_reset"
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="sc_fifo_lhs.clk_reset">
+   end="sc_fifo_rows.clk_reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -95001,7 +95449,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>sc_fifo_lhs</endModule>
+  <endModule>sc_fifo_rows</endModule>
   <endConnectionPoint>clk_reset</endConnectionPoint>
  </connection>
  <connection
@@ -95167,11 +95615,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_n</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/systolic_array_buffered_0.reset_sink"
+   name="clk_0.clk_reset/systolic_core.reset_sink"
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="systolic_array_buffered_0.reset_sink">
+   end="systolic_core.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -95190,7 +95638,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>systolic_array_buffered_0</endModule>
+  <endModule>systolic_core</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <plugin>
@@ -95306,7 +95754,7 @@ parameters are a RESULT of the module parameters. -->
   <version>22.1</version>
  </plugin>
  <plugin>
-  <instanceCount>11</instanceCount>
+  <instanceCount>12</instanceCount>
   <name>avalon_slave</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -95682,7 +96130,7 @@ parameters are a RESULT of the module parameters. -->
   <version>22.1</version>
  </plugin>
  <plugin>
-  <instanceCount>97</instanceCount>
+  <instanceCount>98</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

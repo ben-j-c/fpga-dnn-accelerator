@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2023.03.22.23:30:06</td>
+    <td class="l">2023.03.27.02:36:50</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -106,7 +106,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <a href="#module_pio_0"><b>pio_0</b>
      </a> altera_avalon_pio 22.1
      <br/>&#160;&#160;
-     <a href="#module_systolic_array_buffered_0"><b>systolic_array_buffered_0</b>
+     <a href="#module_systolic_core"><b>systolic_core</b>
      </a> systolic_array_buffered 1.0</span>
    </div>
   </div>
@@ -161,11 +161,20 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
    </tr>
    <tr>
-    <td class="slaveb">in&#160;</td>
+    <td class="slavem">in&#160;</td>
     <td class="addr"><span style="color:#989898">0x</span>00000800</td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>c0000800</td>
     <td class="addr"><span style="color:#989898">0x</span>c0000800</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavem">in_csr&#160;</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000820</td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>c0000820</td>
+    <td class="addr"><span style="color:#989898">0x</span>c0000820</td>
     <td class="empty"></td>
     <td class="empty"></td>
    </tr>
@@ -1176,7 +1185,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slavemodule">&#160;
-     <a href="#module_systolic_array_buffered_0"><b>systolic_array_buffered_0</b>
+     <a href="#module_systolic_core"><b>systolic_core</b>
      </a>
     </td>
     <td class="empty"></td>
@@ -3249,7 +3258,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_rhs">sc_fifo_rhs</a>
+       <a href="#module_sc_fifo_cols">sc_fifo_cols</a>
       </td>
      </tr>
      <tr>
@@ -3265,7 +3274,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_lhs">sc_fifo_lhs</a>
+       <a href="#module_sc_fifo_rows">sc_fifo_rows</a>
       </td>
      </tr>
      <tr>
@@ -3329,7 +3338,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
+       <a href="#module_systolic_core">systolic_core</a>
       </td>
      </tr>
      <tr>
@@ -3459,7 +3468,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out0&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_rhs">sc_fifo_rhs</a>
+       <a href="#module_sc_fifo_cols">sc_fifo_cols</a>
       </td>
      </tr>
      <tr>
@@ -3475,7 +3484,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out1&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_lhs">sc_fifo_lhs</a>
+       <a href="#module_sc_fifo_rows">sc_fifo_rows</a>
       </td>
      </tr>
      <tr>
@@ -3563,14 +3572,20 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_hps_0_bridges">hps_0_bridges</a>
       </td>
       <td class="from">h2f&#160;&#160;</td>
-      <td class="main" rowspan="10">fifo_instr</td>
+      <td class="main" rowspan="12">fifo_instr</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;in</td>
+     </tr>
+     <tr>
+      <td class="from">h2f&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;in_csr</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -3601,7 +3616,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
+       <a href="#module_systolic_core">systolic_core</a>
       </td>
      </tr>
      <tr>
@@ -3688,7 +3703,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">useWriteControl</td>
-        <td class="parametervalue">false</td>
+        <td class="parametervalue">true</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamilyString</td>
@@ -3801,7 +3816,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">USE_WRITE_CONTROL</td>
-        <td class="parametervalue">0</td>
+        <td class="parametervalue">1</td>
        </tr>
       </table>
      </td>
@@ -22884,7 +22899,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_hps_0_clk_0">hps_0_clk_0</a>
       </td>
       <td class="from">clk_reset&#160;&#160;</td>
-      <td class="main" rowspan="41">hps_0_bridges</td>
+      <td class="main" rowspan="43">hps_0_bridges</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
@@ -23024,7 +23039,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">h2f&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
+       <a href="#module_systolic_core">systolic_core</a>
       </td>
      </tr>
      <tr>
@@ -23039,7 +23054,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">h2f&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_fifo_instr">fifo_instr</a>
       </td>
      </tr>
@@ -23047,6 +23062,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;in</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">h2f&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;in_csr</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -30634,7 +30659,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
+       <a href="#module_systolic_core">systolic_core</a>
       </td>
       <td class="from">data_out&#160;&#160;</td>
      </tr>
@@ -31173,10 +31198,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_sc_fifo_lhs"> </a>
+  <a name="module_sc_fifo_cols"> </a>
   <div>
    <hr/>
-   <h2>sc_fifo_lhs</h2>altera_avalon_sc_fifo v22.1
+   <h2>sc_fifo_cols</h2>altera_avalon_sc_fifo v22.1
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -31184,8 +31209,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="neighbor" rowspan="2">
        <a href="#module_demux_cols_rows">demux_cols_rows</a>
       </td>
-      <td class="from">out1&#160;&#160;</td>
-      <td class="main" rowspan="10">sc_fifo_lhs</td>
+      <td class="from">out0&#160;&#160;</td>
+      <td class="main" rowspan="10">sc_fifo_cols</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;in</td>
@@ -31219,7 +31244,145 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
+       <a href="#module_systolic_core">systolic_core</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;st_cols</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">SYMBOLS_PER_BEAT</td>
+        <td class="parametervalue">32</td>
+       </tr>
+       <tr>
+        <td class="parametername">BITS_PER_SYMBOL</td>
+        <td class="parametervalue">8</td>
+       </tr>
+       <tr>
+        <td class="parametername">FIFO_DEPTH</td>
+        <td class="parametervalue">32</td>
+       </tr>
+       <tr>
+        <td class="parametername">CHANNEL_WIDTH</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ERROR_WIDTH</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_PACKETS</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_FILL_LEVEL</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">EMPTY_LATENCY</td>
+        <td class="parametervalue">3</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_MEMORY_BLOCKS</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_STORE_FORWARD</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_ALMOST_FULL_IF</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">USE_ALMOST_EMPTY_IF</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">ENABLE_EXPLICIT_MAXCHANNEL</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">EXPLICIT_MAXCHANNEL</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_sc_fifo_rows"> </a>
+  <div>
+   <hr/>
+   <h2>sc_fifo_rows</h2>altera_avalon_sc_fifo v22.1
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_demux_cols_rows">demux_cols_rows</a>
+      </td>
+      <td class="from">out1&#160;&#160;</td>
+      <td class="main" rowspan="10">sc_fifo_rows</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;in</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clock_bridge_0">clock_bridge_0</a>
+      </td>
+      <td class="from">out_clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clk</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clk_reset</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">out&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_systolic_core">systolic_core</a>
       </td>
      </tr>
      <tr>
@@ -31311,148 +31474,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_sc_fifo_rhs"> </a>
+  <a name="module_systolic_core"> </a>
   <div>
    <hr/>
-   <h2>sc_fifo_rhs</h2>altera_avalon_sc_fifo v22.1
-   <br/>
-   <div class="greydiv">
-    <table class="connectionboxes">
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_demux_cols_rows">demux_cols_rows</a>
-      </td>
-      <td class="from">out0&#160;&#160;</td>
-      <td class="main" rowspan="10">sc_fifo_rhs</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;in</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clock_bridge_0">clock_bridge_0</a>
-      </td>
-      <td class="from">out_clk&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clk</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clk_0">clk_0</a>
-      </td>
-      <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clk_reset</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">out&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_array_buffered_0">systolic_array_buffered_0</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;st_cols</td>
-     </tr>
-    </table>
-   </div>
-   <br/>
-   <br/>
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Parameters</h2>
-      <table>
-       <tr>
-        <td class="parametername">SYMBOLS_PER_BEAT</td>
-        <td class="parametervalue">32</td>
-       </tr>
-       <tr>
-        <td class="parametername">BITS_PER_SYMBOL</td>
-        <td class="parametervalue">8</td>
-       </tr>
-       <tr>
-        <td class="parametername">FIFO_DEPTH</td>
-        <td class="parametervalue">32</td>
-       </tr>
-       <tr>
-        <td class="parametername">CHANNEL_WIDTH</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">ERROR_WIDTH</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_PACKETS</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_FILL_LEVEL</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">EMPTY_LATENCY</td>
-        <td class="parametervalue">3</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_MEMORY_BLOCKS</td>
-        <td class="parametervalue">1</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_STORE_FORWARD</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_ALMOST_FULL_IF</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">USE_ALMOST_EMPTY_IF</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">ENABLE_EXPLICIT_MAXCHANNEL</td>
-        <td class="parametervalue">false</td>
-       </tr>
-       <tr>
-        <td class="parametername">EXPLICIT_MAXCHANNEL</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">deviceFamily</td>
-        <td class="parametervalue">UNKNOWN</td>
-       </tr>
-       <tr>
-        <td class="parametername">generateLegacySim</td>
-        <td class="parametervalue">false</td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>&#160;&#160;
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Software Assignments</h2>(none)</td>
-    </tr>
-   </table>
-  </div>
-  <a name="module_systolic_array_buffered_0"> </a>
-  <div>
-   <hr/>
-   <h2>systolic_array_buffered_0</h2>systolic_array_buffered v1.0
+   <h2>systolic_core</h2>systolic_array_buffered v1.0
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -31461,7 +31486,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_hps_0_bridges">hps_0_bridges</a>
       </td>
       <td class="from">h2f&#160;&#160;</td>
-      <td class="main" rowspan="19">systolic_array_buffered_0</td>
+      <td class="main" rowspan="19">systolic_core</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;csr</td>
@@ -31471,7 +31496,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_rhs">sc_fifo_rhs</a>
+       <a href="#module_sc_fifo_cols">sc_fifo_cols</a>
       </td>
       <td class="from">out&#160;&#160;</td>
      </tr>
@@ -31495,7 +31520,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sc_fifo_lhs">sc_fifo_lhs</a>
+       <a href="#module_sc_fifo_rows">sc_fifo_rows</a>
       </td>
       <td class="from">out&#160;&#160;</td>
      </tr>
@@ -31570,7 +31595,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0.01 seconds</td>
-    <td class="r">rendering took 0.18 seconds</td>
+    <td class="r">rendering took 0.17 seconds</td>
    </tr>
   </table>
  </body>

@@ -1,0 +1,278 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11f vlog 2021.2 2021.04, Apr 14 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/ben
+T_opt
+!s110 1679895102
+VJiSe41H8]_Ck3=A7O0QC_1
+Z2 04 18 4 work systolic_array_top fast 0
+=1-000ae431a4f1-64212a3e-c3af4-933d
+!s124 OEM10U1429 
+Z3 o-quiet -auto_acc_if_foreign -work work
+Z4 tCvgOpt 0
+n@_opt
+Z5 OL;O;2021.2;73
+T_opt1
+!s110 1679892802
+V`HS;65B=Q]`dj;:RHazCH0
+04 14 4 work systolic_16x16 fast 0
+04 12 4 work systolic_1x1 fast 0
+04 12 4 work systolic_2x2 fast 0
+04 14 4 work systolic_32x32 fast 0
+04 23 4 work systolic_32x32_buffered fast 0
+04 12 4 work systolic_4x4 fast 0
+04 12 4 work systolic_8x8 fast 0
+R2
+04 10 4 work wide_delay fast 0
+=1-000ae431a4f1-64212142-b61eb-8867
+!s124 OEM10U4676 
+R3
+R4
+n@_opt1
+R5
+R1
+vsystolic_16x16
+Z6 !s110 1679895049
+!i10b 1
+!s100 D]P^Dz_<GP9NJ7l^iej?B2
+ICFh2dAFIaoIg?Y`KK9eOA0
+Z7 d/home/ben/repo/systolic/rtl
+Z8 w1679892598
+Z9 8/home/ben/repo/systolic/rtl/systolic_arrays.v
+Z10 F/home/ben/repo/systolic/rtl/systolic_arrays.v
+!i122 16
+L0 261 74
+Z11 VDg1SIo80bB@j0V0VzS_@n1
+Z12 OL;L;2021.2;73
+r1
+!s85 0
+31
+Z13 !s108 1679895049.000000
+Z14 !s107 /home/ben/repo/systolic/rtl/systolic_arrays.v|
+Z15 !s90 -reportprogress|300|-work|work|-O0|-novopt|-stats=none|/home/ben/repo/systolic/rtl/systolic_arrays.v|-suppress|12110|
+!s101 -O0
+!i113 1
+Z16 o-suppress 12110 -work work -O0 -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R4
+vsystolic_16x16_buffered
+Z17 !s110 1679895072
+!i10b 1
+!s100 EE0_j9HhOcBnY8Y5:=V>D1
+Ib1oeEUz>C]ebM[eYRV^`20
+R7
+Z18 w1679892996
+Z19 8/home/ben/repo/systolic/rtl/systolic_arrays_buffered.v
+Z20 F/home/ben/repo/systolic/rtl/systolic_arrays_buffered.v
+!i122 17
+L0 155 49
+R11
+R12
+r1
+!s85 0
+31
+Z21 !s108 1679895071.000000
+Z22 !s107 /home/ben/repo/systolic/rtl/systolic_arrays_buffered.v|
+Z23 !s90 -reportprogress|300|-work|work|-O0|-novopt|-stats=none|/home/ben/repo/systolic/rtl/systolic_arrays_buffered.v|-suppress|12110|
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_1x1
+R6
+!i10b 1
+!s100 T;LE;ZQ:2^gmafMU>KCEZ3
+IMNJ<2`TNJ[ORon_:=<A`^0
+R7
+R8
+R9
+R10
+!i122 16
+L0 2 32
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_2x2
+R6
+!i10b 1
+!s100 UXbE<K>X=DL^[XAkO`L?G0
+IVchA=1=]B28XT=`O^k>3=0
+R7
+R8
+R9
+R10
+!i122 16
+L0 35 75
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_32x32
+R6
+!i10b 1
+!s100 ^`6>P1R7[T;NgEiAnjLzo2
+IY1:XBg_7ja8:ZfY880T8P2
+R7
+R8
+R9
+R10
+!i122 16
+L0 336 74
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_32x32_buffered
+R17
+!i10b 1
+!s100 Qe9l21RE3iV9EFBRBLmzB1
+I@7C0odmIl0n1PUIkk4zN?3
+R7
+R18
+R19
+R20
+!i122 17
+L0 205 49
+R11
+R12
+r1
+!s85 0
+31
+R21
+R22
+R23
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_4x4
+R6
+!i10b 1
+!s100 oNcie>HieU4LKzOe@W[@^2
+Ij18:>`g3MFUI<fRdMPJ]_1
+R7
+R8
+R9
+R10
+!i122 16
+L0 111 74
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_8x8
+R6
+!i10b 1
+!s100 PXWzIc6lYS2[Gb48IbW5J0
+I`RTde:NXE[8G4G2^HDG[O0
+R7
+R8
+R9
+R10
+!i122 16
+L0 186 74
+R11
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!s101 -O0
+!i113 1
+R16
+R4
+vsystolic_array_top
+R17
+!i10b 1
+!s100 2Uhe<<:Z[^_@PR:EM]2@G1
+IQQ[DzSBaNEC2N4@Q;cFXZ2
+R7
+R18
+R19
+R20
+!i122 17
+L0 2 152
+R11
+R12
+r1
+!s85 0
+31
+R21
+R22
+R23
+!s101 -O0
+!i113 1
+R16
+R4
+vwide_delay
+R17
+!i10b 1
+!s100 D1W=FP0EC7boXmO@GP7M=1
+I]PEB_H[]fG[@?=]aUzg6;3
+R7
+R18
+R19
+R20
+!i122 17
+L0 255 35
+R11
+R12
+r1
+!s85 0
+31
+R21
+R22
+R23
+!s101 -O0
+!i113 1
+R16
+R4

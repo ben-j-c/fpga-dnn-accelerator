@@ -86,21 +86,21 @@ module soc_system (
 		input  wire        reset_reset_n                          //                     reset.reset_n
 	);
 
-	wire          systolic_array_buffered_0_data_out_valid;                    // systolic_array_buffered_0:data_out_valid -> msgdma_write:st_sink_valid
-	wire  [255:0] systolic_array_buffered_0_data_out_data;                     // systolic_array_buffered_0:data_out_data -> msgdma_write:st_sink_data
-	wire          systolic_array_buffered_0_data_out_ready;                    // msgdma_write:st_sink_ready -> systolic_array_buffered_0:data_out_ready
-	wire          sc_fifo_rhs_out_valid;                                       // sc_fifo_rhs:out_valid -> systolic_array_buffered_0:st_cols_valid
-	wire  [255:0] sc_fifo_rhs_out_data;                                        // sc_fifo_rhs:out_data -> systolic_array_buffered_0:st_cols_data
-	wire          sc_fifo_rhs_out_ready;                                       // systolic_array_buffered_0:st_cols_ready -> sc_fifo_rhs:out_ready
-	wire          sc_fifo_lhs_out_valid;                                       // sc_fifo_lhs:out_valid -> systolic_array_buffered_0:st_rows_valid
-	wire  [255:0] sc_fifo_lhs_out_data;                                        // sc_fifo_lhs:out_data -> systolic_array_buffered_0:st_rows_data
-	wire          sc_fifo_lhs_out_ready;                                       // systolic_array_buffered_0:st_rows_ready -> sc_fifo_lhs:out_ready
-	wire          demux_cols_rows_out0_valid;                                  // demux_cols_rows:out0_valid -> sc_fifo_rhs:in_valid
-	wire  [255:0] demux_cols_rows_out0_data;                                   // demux_cols_rows:out0_data -> sc_fifo_rhs:in_data
-	wire          demux_cols_rows_out0_ready;                                  // sc_fifo_rhs:in_ready -> demux_cols_rows:out0_ready
-	wire          demux_cols_rows_out1_valid;                                  // demux_cols_rows:out1_valid -> sc_fifo_lhs:in_valid
-	wire  [255:0] demux_cols_rows_out1_data;                                   // demux_cols_rows:out1_data -> sc_fifo_lhs:in_data
-	wire          demux_cols_rows_out1_ready;                                  // sc_fifo_lhs:in_ready -> demux_cols_rows:out1_ready
+	wire          systolic_core_data_out_valid;                                // systolic_core:data_out_valid -> msgdma_write:st_sink_valid
+	wire  [255:0] systolic_core_data_out_data;                                 // systolic_core:data_out_data -> msgdma_write:st_sink_data
+	wire          systolic_core_data_out_ready;                                // msgdma_write:st_sink_ready -> systolic_core:data_out_ready
+	wire          sc_fifo_cols_out_valid;                                      // sc_fifo_cols:out_valid -> systolic_core:st_cols_valid
+	wire  [255:0] sc_fifo_cols_out_data;                                       // sc_fifo_cols:out_data -> systolic_core:st_cols_data
+	wire          sc_fifo_cols_out_ready;                                      // systolic_core:st_cols_ready -> sc_fifo_cols:out_ready
+	wire          sc_fifo_rows_out_valid;                                      // sc_fifo_rows:out_valid -> systolic_core:st_rows_valid
+	wire  [255:0] sc_fifo_rows_out_data;                                       // sc_fifo_rows:out_data -> systolic_core:st_rows_data
+	wire          sc_fifo_rows_out_ready;                                      // systolic_core:st_rows_ready -> sc_fifo_rows:out_ready
+	wire          demux_cols_rows_out0_valid;                                  // demux_cols_rows:out0_valid -> sc_fifo_cols:in_valid
+	wire  [255:0] demux_cols_rows_out0_data;                                   // demux_cols_rows:out0_data -> sc_fifo_cols:in_data
+	wire          demux_cols_rows_out0_ready;                                  // sc_fifo_cols:in_ready -> demux_cols_rows:out0_ready
+	wire          demux_cols_rows_out1_valid;                                  // demux_cols_rows:out1_valid -> sc_fifo_rows:in_valid
+	wire  [255:0] demux_cols_rows_out1_data;                                   // demux_cols_rows:out1_data -> sc_fifo_rows:in_data
+	wire          demux_cols_rows_out1_ready;                                  // sc_fifo_rows:in_ready -> demux_cols_rows:out1_ready
 	wire          msgdma_read_st_source_valid;                                 // msgdma_read:st_source_valid -> demux_cols_rows:in_valid
 	wire  [255:0] msgdma_read_st_source_data;                                  // msgdma_read:st_source_data -> demux_cols_rows:in_data
 	wire          msgdma_read_st_source_ready;                                 // demux_cols_rows:in_ready -> msgdma_read:st_source_ready
@@ -153,11 +153,11 @@ module soc_system (
 	wire    [3:0] mm_interconnect_0_msgdma_write_csr_byteenable;               // mm_interconnect_0:msgdma_write_csr_byteenable -> msgdma_write:csr_byteenable
 	wire          mm_interconnect_0_msgdma_write_csr_write;                    // mm_interconnect_0:msgdma_write_csr_write -> msgdma_write:csr_write
 	wire   [31:0] mm_interconnect_0_msgdma_write_csr_writedata;                // mm_interconnect_0:msgdma_write_csr_writedata -> msgdma_write:csr_writedata
-	wire   [31:0] mm_interconnect_0_systolic_array_buffered_0_csr_readdata;    // systolic_array_buffered_0:csr_readdata -> mm_interconnect_0:systolic_array_buffered_0_csr_readdata
-	wire    [7:0] mm_interconnect_0_systolic_array_buffered_0_csr_address;     // mm_interconnect_0:systolic_array_buffered_0_csr_address -> systolic_array_buffered_0:csr_address
-	wire          mm_interconnect_0_systolic_array_buffered_0_csr_read;        // mm_interconnect_0:systolic_array_buffered_0_csr_read -> systolic_array_buffered_0:csr_read
-	wire          mm_interconnect_0_systolic_array_buffered_0_csr_write;       // mm_interconnect_0:systolic_array_buffered_0_csr_write -> systolic_array_buffered_0:csr_write
-	wire   [31:0] mm_interconnect_0_systolic_array_buffered_0_csr_writedata;   // mm_interconnect_0:systolic_array_buffered_0_csr_writedata -> systolic_array_buffered_0:csr_writedata
+	wire   [31:0] mm_interconnect_0_systolic_core_csr_readdata;                // systolic_core:csr_readdata -> mm_interconnect_0:systolic_core_csr_readdata
+	wire    [7:0] mm_interconnect_0_systolic_core_csr_address;                 // mm_interconnect_0:systolic_core_csr_address -> systolic_core:csr_address
+	wire          mm_interconnect_0_systolic_core_csr_read;                    // mm_interconnect_0:systolic_core_csr_read -> systolic_core:csr_read
+	wire          mm_interconnect_0_systolic_core_csr_write;                   // mm_interconnect_0:systolic_core_csr_write -> systolic_core:csr_write
+	wire   [31:0] mm_interconnect_0_systolic_core_csr_writedata;               // mm_interconnect_0:systolic_core_csr_writedata -> systolic_core:csr_writedata
 	wire          mm_interconnect_0_msgdma_read_descriptor_slave_waitrequest;  // msgdma_read:descriptor_slave_waitrequest -> mm_interconnect_0:msgdma_read_descriptor_slave_waitrequest
 	wire   [31:0] mm_interconnect_0_msgdma_read_descriptor_slave_byteenable;   // mm_interconnect_0:msgdma_read_descriptor_slave_byteenable -> msgdma_read:descriptor_slave_byteenable
 	wire          mm_interconnect_0_msgdma_read_descriptor_slave_write;        // mm_interconnect_0:msgdma_read_descriptor_slave_write -> msgdma_read:descriptor_slave_write
@@ -170,6 +170,11 @@ module soc_system (
 	wire    [0:0] mm_interconnect_0_fifo_instr_in_address;                     // mm_interconnect_0:fifo_instr_in_address -> fifo_instr:avalonmm_write_slave_address
 	wire          mm_interconnect_0_fifo_instr_in_write;                       // mm_interconnect_0:fifo_instr_in_write -> fifo_instr:avalonmm_write_slave_write
 	wire   [31:0] mm_interconnect_0_fifo_instr_in_writedata;                   // mm_interconnect_0:fifo_instr_in_writedata -> fifo_instr:avalonmm_write_slave_writedata
+	wire   [31:0] mm_interconnect_0_fifo_instr_in_csr_readdata;                // fifo_instr:wrclk_control_slave_readdata -> mm_interconnect_0:fifo_instr_in_csr_readdata
+	wire    [2:0] mm_interconnect_0_fifo_instr_in_csr_address;                 // mm_interconnect_0:fifo_instr_in_csr_address -> fifo_instr:wrclk_control_slave_address
+	wire          mm_interconnect_0_fifo_instr_in_csr_read;                    // mm_interconnect_0:fifo_instr_in_csr_read -> fifo_instr:wrclk_control_slave_read
+	wire          mm_interconnect_0_fifo_instr_in_csr_write;                   // mm_interconnect_0:fifo_instr_in_csr_write -> fifo_instr:wrclk_control_slave_write
+	wire   [31:0] mm_interconnect_0_fifo_instr_in_csr_writedata;               // mm_interconnect_0:fifo_instr_in_csr_writedata -> fifo_instr:wrclk_control_slave_writedata
 	wire   [31:0] mm_interconnect_0_pio_0_s1_readdata;                         // pio_0:readdata -> mm_interconnect_0:pio_0_s1_readdata
 	wire    [1:0] mm_interconnect_0_pio_0_s1_address;                          // mm_interconnect_0:pio_0_s1_address -> pio_0:address
 	wire  [255:0] msgdma_read_mm_read_readdata;                                // mm_interconnect_1:msgdma_read_mm_read_readdata -> msgdma_read:mm_read_readdata
@@ -200,10 +205,10 @@ module soc_system (
 	wire          fifo_instr_out_valid;                                        // fifo_instr:avalonst_source_valid -> avalon_st_adapter:in_0_valid
 	wire   [31:0] fifo_instr_out_data;                                         // fifo_instr:avalonst_source_data -> avalon_st_adapter:in_0_data
 	wire          fifo_instr_out_ready;                                        // avalon_st_adapter:in_0_ready -> fifo_instr:avalonst_source_ready
-	wire          avalon_st_adapter_out_0_valid;                               // avalon_st_adapter:out_0_valid -> systolic_array_buffered_0:st_instr_valid
-	wire   [31:0] avalon_st_adapter_out_0_data;                                // avalon_st_adapter:out_0_data -> systolic_array_buffered_0:st_instr_data
-	wire          avalon_st_adapter_out_0_ready;                               // systolic_array_buffered_0:st_instr_ready -> avalon_st_adapter:out_0_ready
-	wire          rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [avalon_st_adapter:in_rst_0_reset, demux_cols_rows:reset_n, fifo_instr:reset_n, mm_interconnect_0:msgdma_read_reset_n_reset_bridge_in_reset_reset, mm_interconnect_1:msgdma_read_reset_n_reset_bridge_in_reset_reset, mm_interconnect_2:msgdma_write_reset_n_reset_bridge_in_reset_reset, msgdma_read:reset_n_reset_n, msgdma_write:reset_n_reset_n, pio_0:reset_n, sc_fifo_lhs:reset, sc_fifo_rhs:reset, systolic_array_buffered_0:reset_sink_reset]
+	wire          avalon_st_adapter_out_0_valid;                               // avalon_st_adapter:out_0_valid -> systolic_core:st_instr_valid
+	wire   [31:0] avalon_st_adapter_out_0_data;                                // avalon_st_adapter:out_0_data -> systolic_core:st_instr_data
+	wire          avalon_st_adapter_out_0_ready;                               // systolic_core:st_instr_ready -> avalon_st_adapter:out_0_ready
+	wire          rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [avalon_st_adapter:in_rst_0_reset, demux_cols_rows:reset_n, fifo_instr:reset_n, mm_interconnect_0:msgdma_read_reset_n_reset_bridge_in_reset_reset, mm_interconnect_1:msgdma_read_reset_n_reset_bridge_in_reset_reset, mm_interconnect_2:msgdma_write_reset_n_reset_bridge_in_reset_reset, msgdma_read:reset_n_reset_n, msgdma_write:reset_n_reset_n, pio_0:reset_n, sc_fifo_cols:reset, sc_fifo_rows:reset, systolic_core:reset_sink_reset]
 	wire          rst_controller_001_reset_out_reset;                          // rst_controller_001:reset_out -> [mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_0_f2h_sdram0_data_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_2:hps_0_f2h_sdram1_data_translator_reset_reset_bridge_in_reset_reset]
 
 	soc_system_clk_95 clk_95 (
@@ -229,15 +234,20 @@ module soc_system (
 	);
 
 	soc_system_fifo_instr fifo_instr (
-		.wrclock                          (clock_95_clk),                                //   clk_in.clk
-		.reset_n                          (~rst_controller_reset_out_reset),             // reset_in.reset_n
-		.avalonmm_write_slave_writedata   (mm_interconnect_0_fifo_instr_in_writedata),   //       in.writedata
-		.avalonmm_write_slave_write       (mm_interconnect_0_fifo_instr_in_write),       //         .write
-		.avalonmm_write_slave_address     (mm_interconnect_0_fifo_instr_in_address),     //         .address
-		.avalonmm_write_slave_waitrequest (mm_interconnect_0_fifo_instr_in_waitrequest), //         .waitrequest
-		.avalonst_source_valid            (fifo_instr_out_valid),                        //      out.valid
-		.avalonst_source_data             (fifo_instr_out_data),                         //         .data
-		.avalonst_source_ready            (fifo_instr_out_ready)                         //         .ready
+		.wrclock                          (clock_95_clk),                                  //   clk_in.clk
+		.reset_n                          (~rst_controller_reset_out_reset),               // reset_in.reset_n
+		.avalonmm_write_slave_writedata   (mm_interconnect_0_fifo_instr_in_writedata),     //       in.writedata
+		.avalonmm_write_slave_write       (mm_interconnect_0_fifo_instr_in_write),         //         .write
+		.avalonmm_write_slave_address     (mm_interconnect_0_fifo_instr_in_address),       //         .address
+		.avalonmm_write_slave_waitrequest (mm_interconnect_0_fifo_instr_in_waitrequest),   //         .waitrequest
+		.avalonst_source_valid            (fifo_instr_out_valid),                          //      out.valid
+		.avalonst_source_data             (fifo_instr_out_data),                           //         .data
+		.avalonst_source_ready            (fifo_instr_out_ready),                          //         .ready
+		.wrclk_control_slave_address      (mm_interconnect_0_fifo_instr_in_csr_address),   //   in_csr.address
+		.wrclk_control_slave_read         (mm_interconnect_0_fifo_instr_in_csr_read),      //         .read
+		.wrclk_control_slave_writedata    (mm_interconnect_0_fifo_instr_in_csr_writedata), //         .writedata
+		.wrclk_control_slave_write        (mm_interconnect_0_fifo_instr_in_csr_write),     //         .write
+		.wrclk_control_slave_readdata     (mm_interconnect_0_fifo_instr_in_csr_readdata)   //         .readdata
 	);
 
 	soc_system_hps_0 #(
@@ -420,9 +430,9 @@ module soc_system (
 		.descriptor_slave_writedata   (mm_interconnect_0_msgdma_write_descriptor_slave_writedata),   //                 .writedata
 		.descriptor_slave_byteenable  (mm_interconnect_0_msgdma_write_descriptor_slave_byteenable),  //                 .byteenable
 		.csr_irq_irq                  (),                                                            //          csr_irq.irq
-		.st_sink_data                 (systolic_array_buffered_0_data_out_data),                     //          st_sink.data
-		.st_sink_valid                (systolic_array_buffered_0_data_out_valid),                    //                 .valid
-		.st_sink_ready                (systolic_array_buffered_0_data_out_ready)                     //                 .ready
+		.st_sink_data                 (systolic_core_data_out_data),                                 //          st_sink.data
+		.st_sink_valid                (systolic_core_data_out_valid),                                //                 .valid
+		.st_sink_ready                (systolic_core_data_out_ready)                                 //                 .ready
 	);
 
 	soc_system_pio_0 pio_0 (
@@ -446,15 +456,15 @@ module soc_system (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) sc_fifo_lhs (
+	) sc_fifo_cols (
 		.clk               (clock_95_clk),                         //       clk.clk
 		.reset             (rst_controller_reset_out_reset),       // clk_reset.reset
-		.in_data           (demux_cols_rows_out1_data),            //        in.data
-		.in_valid          (demux_cols_rows_out1_valid),           //          .valid
-		.in_ready          (demux_cols_rows_out1_ready),           //          .ready
-		.out_data          (sc_fifo_lhs_out_data),                 //       out.data
-		.out_valid         (sc_fifo_lhs_out_valid),                //          .valid
-		.out_ready         (sc_fifo_lhs_out_ready),                //          .ready
+		.in_data           (demux_cols_rows_out0_data),            //        in.data
+		.in_valid          (demux_cols_rows_out0_valid),           //          .valid
+		.in_ready          (demux_cols_rows_out0_ready),           //          .ready
+		.out_data          (sc_fifo_cols_out_data),                //       out.data
+		.out_valid         (sc_fifo_cols_out_valid),               //          .valid
+		.out_ready         (sc_fifo_cols_out_ready),               //          .ready
 		.csr_address       (2'b00),                                // (terminated)
 		.csr_read          (1'b0),                                 // (terminated)
 		.csr_write         (1'b0),                                 // (terminated)
@@ -487,15 +497,15 @@ module soc_system (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) sc_fifo_rhs (
+	) sc_fifo_rows (
 		.clk               (clock_95_clk),                         //       clk.clk
 		.reset             (rst_controller_reset_out_reset),       // clk_reset.reset
-		.in_data           (demux_cols_rows_out0_data),            //        in.data
-		.in_valid          (demux_cols_rows_out0_valid),           //          .valid
-		.in_ready          (demux_cols_rows_out0_ready),           //          .ready
-		.out_data          (sc_fifo_rhs_out_data),                 //       out.data
-		.out_valid         (sc_fifo_rhs_out_valid),                //          .valid
-		.out_ready         (sc_fifo_rhs_out_ready),                //          .ready
+		.in_data           (demux_cols_rows_out1_data),            //        in.data
+		.in_valid          (demux_cols_rows_out1_valid),           //          .valid
+		.in_ready          (demux_cols_rows_out1_ready),           //          .ready
+		.out_data          (sc_fifo_rows_out_data),                //       out.data
+		.out_valid         (sc_fifo_rows_out_valid),               //          .valid
+		.out_ready         (sc_fifo_rows_out_ready),               //          .ready
 		.csr_address       (2'b00),                                // (terminated)
 		.csr_read          (1'b0),                                 // (terminated)
 		.csr_write         (1'b0),                                 // (terminated)
@@ -515,26 +525,26 @@ module soc_system (
 		.out_channel       ()                                      // (terminated)
 	);
 
-	systolic_array_top systolic_array_buffered_0 (
-		.csr_address      (mm_interconnect_0_systolic_array_buffered_0_csr_address),   //        csr.address
-		.csr_write        (mm_interconnect_0_systolic_array_buffered_0_csr_write),     //           .write
-		.csr_writedata    (mm_interconnect_0_systolic_array_buffered_0_csr_writedata), //           .writedata
-		.csr_readdata     (mm_interconnect_0_systolic_array_buffered_0_csr_readdata),  //           .readdata
-		.csr_read         (mm_interconnect_0_systolic_array_buffered_0_csr_read),      //           .read
-		.data_out_data    (systolic_array_buffered_0_data_out_data),                   //   data_out.data
-		.data_out_ready   (systolic_array_buffered_0_data_out_ready),                  //           .ready
-		.data_out_valid   (systolic_array_buffered_0_data_out_valid),                  //           .valid
-		.reset_sink_reset (rst_controller_reset_out_reset),                            // reset_sink.reset
-		.clock_sink       (clock_95_clk),                                              // clock_sink.clk
-		.st_rows_data     (sc_fifo_lhs_out_data),                                      //    st_rows.data
-		.st_rows_ready    (sc_fifo_lhs_out_ready),                                     //           .ready
-		.st_rows_valid    (sc_fifo_lhs_out_valid),                                     //           .valid
-		.st_cols_data     (sc_fifo_rhs_out_data),                                      //    st_cols.data
-		.st_cols_ready    (sc_fifo_rhs_out_ready),                                     //           .ready
-		.st_cols_valid    (sc_fifo_rhs_out_valid),                                     //           .valid
-		.st_instr_ready   (avalon_st_adapter_out_0_ready),                             //   st_instr.ready
-		.st_instr_valid   (avalon_st_adapter_out_0_valid),                             //           .valid
-		.st_instr_data    (avalon_st_adapter_out_0_data)                               //           .data
+	systolic_array_top systolic_core (
+		.csr_address      (mm_interconnect_0_systolic_core_csr_address),   //        csr.address
+		.csr_write        (mm_interconnect_0_systolic_core_csr_write),     //           .write
+		.csr_writedata    (mm_interconnect_0_systolic_core_csr_writedata), //           .writedata
+		.csr_readdata     (mm_interconnect_0_systolic_core_csr_readdata),  //           .readdata
+		.csr_read         (mm_interconnect_0_systolic_core_csr_read),      //           .read
+		.data_out_data    (systolic_core_data_out_data),                   //   data_out.data
+		.data_out_ready   (systolic_core_data_out_ready),                  //           .ready
+		.data_out_valid   (systolic_core_data_out_valid),                  //           .valid
+		.reset_sink_reset (rst_controller_reset_out_reset),                // reset_sink.reset
+		.clock_sink       (clock_95_clk),                                  // clock_sink.clk
+		.st_rows_data     (sc_fifo_rows_out_data),                         //    st_rows.data
+		.st_rows_ready    (sc_fifo_rows_out_ready),                        //           .ready
+		.st_rows_valid    (sc_fifo_rows_out_valid),                        //           .valid
+		.st_cols_data     (sc_fifo_cols_out_data),                         //    st_cols.data
+		.st_cols_ready    (sc_fifo_cols_out_ready),                        //           .ready
+		.st_cols_valid    (sc_fifo_cols_out_valid),                        //           .valid
+		.st_instr_ready   (avalon_st_adapter_out_0_ready),                 //   st_instr.ready
+		.st_instr_valid   (avalon_st_adapter_out_0_valid),                 //           .valid
+		.st_instr_data    (avalon_st_adapter_out_0_data)                   //           .data
 	);
 
 	soc_system_mm_interconnect_0 mm_interconnect_0 (
@@ -581,6 +591,11 @@ module soc_system (
 		.fifo_instr_in_write                                              (mm_interconnect_0_fifo_instr_in_write),                       //                                                           .write
 		.fifo_instr_in_writedata                                          (mm_interconnect_0_fifo_instr_in_writedata),                   //                                                           .writedata
 		.fifo_instr_in_waitrequest                                        (mm_interconnect_0_fifo_instr_in_waitrequest),                 //                                                           .waitrequest
+		.fifo_instr_in_csr_address                                        (mm_interconnect_0_fifo_instr_in_csr_address),                 //                                          fifo_instr_in_csr.address
+		.fifo_instr_in_csr_write                                          (mm_interconnect_0_fifo_instr_in_csr_write),                   //                                                           .write
+		.fifo_instr_in_csr_read                                           (mm_interconnect_0_fifo_instr_in_csr_read),                    //                                                           .read
+		.fifo_instr_in_csr_readdata                                       (mm_interconnect_0_fifo_instr_in_csr_readdata),                //                                                           .readdata
+		.fifo_instr_in_csr_writedata                                      (mm_interconnect_0_fifo_instr_in_csr_writedata),               //                                                           .writedata
 		.msgdma_read_csr_address                                          (mm_interconnect_0_msgdma_read_csr_address),                   //                                            msgdma_read_csr.address
 		.msgdma_read_csr_write                                            (mm_interconnect_0_msgdma_read_csr_write),                     //                                                           .write
 		.msgdma_read_csr_read                                             (mm_interconnect_0_msgdma_read_csr_read),                      //                                                           .read
@@ -603,11 +618,11 @@ module soc_system (
 		.msgdma_write_descriptor_slave_waitrequest                        (mm_interconnect_0_msgdma_write_descriptor_slave_waitrequest), //                                                           .waitrequest
 		.pio_0_s1_address                                                 (mm_interconnect_0_pio_0_s1_address),                          //                                                   pio_0_s1.address
 		.pio_0_s1_readdata                                                (mm_interconnect_0_pio_0_s1_readdata),                         //                                                           .readdata
-		.systolic_array_buffered_0_csr_address                            (mm_interconnect_0_systolic_array_buffered_0_csr_address),     //                              systolic_array_buffered_0_csr.address
-		.systolic_array_buffered_0_csr_write                              (mm_interconnect_0_systolic_array_buffered_0_csr_write),       //                                                           .write
-		.systolic_array_buffered_0_csr_read                               (mm_interconnect_0_systolic_array_buffered_0_csr_read),        //                                                           .read
-		.systolic_array_buffered_0_csr_readdata                           (mm_interconnect_0_systolic_array_buffered_0_csr_readdata),    //                                                           .readdata
-		.systolic_array_buffered_0_csr_writedata                          (mm_interconnect_0_systolic_array_buffered_0_csr_writedata)    //                                                           .writedata
+		.systolic_core_csr_address                                        (mm_interconnect_0_systolic_core_csr_address),                 //                                          systolic_core_csr.address
+		.systolic_core_csr_write                                          (mm_interconnect_0_systolic_core_csr_write),                   //                                                           .write
+		.systolic_core_csr_read                                           (mm_interconnect_0_systolic_core_csr_read),                    //                                                           .read
+		.systolic_core_csr_readdata                                       (mm_interconnect_0_systolic_core_csr_readdata),                //                                                           .readdata
+		.systolic_core_csr_writedata                                      (mm_interconnect_0_systolic_core_csr_writedata)                //                                                           .writedata
 	);
 
 	soc_system_mm_interconnect_1 mm_interconnect_1 (

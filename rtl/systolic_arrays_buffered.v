@@ -9,11 +9,11 @@ module systolic_array_top (
 		output wire [31:0] csr_readdata,
 		input  wire csr_read,
 
-		output wire [255:0] data_out_data,
+		output wire [255:0] data_out_data, //big endian
 		input  wire data_out_ready,
 		output reg data_out_valid,
 
-		input  wire [255:0] st_rows_data,
+		input  wire [255:0] st_rows_data, //big endian
 		output wire st_rows_ready,
 		input  wire st_rows_valid,
 
@@ -57,7 +57,7 @@ module systolic_array_top (
 	localparam STATE_WRITING = 3;
 	reg [3:0] state;
 
-	localparam N_CYCLES_FOR_COMPUTE = 32;
+	localparam N_CYCLES_FOR_COMPUTE = 64;
 
 	// Instruction register
 	reg [31:0] instr_n_cols;
@@ -79,8 +79,9 @@ module systolic_array_top (
 	systolic_32x32_buffered compute(
 		.CLOCK(CLOCK),
 		.reset(reset || (state == STATE_WAITING)),
-		.input_valid(data_in_valid && data_in_ready),
+		.input_valid(1),
 		.backpressure(!data_out_ready),
+		.mult_over(state == STATE_WRITING),
 
 		.in_col(in_col),
 		.in_row(in_row),
@@ -92,6 +93,7 @@ module systolic_array_top (
 	assign in_row = (state == STATE_READING && cycle_count < instr_n_rows)? st_rows_data : 0;
 	always @ (posedge CLOCK, posedge reset) begin
 		if (reset) begin
+			state <= STATE_WAITING;
 			instr_n_cols <= 0;
 			instr_n_rows <= 0;
 			mult_over <= 0;
@@ -104,8 +106,8 @@ module systolic_array_top (
 				if (st_instr_valid) begin
 					state <= STATE_READING;
 
-					instr_n_cols <= {27'b0 , st_instr_data[4:0]};
-					instr_n_rows <= {27'b0 , st_instr_data[9:5]};
+					instr_n_cols <= {8'b0 , st_instr_data[11:0]};
+					instr_n_rows <= {8'b0 , st_instr_data[23:12]};
 
 					mult_over <= 0;
 					data_out_valid <= 0;
@@ -244,7 +246,7 @@ module systolic_32x32_buffered(
 	
 		.in_col(delay_col),
 		.in_row(delay_row),
-		.in_data(0),
+		.in_data(256'b0),
 		
 		.out_data(out_data)
 	);

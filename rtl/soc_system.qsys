@@ -89,6 +89,14 @@
          type = "String";
       }
    }
+   element fifo_instr.in_csr
+   {
+      datum baseAddress
+      {
+         value = "2080";
+         type = "String";
+      }
+   }
    element fpga_only_master
    {
       datum _sortIndex
@@ -251,23 +259,7 @@
          type = "String";
       }
    }
-   element sc_fifo_lhs
-   {
-      datum _sortIndex
-      {
-         value = "4";
-         type = "int";
-      }
-   }
-   element sc_fifo_lhs.out
-   {
-      datum color
-      {
-         value = "-16724941";
-         type = "int";
-      }
-   }
-   element sc_fifo_rhs
+   element sc_fifo_cols
    {
       datum _sortIndex
       {
@@ -275,11 +267,27 @@
          type = "int";
       }
    }
-   element sc_fifo_rhs.out
+   element sc_fifo_cols.out
    {
       datum color
       {
          value = "-16777012";
+         type = "int";
+      }
+   }
+   element sc_fifo_rows
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element sc_fifo_rows.out
+   {
+      datum color
+      {
+         value = "-16724941";
          type = "int";
       }
    }
@@ -312,7 +320,7 @@
          type = "String";
       }
    }
-   element systolic_array_buffered_0
+   element systolic_core
    {
       datum _sortIndex
       {
@@ -320,7 +328,7 @@
          type = "int";
       }
    }
-   element systolic_array_buffered_0.csr
+   element systolic_core.csr
    {
       datum baseAddress
       {
@@ -328,7 +336,7 @@
          type = "String";
       }
    }
-   element systolic_array_buffered_0.data_out
+   element systolic_core.data_out
    {
       datum color
       {
@@ -651,7 +659,7 @@
   <parameter name="usePacket" value="false" />
   <parameter name="useReadControl" value="false" />
   <parameter name="useRegister" value="false" />
-  <parameter name="useWriteControl" value="false" />
+  <parameter name="useWriteControl" value="true" />
  </module>
  <module
    name="fpga_only_master"
@@ -1331,7 +1339,7 @@
   <parameter name="width" value="32" />
  </module>
  <module
-   name="sc_fifo_lhs"
+   name="sc_fifo_cols"
    kind="altera_avalon_sc_fifo"
    version="22.1"
    enabled="1">
@@ -1351,7 +1359,7 @@
   <parameter name="USE_STORE_FORWARD" value="0" />
  </module>
  <module
-   name="sc_fifo_rhs"
+   name="sc_fifo_rows"
    kind="altera_avalon_sc_fifo"
    version="22.1"
    enabled="1">
@@ -1378,7 +1386,7 @@
   <parameter name="id" value="-1395322110" />
  </module>
  <module
-   name="systolic_array_buffered_0"
+   name="systolic_core"
    kind="systolic_array_buffered"
    version="1.0"
    enabled="1" />
@@ -1404,7 +1412,7 @@
    kind="avalon"
    version="22.1"
    start="hps_0.h2f_axi_master"
-   end="systolic_array_buffered_0.csr">
+   end="systolic_core.csr">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1434,6 +1442,15 @@
    end="fifo_instr.in">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="22.1"
+   start="hps_0.h2f_axi_master"
+   end="fifo_instr.in_csr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0820" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1520,33 +1537,33 @@
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="systolic_array_buffered_0.data_out"
+   start="systolic_core.data_out"
    end="msgdma_write.st_sink" />
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="sc_fifo_rhs.out"
-   end="systolic_array_buffered_0.st_cols" />
+   start="sc_fifo_cols.out"
+   end="systolic_core.st_cols" />
  <connection
    kind="avalon_streaming"
    version="22.1"
    start="fifo_instr.out"
-   end="systolic_array_buffered_0.st_instr" />
+   end="systolic_core.st_instr" />
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="sc_fifo_lhs.out"
-   end="systolic_array_buffered_0.st_rows" />
+   start="sc_fifo_rows.out"
+   end="systolic_core.st_rows" />
  <connection
    kind="avalon_streaming"
    version="22.1"
    start="demux_cols_rows.out0"
-   end="sc_fifo_rhs.in" />
+   end="sc_fifo_cols.in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
    start="demux_cols_rows.out1"
-   end="sc_fifo_lhs.in" />
+   end="sc_fifo_rows.in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1579,12 +1596,12 @@
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="sc_fifo_rhs.clk" />
+   end="sc_fifo_cols.clk" />
  <connection
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="sc_fifo_lhs.clk" />
+   end="sc_fifo_rows.clk" />
  <connection
    kind="clock"
    version="22.1"
@@ -1609,7 +1626,7 @@
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="systolic_array_buffered_0.clock_sink" />
+   end="systolic_core.clock_sink" />
  <connection
    kind="clock"
    version="22.1"
@@ -1658,12 +1675,12 @@
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="sc_fifo_rhs.clk_reset" />
+   end="sc_fifo_cols.clk_reset" />
  <connection
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="sc_fifo_lhs.clk_reset" />
+   end="sc_fifo_rows.clk_reset" />
  <connection
    kind="reset"
    version="22.1"
@@ -1704,7 +1721,7 @@
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="systolic_array_buffered_0.reset_sink" />
+   end="systolic_core.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

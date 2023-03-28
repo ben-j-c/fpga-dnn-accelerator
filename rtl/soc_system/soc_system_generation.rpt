@@ -26,14 +26,14 @@ Progress: Adding msgdma_write [altera_msgdma 22.1]
 Progress: Parameterizing module msgdma_write
 Progress: Adding pio_0 [altera_avalon_pio 22.1]
 Progress: Parameterizing module pio_0
-Progress: Adding sc_fifo_lhs [altera_avalon_sc_fifo 22.1]
-Progress: Parameterizing module sc_fifo_lhs
-Progress: Adding sc_fifo_rhs [altera_avalon_sc_fifo 22.1]
-Progress: Parameterizing module sc_fifo_rhs
+Progress: Adding sc_fifo_cols [altera_avalon_sc_fifo 22.1]
+Progress: Parameterizing module sc_fifo_cols
+Progress: Adding sc_fifo_rows [altera_avalon_sc_fifo 22.1]
+Progress: Parameterizing module sc_fifo_rows
 Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 22.1]
 Progress: Parameterizing module sysid_qsys
-Progress: Adding systolic_array_buffered_0 [systolic_array_buffered 1.0]
-Progress: Parameterizing module systolic_array_buffered_0
+Progress: Adding systolic_core [systolic_array_buffered 1.0]
+Progress: Parameterizing module systolic_core
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -49,7 +49,8 @@ Warning: soc_system.hps_0: 1 or more output clock frequencies cannot be achieved
 Warning: soc_system.msgdma_read: Packet support is disabled and selected transfer type is not Full Word Accesses Only. Any unaligned transfer length will cause additional data bytes to be written during the last transfer beat of the avalon streaming data source port
 Info: soc_system.msgdma_write: Response information port is disabled. Enable the response port if data transfer information is required by host
 Info: soc_system.pio_0: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: soc_system.fifo_instr.out/systolic_array_buffered_0.st_instr: Ready latency is 1 for source and 0 for sink. Avalon-ST Adapter will be inserted..
+Warning: soc_system.systolic_array_buffered: The SIM_VERILOG fileset must specify the top-level module name.
+Info: soc_system.fifo_instr.out/systolic_core.st_instr: Ready latency is 1 for source and 0 for sink. Avalon-ST Adapter will be inserted..
 Warning: soc_system.msgdma_read: Interrupt sender msgdma_read.csr_irq is not connected to an interrupt receiver
 Warning: soc_system.msgdma_write: Interrupt sender msgdma_write.csr_irq is not connected to an interrupt receiver
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
@@ -60,7 +61,7 @@ Info: avalon_st_adapter: Inserting timing_adapter: timing_adapter_0
 Info: clk_95: "soc_system" instantiated altera_pll "clk_95"
 Info: demux_cols_rows: "soc_system" instantiated demultiplexer "demux_cols_rows"
 Info: fifo_instr: Starting RTL generation for module 'soc_system_fifo_instr'
-Info: fifo_instr:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_instr --dir=/tmp/alt9439_3501168850360815403.dir/0004_fifo_instr_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9439_3501168850360815403.dir/0004_fifo_instr_gen//soc_system_fifo_instr_component_configuration.pl  --do_build_sim=0  ]
+Info: fifo_instr:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_instr --dir=/tmp/alt9443_373935718645054042.dir/0004_fifo_instr_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9443_373935718645054042.dir/0004_fifo_instr_gen//soc_system_fifo_instr_component_configuration.pl  --do_build_sim=0  ]
 Info: fifo_instr: Done RTL generation for module 'soc_system_fifo_instr'
 Info: fifo_instr: "soc_system" instantiated altera_avalon_fifo "fifo_instr"
 Info: hps_0: "Running  for module: hps_0"
@@ -73,11 +74,11 @@ Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: msgdma_read: "soc_system" instantiated altera_msgdma "msgdma_read"
 Info: msgdma_write: "soc_system" instantiated altera_msgdma "msgdma_write"
 Info: pio_0: Starting RTL generation for module 'soc_system_pio_0'
-Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9439_3501168850360815403.dir/0005_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9439_3501168850360815403.dir/0005_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9443_373935718645054042.dir/0005_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9443_373935718645054042.dir/0005_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_0: Done RTL generation for module 'soc_system_pio_0'
 Info: pio_0: "soc_system" instantiated altera_avalon_pio "pio_0"
-Info: sc_fifo_lhs: "soc_system" instantiated altera_avalon_sc_fifo "sc_fifo_lhs"
-Info: systolic_array_buffered_0: "soc_system" instantiated systolic_array_buffered "systolic_array_buffered_0"
+Info: sc_fifo_cols: "soc_system" instantiated altera_avalon_sc_fifo "sc_fifo_cols"
+Info: systolic_core: "soc_system" instantiated systolic_array_buffered "systolic_core"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
@@ -85,6 +86,7 @@ Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
 Info: mm_interconnect_2: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_2"
