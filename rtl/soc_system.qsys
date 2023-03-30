@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "11";
          type = "int";
       }
    }
@@ -29,7 +29,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "13";
          type = "int";
       }
    }
@@ -37,7 +37,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "14";
          type = "int";
       }
    }
@@ -73,11 +73,59 @@
          type = "int";
       }
    }
+   element dfa_cols
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element dfa_cols.out
+   {
+      datum color
+      {
+         value = "-16777012";
+         type = "int";
+      }
+   }
+   element dfa_out
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element dfa_out.out
+   {
+      datum color
+      {
+         value = "-16724788";
+         type = "int";
+      }
+   }
+   element dfa_rows
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element dfa_rows.out
+   {
+      datum color
+      {
+         value = "-16724941";
+         type = "int";
+      }
+   }
    element fifo_instr
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "10";
          type = "int";
       }
    }
@@ -101,7 +149,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "18";
          type = "int";
       }
    }
@@ -146,7 +194,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "15";
          type = "int";
       }
    }
@@ -154,7 +202,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "17";
          type = "int";
       }
    }
@@ -215,7 +263,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "9";
          type = "int";
       }
    }
@@ -247,7 +295,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "12";
          type = "int";
       }
    }
@@ -303,7 +351,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "16";
          type = "int";
       }
    }
@@ -324,7 +372,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "7";
          type = "int";
       }
    }
@@ -635,6 +683,51 @@
   <parameter name="symbolsPerBeat" value="32" />
   <parameter name="useHighBitsOfChannel" value="true" />
   <parameter name="usePackets" value="false" />
+ </module>
+ <module name="dfa_cols" kind="data_format_adapter" version="22.1" enabled="1">
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="32" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="false" />
+  <parameter name="outSymbolsPerBeat" value="16" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module name="dfa_out" kind="data_format_adapter" version="22.1" enabled="1">
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="16" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="false" />
+  <parameter name="outSymbolsPerBeat" value="32" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
+ </module>
+ <module name="dfa_rows" kind="data_format_adapter" version="22.1" enabled="1">
+  <parameter name="inBitsPerSymbol" value="8" />
+  <parameter name="inChannelWidth" value="0" />
+  <parameter name="inErrorDescriptor" value="" />
+  <parameter name="inErrorWidth" value="0" />
+  <parameter name="inMaxChannel" value="0" />
+  <parameter name="inReadyLatency" value="0" />
+  <parameter name="inSymbolsPerBeat" value="32" />
+  <parameter name="inUseEmpty" value="false" />
+  <parameter name="inUseEmptyPort" value="AUTO" />
+  <parameter name="inUsePackets" value="false" />
+  <parameter name="outSymbolsPerBeat" value="16" />
+  <parameter name="outUseEmpty" value="false" />
+  <parameter name="outUseEmptyPort" value="AUTO" />
  </module>
  <module
    name="fifo_instr"
@@ -1538,11 +1631,21 @@
    kind="avalon_streaming"
    version="22.1"
    start="systolic_core.data_out"
-   end="msgdma_write.st_sink" />
+   end="dfa_out.in" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
+   start="sc_fifo_rows.out"
+   end="dfa_rows.in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
    start="sc_fifo_cols.out"
+   end="dfa_cols.in" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
+   start="dfa_cols.out"
    end="systolic_core.st_cols" />
  <connection
    kind="avalon_streaming"
@@ -1552,8 +1655,13 @@
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="sc_fifo_rows.out"
+   start="dfa_rows.out"
    end="systolic_core.st_rows" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
+   start="dfa_out.out"
+   end="msgdma_write.st_sink" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1607,6 +1715,21 @@
    version="22.1"
    start="clock_bridge_0.out_clk"
    end="hps_only_master.clk" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="dfa_cols.clk" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="dfa_rows.clk" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="dfa_out.clk" />
  <connection
    kind="clock"
    version="22.1"
@@ -1702,6 +1825,21 @@
    version="22.1"
    start="clk_0.clk_reset"
    end="demux_cols_rows.reset" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="dfa_rows.reset" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="dfa_cols.reset" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="dfa_out.reset" />
  <connection
    kind="reset"
    version="22.1"

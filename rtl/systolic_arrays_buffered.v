@@ -9,15 +9,15 @@ module systolic_array_top (
 		output wire [31:0] csr_readdata,
 		input  wire csr_read,
 
-		output wire [255:0] data_out_data, //big endian
+		output wire [127:0] data_out_data, //big endian
 		input  wire data_out_ready,
 		output reg data_out_valid,
 
-		input  wire [255:0] st_rows_data, //big endian
+		input  wire [127:0] st_rows_data, //big endian
 		output wire st_rows_ready,
 		input  wire st_rows_valid,
 
-		input  wire [255:0] st_cols_data,
+		input  wire [127:0] st_cols_data,
 		output wire st_cols_ready,
 		input  wire st_cols_valid,
 
@@ -25,25 +25,6 @@ module systolic_array_top (
 		output wire st_instr_ready,
 		input wire st_instr_valid
 	);
-
-/*module systolic_array_top (
-		input wire reset_sink_reset,
-		input wire clock_sink,
-
-		input wire [7:0] csr_address,
-		input wire  csr_write,
-		input wire [31:0] csr_writedata,
-		output wire [31:0] csr_readdata,
-		input wire csr_read,
-
-		input wire [255:0] data_in_data,
-		output reg data_in_ready,
-		input wire data_in_valid,
-
-		output wire [255:0] data_out_data,
-		input wire data_out_ready,
-		output reg data_out_valid
-	);*/
 	// CLOCK and RESET settings
 	wire CLOCK;
 	wire reset;
@@ -57,7 +38,7 @@ module systolic_array_top (
 	localparam STATE_WRITING = 3;
 	reg [3:0] state;
 
-	localparam N_CYCLES_FOR_COMPUTE = 64;
+	localparam N_CYCLES_FOR_COMPUTE = 32;
 
 	// Instruction register
 	reg [31:0] instr_n_cols;
@@ -74,23 +55,25 @@ module systolic_array_top (
 	assign st_cols_ready = data_in_ready && (cycle_count < instr_n_cols);
 	assign st_rows_ready = data_in_ready && (cycle_count < instr_n_rows);
 
-	wire [255:0] in_col;
-	wire [255:0] in_row;
-	systolic_32x32_buffered compute(
+	wire [127:0] in_col;
+	wire [127:0] in_row;
+	wire [127:0] data_out_compute;
+	systolic_16x16_buffered compute(
 		.CLOCK(CLOCK),
 		.reset(reset || (state == STATE_WAITING)),
-		.input_valid(1),
+		.input_valid(1'b1),
 		.backpressure(!data_out_ready),
 		.mult_over(state == STATE_WRITING),
 
 		.in_col(in_col),
 		.in_row(in_row),
-		.out_data(data_out_data)
+		.out_data(data_out_compute) 
 	);
+	assign data_out_data = swap_endian(data_out_compute);
 
 	assign st_instr_ready = (state == STATE_WAITING);
-	assign in_col = (state == STATE_READING && cycle_count < instr_n_cols)? st_cols_data : 0;
-	assign in_row = (state == STATE_READING && cycle_count < instr_n_rows)? st_rows_data : 0;
+	assign in_col = (state == STATE_READING && cycle_count < instr_n_cols)? swap_endian(st_cols_data) : 0;
+	assign in_row = (state == STATE_READING && cycle_count < instr_n_rows)? swap_endian(st_rows_data) : 0;
 	always @ (posedge CLOCK, posedge reset) begin
 		if (reset) begin
 			state <= STATE_WAITING;
@@ -150,6 +133,26 @@ module systolic_array_top (
 	end	
 	assign csr_readdata = 0;
 
+	function automatic [127:0] swap_endian(input [127:0] v) ;
+	begin
+		swap_endian[007:000] = v[127:120];
+		swap_endian[015:008] = v[119:112];
+		swap_endian[023:016] = v[111:104];
+		swap_endian[031:024] = v[103:096];
+		swap_endian[039:032] = v[095:088];
+		swap_endian[047:040] = v[087:080];
+		swap_endian[055:048] = v[079:072];
+		swap_endian[063:056] = v[071:064];
+		swap_endian[071:064] = v[063:056];
+		swap_endian[079:072] = v[055:048];
+		swap_endian[087:080] = v[047:040];
+		swap_endian[095:088] = v[039:032];
+		swap_endian[103:096] = v[031:024];
+		swap_endian[111:104] = v[023:016];
+		swap_endian[119:112] = v[015:008];
+		swap_endian[127:120] = v[007:000];
+	end
+	endfunction
 endmodule
 
 module systolic_16x16_buffered(
@@ -196,7 +199,7 @@ module systolic_16x16_buffered(
 	
 		.in_col(delay_col),
 		.in_row(delay_row),
-		.in_data(0),
+		.in_data(128'b0),
 		
 		.out_data(out_data)
 	);

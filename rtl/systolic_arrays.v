@@ -13,9 +13,13 @@ module systolic_1x1(
 	output reg [7:0] out_row,
 	output reg [7:0] out_data
 );
-	reg [7:0] mac;
-	wire [7:0] mac_next;
-	assign mac_next = mac + out_col * out_row;
+	reg [31:0] mac;
+	wire [31:0] mac_next;
+	wire [15:0] mult_res;
+	wire [7:0] mac_shifted;
+	assign mult_res = out_col * out_row;
+	assign mac_next = mac + {{16{mult_res[15]}}, mult_res};
+	assign mac_shifted = mac_next >> 8;
 	always @ (posedge CLOCK, posedge reset) begin
 		if (reset) begin
 			out_col <= 0;
@@ -27,7 +31,7 @@ module systolic_1x1(
 			mac <= mac_next;
 			out_col <= in_col;
 			out_row <= in_row;
-			out_data <= mult_over? in_data : mac_next;
+			out_data <= mult_over? in_data : mac_shifted;
 		end
 	end
 endmodule

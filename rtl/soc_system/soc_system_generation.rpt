@@ -10,6 +10,12 @@ Progress: Adding clock_bridge_0 [altera_clock_bridge 22.1]
 Progress: Parameterizing module clock_bridge_0
 Progress: Adding demux_cols_rows [demultiplexer 22.1]
 Progress: Parameterizing module demux_cols_rows
+Progress: Adding dfa_cols [data_format_adapter 22.1]
+Progress: Parameterizing module dfa_cols
+Progress: Adding dfa_out [data_format_adapter 22.1]
+Progress: Parameterizing module dfa_out
+Progress: Adding dfa_rows [data_format_adapter 22.1]
+Progress: Parameterizing module dfa_rows
 Progress: Adding fifo_instr [altera_avalon_fifo 22.1]
 Progress: Parameterizing module fifo_instr
 Progress: Adding fpga_only_master [altera_jtag_avalon_master 22.1]
@@ -60,8 +66,10 @@ Info: Interconnect is inserted between master msgdma_write.mm_write and slave hp
 Info: avalon_st_adapter: Inserting timing_adapter: timing_adapter_0
 Info: clk_95: "soc_system" instantiated altera_pll "clk_95"
 Info: demux_cols_rows: "soc_system" instantiated demultiplexer "demux_cols_rows"
+Info: dfa_cols: "soc_system" instantiated data_format_adapter "dfa_cols"
+Info: dfa_out: "soc_system" instantiated data_format_adapter "dfa_out"
 Info: fifo_instr: Starting RTL generation for module 'soc_system_fifo_instr'
-Info: fifo_instr:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_instr --dir=/tmp/alt9443_373935718645054042.dir/0004_fifo_instr_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9443_373935718645054042.dir/0004_fifo_instr_gen//soc_system_fifo_instr_component_configuration.pl  --do_build_sim=0  ]
+Info: fifo_instr:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_fifo/generate_rtl.pl --name=soc_system_fifo_instr --dir=/tmp/alt9446_2382848931138994583.dir/0006_fifo_instr_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9446_2382848931138994583.dir/0006_fifo_instr_gen//soc_system_fifo_instr_component_configuration.pl  --do_build_sim=0  ]
 Info: fifo_instr: Done RTL generation for module 'soc_system_fifo_instr'
 Info: fifo_instr: "soc_system" instantiated altera_avalon_fifo "fifo_instr"
 Info: hps_0: "Running  for module: hps_0"
@@ -74,7 +82,7 @@ Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: msgdma_read: "soc_system" instantiated altera_msgdma "msgdma_read"
 Info: msgdma_write: "soc_system" instantiated altera_msgdma "msgdma_write"
 Info: pio_0: Starting RTL generation for module 'soc_system_pio_0'
-Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9443_373935718645054042.dir/0005_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9443_373935718645054042.dir/0005_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_0:   Generation command is [exec /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/bin/perl -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/linux64/perl/lib -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin/europa -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/sopc_builder/bin -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/common -I /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- /home/ben/Soft/intelFPGA_lite/22.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_0 --dir=/tmp/alt9446_2382848931138994583.dir/0007_pio_0_gen/ --quartus_dir=/home/ben/Soft/intelFPGA_lite/22.1std/quartus --verilog --config=/tmp/alt9446_2382848931138994583.dir/0007_pio_0_gen//soc_system_pio_0_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_0: Done RTL generation for module 'soc_system_pio_0'
 Info: pio_0: "soc_system" instantiated altera_avalon_pio "pio_0"
 Info: sc_fifo_cols: "soc_system" instantiated altera_avalon_sc_fifo "sc_fifo_cols"
@@ -123,6 +131,6 @@ Info: timing_adapter_0: "avalon_st_adapter" instantiated timing_adapter "timing_
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_003" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 40 modules, 112 files
+Info: soc_system: Done "soc_system" with 42 modules, 118 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

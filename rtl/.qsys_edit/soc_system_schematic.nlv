@@ -1,17 +1,18 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 160
+preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 300
 preplace inst soc_system.msgdma_read.dispatcher_internal -pg 1
 preplace inst soc_system.msgdma_read.cb_inst -pg 1
 preplace inst soc_system.msgdma_write.rst_inst -pg 1
 preplace inst soc_system.hps_0.clk_0 -pg 1
 preplace inst soc_system.hps_0.axi_sdram -pg 1
-preplace inst soc_system.msgdma_read -pg 1 -lvl 5 -y 70
+preplace inst soc_system.msgdma_read -pg 1 -lvl 5 -y 220
 preplace inst soc_system -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst soc_system.clock_bridge_0 -pg 1 -lvl 3 -y 160
+preplace inst soc_system.clock_bridge_0 -pg 1 -lvl 3 -y 300
 preplace inst soc_system.hps_0.timer0 -pg 1
 preplace inst soc_system.hps_0.timer1 -pg 1
 preplace inst soc_system.hps_0.i2c0 -pg 1
+preplace inst soc_system.systolic_core -pg 1 -lvl 15 -y 650
 preplace inst soc_system.hps_0.timer2 -pg 1
 preplace inst soc_system.hps_0.wd_timer0 -pg 1
 preplace inst soc_system.hps_0.i2c1 -pg 1
@@ -25,10 +26,9 @@ preplace inst soc_system.hps_0.clkmgr -pg 1
 preplace inst soc_system.hps_0.gpio1 -pg 1
 preplace inst soc_system.hps_0.arm_a9_0 -pg 1
 preplace inst soc_system.hps_0.L2 -pg 1
-preplace inst soc_system.systolic_array_buffered_0 -pg 1 -lvl 8 -y 130
+preplace inst soc_system.msgdma_write.dispatcher_internal -pg 1
 preplace inst soc_system.hps_0.gpio2 -pg 1
 preplace inst soc_system.hps_0.arm_a9_1 -pg 1
-preplace inst soc_system.msgdma_write.dispatcher_internal -pg 1
 preplace inst soc_system.hps_0.uart0 -pg 1
 preplace inst soc_system.hps_0.uart1 -pg 1
 preplace inst soc_system.hps_0.spim0 -pg 1
@@ -37,7 +37,7 @@ preplace inst soc_system.hps_0.spim1 -pg 1
 preplace inst soc_system.hps_0.timer -pg 1
 preplace inst soc_system.hps_0.sysmgr -pg 1
 preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
-preplace inst soc_system.demux_cols_rows -pg 1 -lvl 6 -y 400
+preplace inst soc_system.demux_cols_rows -pg 1 -lvl 6 -y 430
 preplace inst soc_system.hps_0.l3regs -pg 1
 preplace inst soc_system.hps_0.sdmmc -pg 1
 preplace inst soc_system.hps_0.axi_ocram -pg 1
@@ -50,9 +50,10 @@ preplace inst soc_system.hps_0.scu -pg 1
 preplace inst soc_system.hps_0.usb1 -pg 1
 preplace inst soc_system.hps_0.hps_io -pg 1
 preplace inst soc_system.hps_0.nand0 -pg 1
-preplace inst soc_system.msgdma_write -pg 1 -lvl 9 -y 50
+preplace inst soc_system.sc_fifo_cols -pg 1 -lvl 7 -y 390
+preplace inst soc_system.msgdma_write -pg 1 -lvl 16 -y 210
 preplace inst soc_system.hps_0.gmac0 -pg 1
-preplace inst soc_system.hps_0 -pg 1 -lvl 10 -y 150
+preplace inst soc_system.hps_0 -pg 1 -lvl 17 -y 250
 preplace inst soc_system.hps_0.hps_io.border -pg 1
 preplace inst soc_system.hps_0.gmac1 -pg 1
 preplace inst soc_system.hps_0.eosc1 -pg 1
@@ -60,39 +61,40 @@ preplace inst soc_system.hps_0.fpgamgr -pg 1
 preplace inst soc_system.msgdma_write.cb_inst -pg 1
 preplace inst soc_system.hps_0.dcan0 -pg 1
 preplace inst soc_system.hps_0.eosc2 -pg 1
-preplace inst soc_system.pio_0 -pg 1 -lvl 11 -y 450
+preplace inst soc_system.pio_0 -pg 1 -lvl 18 -y 560
 preplace inst soc_system.hps_0.fpga_interfaces -pg 1
 preplace inst soc_system.hps_0.dcan1 -pg 1
 preplace inst soc_system.hps_0.f2s_sdram_ref_clk -pg 1
+preplace inst soc_system.fifo_instr -pg 1 -lvl 11 -y 360
+preplace inst soc_system.sc_fifo_rows -pg 1 -lvl 7 -y 570
 preplace inst soc_system.hps_0.dma -pg 1
 preplace inst soc_system.hps_0.sdrctl -pg 1
-preplace inst soc_system.clk_95 -pg 1 -lvl 2 -y 160
+preplace inst soc_system.clk_95 -pg 1 -lvl 2 -y 300
 preplace inst soc_system.hps_0.bridges -pg 1
-preplace inst soc_system.sc_fifo_rhs -pg 1 -lvl 7 -y 250
-preplace inst soc_system.sc_fifo_lhs -pg 1 -lvl 7 -y 380
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.memory,(SLAVE)soc_system.memory) 1 0 10 NJ 150 NJ 150 NJ 150 NJ 260 NJ 330 NJ 180 NJ 180 NJ 350 NJ 350 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_debug_reset_req,(SLAVE)hps_0.f2h_debug_reset_req) 1 0 10 NJ 70 NJ 70 NJ 70 NJ 70 NJ 250 NJ 100 NJ 100 NJ 260 NJ 210 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_stm_hw_events,(SLAVE)hps_0.f2h_stm_hw_events) 1 0 10 NJ 90 NJ 90 NJ 90 NJ 200 NJ 270 NJ 120 NJ 120 NJ 280 NJ 280 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)clk_95.refclk,(MASTER)clk_0.clk) 1 1 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)fifo_instr.out,(SLAVE)systolic_core.st_instr) 1 11 4 NJ 450 NJ 450 NJ 450 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.memory,(SLAVE)soc_system.memory) 1 0 17 NJ 140 NJ 140 NJ 140 NJ 140 NJ 140 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ 150 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_stm_hw_events,(SLAVE)hps_0.f2h_stm_hw_events) 1 0 17 NJ 250 NJ 250 NJ 250 NJ 250 NJ 160 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)demux_cols_rows.out1,(SLAVE)sc_fifo_rows.in) 1 6 1 2120
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)soc_system.reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_cold_reset_req,(SLAVE)hps_0.f2h_cold_reset_req) 1 0 10 NJ 270 NJ 270 NJ 270 NJ 370 NJ 370 NJ 370 NJ 370 NJ 390 NJ 390 3140
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_sdram1_data,(MASTER)msgdma_write.mm_write) 1 9 1 3180
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)msgdma_write.csr,(SLAVE)pio_0.s1,(SLAVE)msgdma_read.csr,(SLAVE)systolic_array_buffered_0.csr,(SLAVE)msgdma_write.descriptor_slave,(SLAVE)msgdma_read.descriptor_slave,(MASTER)hps_0.h2f_axi_master) 1 4 7 1450 30 NJ 80 NJ 80 2450 100 2850 500 NJ 500 3530
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.pio_status,(SLAVE)pio_0.external_connection) 1 0 18 NJ 620 NJ 620 NJ 620 NJ 620 NJ 620 NJ 620 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 410 NJ 410 NJ 410 NJ 590 NJ 590 NJ 590 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)soc_system.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(MASTER)clk_0.clk_reset,(SLAVE)sc_fifo_rows.clk_reset,(SLAVE)clk_95.reset,(SLAVE)demux_cols_rows.reset,(SLAVE)pio_0.reset,(SLAVE)msgdma_write.reset_n,(SLAVE)fifo_instr.reset_in,(SLAVE)msgdma_read.reset_n,(SLAVE)systolic_core.reset_sink,(SLAVE)sc_fifo_cols.clk_reset) 1 1 17 380 290 NJ 290 NJ 480 1330 480 1860 420 2140 480 NJ 480 NJ 480 NJ 480 3400 470 NJ 430 NJ 390 NJ 390 4840 270 5110 610 NJ 610 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)clk_0.clk,(SLAVE)clk_95.refclk) 1 1 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)sc_fifo_cols.in,(MASTER)demux_cols_rows.out0) 1 6 1 N
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_cold_reset_req,(SLAVE)soc_system.hps_0_f2h_cold_reset_req) 1 0 17 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ 40 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)soc_system.clock_95,(MASTER)clock_bridge_0.out_clk_1) 1 3 16 NJ 80 NJ 80 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ 110 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)msgdma_write.st_sink,(MASTER)systolic_core.data_out) 1 15 1 5130
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_sdram1_data,(MASTER)msgdma_write.mm_write) 1 16 1 5540
 preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)clock_bridge_0.in_clk,(MASTER)clk_95.outclk0) 1 2 1 N
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(MASTER)clock_bridge_0.out_clk,(SLAVE)sc_fifo_rhs.clk,(SLAVE)msgdma_write.clock,(SLAVE)demux_cols_rows.clk,(SLAVE)msgdma_read.clock,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)sc_fifo_lhs.clk,(SLAVE)systolic_array_buffered_0.clock_sink,(SLAVE)pio_0.clk,(SLAVE)hps_0.f2h_sdram1_clock) 1 3 8 NJ 280 1430 210 1860 490 2100 220 2470 80 2810 230 3200 460 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)clock_bridge_0.out_clk_1,(MASTER)soc_system.clock_95) 1 3 9 NJ 300 NJ 350 NJ 200 NJ 200 NJ 370 NJ 370 NJ 410 NJ 410 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)demux_cols_rows.out1,(SLAVE)sc_fifo_lhs.in) 1 6 1 N
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)demux_cols_rows.out0,(SLAVE)sc_fifo_rhs.in) 1 6 1 2120
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)msgdma_write.st_sink,(MASTER)systolic_array_buffered_0.data_out) 1 8 1 2830
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)pio_0.external_connection,(SLAVE)soc_system.pio_status) 1 0 11 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ 530 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_sdram0_data,(MASTER)msgdma_read.mm_read) 1 5 5 NJ 550 NJ 550 NJ 550 NJ 550 3220
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_warm_reset_req,(SLAVE)hps_0.f2h_warm_reset_req) 1 0 10 NJ 110 NJ 110 NJ 110 NJ 220 NJ 290 NJ 140 NJ 140 NJ 300 NJ 300 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)systolic_array_buffered_0.st_cols,(MASTER)sc_fifo_rhs.out) 1 7 1 2390
-preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)soc_system.hps_0_h2f_reset,(MASTER)hps_0.h2f_reset) 1 10 2 NJ 260 NJ
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)demux_cols_rows.reset,(MASTER)clk_0.clk_reset,(SLAVE)systolic_array_buffered_0.reset_sink,(SLAVE)sc_fifo_lhs.clk_reset,(SLAVE)pio_0.reset,(SLAVE)sc_fifo_rhs.clk_reset,(SLAVE)msgdma_write.reset_n,(SLAVE)clk_95.reset,(SLAVE)msgdma_read.reset_n) 1 1 10 380 230 NJ 230 NJ 320 1350 230 1820 510 2140 240 2490 120 2790 480 NJ 480 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)msgdma_read.st_source,(SLAVE)demux_cols_rows.in) 1 5 1 1780
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps_0_hps_io) 1 0 10 NJ 130 NJ 130 NJ 130 NJ 240 NJ 310 NJ 160 NJ 160 NJ 320 NJ 320 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)sc_fifo_lhs.out,(SLAVE)systolic_array_buffered_0.st_rows) 1 7 1 2510
-levelinfo -pg 1 0 170 3880
-levelinfo -hier soc_system 180 210 480 840 1270 1620 1990 2170 2630 2990 3360 3600 3750
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_debug_reset_req,(SLAVE)soc_system.hps_0_f2h_debug_reset_req) 1 0 17 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)pio_0.clk,(MASTER)clock_bridge_0.out_clk,(SLAVE)msgdma_read.clock,(SLAVE)msgdma_write.clock,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)systolic_core.clock_sink,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)sc_fifo_cols.clk,(SLAVE)hps_0.f2h_sdram1_clock,(SLAVE)demux_cols_rows.clk,(SLAVE)fifo_instr.clk_in,(SLAVE)sc_fifo_rows.clk) 1 3 15 NJ 500 1310 440 1800 400 2160 380 NJ 380 NJ 380 NJ 380 3400 330 NJ 330 NJ 330 NJ 330 4800 230 5090 370 5500 570 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)demux_cols_rows.in,(MASTER)msgdma_read.st_source) 1 5 1 1760
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_warm_reset_req,(SLAVE)soc_system.hps_0_f2h_warm_reset_req) 1 0 17 NJ 120 NJ 120 NJ 120 NJ 120 NJ 120 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ 130 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_sdram0_data,(MASTER)msgdma_read.mm_read) 1 5 12 1780 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 290 NJ 390 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_hps_io,(SLAVE)hps_0.hps_io) 1 0 17 NJ 270 NJ 270 NJ 270 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 310 NJ 310 NJ 310 NJ 310 NJ 420 NJ 420 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)systolic_core.st_rows,(MASTER)sc_fifo_rows.out) 1 7 8 NJ 600 NJ 600 NJ 600 NJ 600 NJ 600 NJ 600 NJ 600 4720
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)systolic_core.st_cols,(MASTER)sc_fifo_cols.out) 1 7 8 NJ 500 NJ 500 NJ 500 NJ 500 NJ 500 NJ 500 NJ 500 4740
+preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)soc_system.hps_0_h2f_reset,(MASTER)hps_0.h2f_reset) 1 17 2 NJ 360 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)fifo_instr.in_csr,(SLAVE)systolic_core.csr,(MASTER)hps_0.h2f_axi_master,(SLAVE)fifo_instr.in,(SLAVE)msgdma_read.csr,(SLAVE)pio_0.s1,(SLAVE)msgdma_read.descriptor_slave,(SLAVE)msgdma_write.descriptor_slave,(SLAVE)msgdma_write.csr) 1 4 14 1330 180 NJ 270 NJ 270 NJ 270 NJ 270 NJ 270 3420 350 NJ 350 NJ 350 NJ 350 4820 250 5150 510 NJ 510 5970
+levelinfo -pg 1 0 170 6320
+levelinfo -hier soc_system 180 210 480 840 1270 1620 1990 2190 2630 2990 3360 3600 3930 4270 4700 4910 5350 5800 6040 6190
