@@ -19,7 +19,7 @@ module systolic_1x1(
 	wire [7:0] mac_shifted;
 	assign mult_res = out_col * out_row;
 	assign mac_next = mac + {{16{mult_res[15]}}, mult_res};
-	assign mac_shifted = mac_next >> 8;
+	assign mac_shifted = mac_next[7:0];
 	always @ (posedge CLOCK, posedge reset) begin
 		if (reset) begin
 			out_col <= 0;

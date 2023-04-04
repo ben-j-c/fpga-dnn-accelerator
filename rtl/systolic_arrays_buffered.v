@@ -6,7 +6,7 @@ module systolic_array_top (
 		input  wire [7:0] csr_address,
 		input  wire csr_write,
 		input  wire [31:0] csr_writedata,
-		output wire [31:0] csr_readdata,
+		output reg [31:0] csr_readdata,
 		input  wire csr_read,
 
 		output wire [127:0] data_out_data, //big endian
@@ -25,6 +25,16 @@ module systolic_array_top (
 		output wire st_instr_ready,
 		input wire st_instr_valid
 	);
+	// Counters
+	reg [31:0] c0;
+	reg [31:0] c1;
+	reg [31:0] c2;
+	reg [31:0] c3;
+	reg [31:0] c4;
+	reg [31:0] c5;
+	reg [31:0] c6;
+	reg [31:0] c7;
+
 	// CLOCK and RESET settings
 	wire CLOCK;
 	wire reset;
@@ -80,17 +90,29 @@ module systolic_array_top (
 			instr_n_cols <= 0;
 			instr_n_rows <= 0;
 			mult_over <= 0;
-			data_out_valid <= 0;
+			data_out_valid <= 1;
 			data_in_ready <= 0;
 			cycle_count <= 0;
+
+			c0 <= 0;
+			c1 <= 0;
+			c2 <= 0;
+			c3 <= 0;
+			c4 <= 0;
+			c5 <= 0;
+			c6 <= 0;
+			c7 <= 0;
 		end
 		else begin
+			c7 <= c7 + 1;
+			c6 <= c6 + data_out_compute[7:0];
 			if (state == STATE_WAITING) begin
 				if (st_instr_valid) begin
+					c0 <= c0 + 1;
 					state <= STATE_READING;
 
-					instr_n_cols <= {8'b0 , st_instr_data[11:0]};
-					instr_n_rows <= {8'b0 , st_instr_data[23:12]};
+					instr_n_cols <= 32'd16; //{8'b0 , st_instr_data[11:0]};
+					instr_n_rows <= 32'd16; //{8'b0 , st_instr_data[23:12]};
 
 					mult_over <= 0;
 					data_out_valid <= 0;
@@ -99,17 +121,21 @@ module systolic_array_top (
 				end
 			end else if (state == STATE_READING) begin
 				if (data_in_valid) begin
+					c4 <= c4 + st_cols_data[7:0];
+					c5 <= c5 + st_rows_data[7:0];
+					c1 <= c1 + 1;
 					cycle_count <= cycle_count + 1;
-					if (cycle_count == (instr_n_cols < instr_n_rows? instr_n_cols : instr_n_rows) - 1) begin
+					if (cycle_count == 15/*(instr_n_cols < instr_n_rows? instr_n_cols : instr_n_rows) - 1*/) begin
 						state <= STATE_COMPUTE;
 						mult_over <= 0;
-						data_in_ready <= 0;
+						data_out_valid <= 0;
 						data_in_ready <= 0;
 						cycle_count <= 0;
 					end
 				end
 			end else if (state == STATE_COMPUTE) begin
 				cycle_count <= cycle_count + 1;
+				c2 <= c2 + 1;
 				if (cycle_count == N_CYCLES_FOR_COMPUTE - 1) begin
 					state <= STATE_WRITING;
 					mult_over <= 1;
@@ -119,6 +145,7 @@ module systolic_array_top (
 				end
 			end else if (state == STATE_WRITING) begin
 				if (data_out_ready) begin
+					c3 <= c3 + 1;
 					cycle_count <= cycle_count + 1;
 					if (cycle_count == instr_n_cols - 1) begin
 						state <= STATE_WAITING;
@@ -131,7 +158,41 @@ module systolic_array_top (
 			end
 		end
 	end	
-	assign csr_readdata = 0;
+	always @(posedge CLOCK, posedge reset) begin
+		if (reset) begin
+			csr_readdata <= 0;
+		end else begin
+			if (csr_address == 0) begin
+				csr_readdata <= state;
+			end else if (csr_address == 'h4) begin
+				csr_readdata <= instr_n_cols;
+			end else if (csr_address == 'h8) begin
+				csr_readdata <= instr_n_rows;
+			end else if (csr_address == 'hC) begin
+				csr_readdata <= cycle_count;
+			end else if (csr_address == 'h10) begin
+				csr_readdata <= {24'b0, st_cols_ready, st_cols_valid, st_rows_ready, st_rows_valid, st_instr_ready, st_instr_valid, data_out_ready, data_out_valid};
+			end else if (csr_address == 'h14) begin
+				csr_readdata <= c0;
+			end else if (csr_address == 'h18) begin
+				csr_readdata <= c1;
+			end else if (csr_address == 'h1C) begin
+				csr_readdata <= c2;
+			end else if (csr_address == 'h20) begin
+				csr_readdata <= c3;
+			end else if (csr_address == 'h24) begin
+				csr_readdata <= c4;
+			end else if (csr_address == 'h28) begin
+				csr_readdata <= c5;
+			end else if (csr_address == 'h2C) begin
+				csr_readdata <= c6;
+			end else if (csr_address == 'h30) begin
+				csr_readdata <= c7;
+			end else begin
+				csr_readdata <= 'hDEADBEEF;
+			end
+		end
+	end
 
 	function automatic [127:0] swap_endian(input [127:0] v) ;
 	begin

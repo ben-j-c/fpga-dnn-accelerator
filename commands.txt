@@ -23,4 +23,11 @@ cmake -DCMAKE_C_COMPILER=${ARMCC_PREFIX}gcc -DCMAKE_CXX_COMPILER=${ARMCC_PREFIX}
 //Questa
 vlog -vlog01compat -work work +incdir+/home/ben/repo/systolic/rtl {/home/ben/repo/systolic/rtl/systolic_arrays.v}
 vlog -vlog01compat -work work +incdir+/home/ben/repo/systolic/rtl {/home/ben/repo/systolic/rtl/systolic_arrays_buffered.v}
+vlog -vlog01compat -work work +incdir+/home/ben/repo/systolic/rtl {/home/ben/repo/systolic/rtl/avalon_st_to_sdram_write.v}
 vlog -vlog01compat -work work +incdir+/home/ben/repo/systolic/rtl {/home/ben/repo/systolic/rtl/testbench_1.v}
+vlog -vlog01compat -work work +incdir+/home/ben/repo/systolic/rtl {/home/ben/repo/systolic/rtl/testbench_2.v}
+
+
+//uBoot
+set fpga2sdram_handoff 0x00003fff
+env save

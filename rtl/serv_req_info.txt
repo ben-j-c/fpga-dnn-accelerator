@@ -1,0 +1,18 @@
+<internal_error>
+<sub_system>ERR</sub_system>
+<callstack>
+	0x7f3973bcb3d0: ccl_err + 0x83d0 (_ZN15ERR_STACKWALKER15get_stack_traceEPPKviiPv + 0x14a)
+	0x7f3973bce69a: ccl_err + 0xb69a (_Z14err_terminatorv + 0x5a)
+	0x7f398b992286: jtag_client + 0x38286 (_ZN10__cxxabiv111__terminateEPFvvE + 0x6)
+	0x7f398b9922d1: jtag_client + 0x382d1
+	0x7f398b992403: jtag_client + 0x38403
+	0x7f3973bce562: ccl_err + 0xb562 (err_sigaction_handler + 0x6d)
+	0x7f396a21a520: c.so.6 + 0x42520
+	0x7f39726bbba4: Qt5Widgets.so.5 + 0x4bbba4 (_ZNK10QCompleter5popupEv + 0x4)
+	0x7f393bfa7e98:
+</callstack>
+<error>*** Fatal Error: Unhandled Exception</error>
+<date>Tue Apr  4 04:04:09 2023
+</date>
+<version>Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition</version>
+</internal_error>

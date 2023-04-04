@@ -9,11 +9,24 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element avalon_st_dummy_0
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
    element clk_0
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "13";
          type = "int";
       }
    }
@@ -29,7 +42,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "15";
          type = "int";
       }
    }
@@ -37,7 +50,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "16";
          type = "int";
       }
    }
@@ -121,6 +134,46 @@
          type = "int";
       }
    }
+   element dma_write
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element dma_write.csr
+   {
+      datum baseAddress
+      {
+         value = "8256";
+         type = "String";
+      }
+   }
+   element dma_write_fifo
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element dma_write_fifo.in
+   {
+      datum baseAddress
+      {
+         value = "8272";
+         type = "String";
+      }
+   }
+   element dma_write_fifo.in_csr
+   {
+      datum baseAddress
+      {
+         value = "8288";
+         type = "String";
+      }
+   }
    element fifo_instr
    {
       datum _sortIndex
@@ -143,14 +196,6 @@
       {
          value = "2080";
          type = "String";
-      }
-   }
-   element fpga_only_master
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
       }
    }
    element hps_0
@@ -188,35 +233,6 @@
       {
          value = "-65536";
          type = "int";
-      }
-   }
-   element hps_only_master
-   {
-      datum _sortIndex
-      {
-         value = "15";
-         type = "int";
-      }
-   }
-   element jtag_uart
-   {
-      datum _sortIndex
-      {
-         value = "17";
-         type = "int";
-      }
-   }
-   element jtag_uart.avalon_jtag_slave
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "131072";
-         type = "String";
       }
    }
    element msgdma_read
@@ -295,7 +311,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "14";
          type = "int";
       }
    }
@@ -347,24 +363,59 @@
          type = "String";
       }
    }
-   element sysid_qsys
+   element soc_system
    {
-      datum _sortIndex
+      datum _originalDeviceFamily
       {
-         value = "16";
-         type = "int";
+         value = "Cyclone V";
+         type = "String";
       }
    }
-   element sysid_qsys.control_slave
+   element soc_system
    {
-      datum _lockedAddress
+      datum _originalDeviceFamily
       {
-         value = "1";
-         type = "boolean";
+         value = "Cyclone V";
+         type = "String";
       }
-      datum baseAddress
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
       {
-         value = "65536";
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -453,6 +504,11 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <module
+   name="avalon_st_dummy_0"
+   kind="avalon_st_dummy"
+   version="1.0"
+   enabled="0" />
  <module name="clk_0" kind="clock_source" version="22.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -730,6 +786,36 @@
   <parameter name="outUseEmptyPort" value="AUTO" />
  </module>
  <module
+   name="dma_write"
+   kind="avalon_st_to_sdram_write"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="dma_write_fifo"
+   kind="altera_avalon_fifo"
+   version="22.1"
+   enabled="1">
+  <parameter name="avalonMMAvalonMMDataWidth" value="32" />
+  <parameter name="avalonMMAvalonSTDataWidth" value="32" />
+  <parameter name="bitsPerSymbol" value="32" />
+  <parameter name="channelWidth" value="0" />
+  <parameter name="deviceFamilyString" value="Cyclone V" />
+  <parameter name="errorWidth" value="0" />
+  <parameter name="fifoDepth" value="64" />
+  <parameter name="fifoInputInterfaceOptions" value="AVALONMM_WRITE" />
+  <parameter name="fifoOutputInterfaceOptions" value="AVALONST_SOURCE" />
+  <parameter name="showHiddenFeatures" value="false" />
+  <parameter name="singleClockMode" value="true" />
+  <parameter name="singleResetMode" value="false" />
+  <parameter name="symbolsPerBeat" value="1" />
+  <parameter name="useBackpressure" value="true" />
+  <parameter name="useIRQ" value="false" />
+  <parameter name="usePacket" value="false" />
+  <parameter name="useReadControl" value="false" />
+  <parameter name="useRegister" value="false" />
+  <parameter name="useWriteControl" value="true" />
+ </module>
+ <module
    name="fifo_instr"
    kind="altera_avalon_fifo"
    version="22.1"
@@ -753,20 +839,6 @@
   <parameter name="useReadControl" value="false" />
   <parameter name="useRegister" value="false" />
   <parameter name="useWriteControl" value="true" />
- </module>
- <module
-   name="fpga_only_master"
-   kind="altera_jtag_avalon_master"
-   version="22.1"
-   enabled="0">
-  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
-  <parameter name="COMPONENT_CLOCK" value="0" />
-  <parameter name="FAST_VER" value="0" />
-  <parameter name="FIFO_DEPTHS" value="2" />
-  <parameter name="PLI_PORT" value="50000" />
-  <parameter name="USE_PLI" value="0" />
  </module>
  <module name="hps_0" kind="altera_hps" version="22.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -1298,39 +1370,6 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
- <module
-   name="hps_only_master"
-   kind="altera_jtag_avalon_master"
-   version="22.1"
-   enabled="0">
-  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
-  <parameter name="COMPONENT_CLOCK" value="0" />
-  <parameter name="FAST_VER" value="0" />
-  <parameter name="FIFO_DEPTHS" value="2" />
-  <parameter name="PLI_PORT" value="50000" />
-  <parameter name="USE_PLI" value="0" />
- </module>
- <module
-   name="jtag_uart"
-   kind="altera_avalon_jtag_uart"
-   version="22.1"
-   enabled="0">
-  <parameter name="allowMultipleConnections" value="true" />
-  <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="50000000" />
-  <parameter name="hubInstanceID" value="0" />
-  <parameter name="readBufferDepth" value="64" />
-  <parameter name="readIRQThreshold" value="8" />
-  <parameter name="simInputCharacterStream" value="" />
-  <parameter name="simInteractiveOptions">INTERACTIVE_ASCII_OUTPUT</parameter>
-  <parameter name="useRegistersForReadBuffer" value="false" />
-  <parameter name="useRegistersForWriteBuffer" value="false" />
-  <parameter name="useRelativePathForSimFile" value="false" />
-  <parameter name="writeBufferDepth" value="64" />
-  <parameter name="writeIRQThreshold" value="8" />
- </module>
  <module name="msgdma_read" kind="altera_msgdma" version="22.1" enabled="1">
   <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
   <parameter
@@ -1368,13 +1407,13 @@
   <parameter name="PREFETCHER_ENABLE" value="0" />
   <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
   <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
+  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="1" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
   <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
- <module name="msgdma_write" kind="altera_msgdma" version="22.1" enabled="1">
+ <module name="msgdma_write" kind="altera_msgdma" version="22.1" enabled="0">
   <parameter name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_MAP" value="" />
   <parameter
      name="AUTO_DESCRIPTOR_READ_MASTER_ADDRESS_WIDTH"
@@ -1388,22 +1427,22 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_MM_READ_ADDRESS_MAP" value="" />
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = -1" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='hps_0_bridges.f2h_sdram1_data' start='0x0' end='0x100000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 32" />
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP" value="" />
+  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = -1" />
   <parameter name="BURST_ENABLE" value="1" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
+  <parameter name="BURST_WRAPPING_SUPPORT" value="1" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="512" />
   <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="16" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
+  <parameter name="ENHANCED_FEATURES" value="0" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
   <parameter name="EXPOSE_ST_PORT" value="0" />
   <parameter name="FIX_ADDRESS_WIDTH" value="32" />
   <parameter name="MAX_BURST_COUNT" value="128" />
-  <parameter name="MAX_BYTE" value="8192" />
+  <parameter name="MAX_BYTE" value="1024" />
   <parameter name="MAX_STRIDE" value="1" />
   <parameter name="MODE" value="2" />
   <parameter name="PACKET_ENABLE" value="0" />
@@ -1472,17 +1511,19 @@
   <parameter name="USE_STORE_FORWARD" value="0" />
  </module>
  <module
-   name="sysid_qsys"
-   kind="altera_avalon_sysid_qsys"
-   version="22.1"
-   enabled="0">
-  <parameter name="id" value="-1395322110" />
- </module>
- <module
    name="systolic_core"
    kind="systolic_array_buffered"
    version="1.0"
    enabled="1" />
+ <connection
+   kind="avalon"
+   version="22.1"
+   start="dma_write.avalon_master"
+   end="hps_0.f2h_sdram1_data">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="avalon"
    version="22.1"
@@ -1508,6 +1549,15 @@
    end="systolic_core.csr">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="22.1"
+   start="hps_0.h2f_axi_master"
+   end="dma_write.csr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x2040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1541,9 +1591,27 @@
    kind="avalon"
    version="22.1"
    start="hps_0.h2f_axi_master"
+   end="dma_write_fifo.in">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x2050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="22.1"
+   start="hps_0.h2f_axi_master"
    end="fifo_instr.in_csr">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0820" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="22.1"
+   start="hps_0.h2f_axi_master"
+   end="dma_write_fifo.in_csr">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x2060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1558,71 +1626,8 @@
  <connection
    kind="avalon"
    version="22.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="jtag_uart.avalon_jtag_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00020000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="sysid_qsys.control_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="fpga_only_master.master"
-   end="jtag_uart.avalon_jtag_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00020000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="fpga_only_master.master"
-   end="intr_capturer_0.avalon_slave_0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00030000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="fpga_only_master.master"
-   end="sysid_qsys.control_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00010000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="hps_only_master.master"
-   end="hps_0.f2h_axi_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
    start="msgdma_read.mm_read"
    end="hps_0.f2h_sdram0_data">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="22.1"
-   start="msgdma_write.mm_write"
-   end="hps_0.f2h_sdram1_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1650,18 +1655,23 @@
  <connection
    kind="avalon_streaming"
    version="22.1"
+   start="dfa_out.out"
+   end="dma_write.st_data_in" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
    start="fifo_instr.out"
    end="systolic_core.st_instr" />
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="dfa_rows.out"
-   end="systolic_core.st_rows" />
+   start="dma_write_fifo.out"
+   end="dma_write.st_instruction" />
  <connection
    kind="avalon_streaming"
    version="22.1"
-   start="dfa_out.out"
-   end="msgdma_write.st_sink" />
+   start="dfa_rows.out"
+   end="systolic_core.st_rows" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1675,20 +1685,13 @@
  <connection
    kind="avalon_streaming"
    version="22.1"
+   start="avalon_st_dummy_0.st"
+   end="msgdma_write.st_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
    start="msgdma_read.st_source"
    end="demux_cols_rows.in" />
- <connection
-   kind="clock"
-   version="22.1"
-   start="clk_0.clk"
-   end="hps_only_master.clk" />
- <connection kind="clock" version="22.1" start="clk_0.clk" end="sysid_qsys.clk" />
- <connection
-   kind="clock"
-   version="22.1"
-   start="clk_0.clk"
-   end="fpga_only_master.clk" />
- <connection kind="clock" version="22.1" start="clk_0.clk" end="jtag_uart.clk" />
  <connection kind="clock" version="22.1" start="clk_0.clk" end="clk_95.refclk" />
  <connection
    kind="clock"
@@ -1714,11 +1717,6 @@
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="hps_only_master.clk" />
- <connection
-   kind="clock"
-   version="22.1"
-   start="clock_bridge_0.out_clk"
    end="dfa_cols.clk" />
  <connection
    kind="clock"
@@ -1739,6 +1737,11 @@
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
+   end="dma_write_fifo.clk_in" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
    end="msgdma_read.clock" />
  <connection
    kind="clock"
@@ -1750,6 +1753,16 @@
    version="22.1"
    start="clock_bridge_0.out_clk"
    end="systolic_core.clock_sink" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="dma_write.clock_sink" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="avalon_st_dummy_0.clock_sink" />
  <connection
    kind="clock"
    version="22.1"
@@ -1771,30 +1784,6 @@
    start="clk_95.outclk0"
    end="clock_bridge_0.in_clk" />
  <connection
-   kind="interrupt"
-   version="22.1"
-   start="hps_0.f2h_irq0"
-   end="jtag_uart.irq">
-  <parameter name="irqNumber" value="2" />
- </connection>
- <connection
-   kind="interrupt"
-   version="22.1"
-   start="intr_capturer_0.interrupt_receiver"
-   end="jtag_uart.irq">
-  <parameter name="irqNumber" value="2" />
- </connection>
- <connection
-   kind="reset"
-   version="22.1"
-   start="clk_0.clk_reset"
-   end="hps_only_master.clk_reset" />
- <connection
-   kind="reset"
-   version="22.1"
-   start="clk_0.clk_reset"
-   end="fpga_only_master.clk_reset" />
- <connection
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
@@ -1804,16 +1793,6 @@
    version="22.1"
    start="clk_0.clk_reset"
    end="sc_fifo_rows.clk_reset" />
- <connection
-   kind="reset"
-   version="22.1"
-   start="clk_0.clk_reset"
-   end="sysid_qsys.reset" />
- <connection
-   kind="reset"
-   version="22.1"
-   start="clk_0.clk_reset"
-   end="jtag_uart.reset" />
  <connection kind="reset" version="22.1" start="clk_0.clk_reset" end="pio_0.reset" />
  <connection
    kind="reset"
@@ -1849,6 +1828,11 @@
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
+   end="dma_write_fifo.reset_in" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
    end="msgdma_read.reset_n" />
  <connection
    kind="reset"
@@ -1860,6 +1844,16 @@
    version="22.1"
    start="clk_0.clk_reset"
    end="systolic_core.reset_sink" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="dma_write.reset_sink" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="avalon_st_dummy_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
