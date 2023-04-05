@@ -1385,13 +1385,13 @@
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP" value="" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = -1" />
   <parameter name="BURST_ENABLE" value="1" />
-  <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
+  <parameter name="BURST_WRAPPING_SUPPORT" value="1" />
   <parameter name="CHANNEL_ENABLE" value="1" />
   <parameter name="CHANNEL_WIDTH" value="1" />
   <parameter name="DATA_FIFO_DEPTH" value="512" />
   <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="16" />
-  <parameter name="ENHANCED_FEATURES" value="1" />
+  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
+  <parameter name="ENHANCED_FEATURES" value="0" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
   <parameter name="EXPOSE_ST_PORT" value="0" />
@@ -1405,7 +1405,7 @@
   <parameter name="PREFETCHER_ENABLE" value="0" />
   <parameter name="PREFETCHER_MAX_READ_BURST_COUNT" value="2" />
   <parameter name="PREFETCHER_READ_BURST_ENABLE" value="0" />
-  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="1" />
+  <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
   <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 22.1 915 (Future versions may contain additional information.) -->
- <!-- 2023.04.05.00:48:29 -->
+ <!-- 2023.04.05.13:11:45 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1680670103</value>
+  <value>1680714699</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -26920,7 +26920,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>descriptor_slave</slaveName>
     <name>msgdma_read.descriptor_slave</name>
     <baseAddress>8224</baseAddress>
-    <span>32</span>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -53040,7 +53040,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>descriptor_slave</slaveName>
     <name>msgdma_read.descriptor_slave</name>
     <baseAddress>8224</baseAddress>
-    <span>32</span>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -55095,7 +55095,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>descriptor_slave</slaveName>
     <name>msgdma_read.descriptor_slave</name>
     <baseAddress>3221233696</baseAddress>
-    <span>32</span>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -55982,7 +55982,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>descriptor_slave</slaveName>
     <name>msgdma_read.descriptor_slave</name>
     <baseAddress>3221233696</baseAddress>
-    <span>32</span>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -83632,7 +83632,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BURST_WRAPPING_SUPPORT</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CHANNEL_ENABLE</name>
@@ -83656,7 +83656,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
-   <value>16</value>
+   <value>32</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DMA_MODE</name>
@@ -83664,7 +83664,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.ENHANCED_FEATURES</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.ERROR_ENABLE</name>
@@ -83704,7 +83704,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.PROGRAMMABLE_BURST_ENABLE</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESPONSE_PORT</name>
@@ -83788,7 +83788,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DESCRIPTOR_FIFO_DEPTH">
    <type>int</type>
-   <value>16</value>
+   <value>32</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -83836,7 +83836,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURST_WRAPPING_SUPPORT">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -83844,7 +83844,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="ENHANCED_FEATURES">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -83854,7 +83854,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -83868,9 +83868,9 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PROGRAMMABLE_BURST_ENABLE">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -84164,7 +84164,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="burstOnBurstBoundariesOnly">
     <type>boolean</type>
-    <value>false</value>
+    <value>true</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -84914,7 +84914,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>32</value>
+    <value>16</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -85225,13 +85225,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>descriptor_slave_writedata</name>
     <direction>Input</direction>
-    <width>256</width>
+    <width>128</width>
     <role>writedata</role>
    </port>
    <port>
     <name>descriptor_slave_byteenable</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>16</width>
     <role>byteenable</role>
    </port>
   </interface>
