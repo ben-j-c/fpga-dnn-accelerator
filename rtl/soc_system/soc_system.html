@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2023.04.04.17:51:00</td>
+    <td class="l">2023.04.05.00:48:29</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -1229,6 +1229,88 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
    </tr>
   </table>
+  <a name="module_avalon_st_adapter_128_to_256_0"> </a>
+  <div>
+   <hr/>
+   <h2>avalon_st_adapter_128_to_256_0</h2>avalon_st_adapter_128_to_256 v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_systolic_core">systolic_core</a>
+      </td>
+      <td class="from">data_out&#160;&#160;</td>
+      <td class="main" rowspan="10">avalon_st_adapter_128_to_256_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;st_in</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clock_bridge_0">clock_bridge_0</a>
+      </td>
+      <td class="from">out_clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_0">clk_0</a>
+      </td>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">st_out&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_dma_write">dma_write</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;st_data_in</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_clk_0"> </a>
   <div>
    <hr/>
@@ -3346,22 +3428,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">out_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dfa_out">dfa_out</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;clk</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">out_clk&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
        <a href="#module_fifo_instr">fifo_instr</a>
       </td>
      </tr>
@@ -3427,6 +3493,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">out_clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_dma_write">dma_write</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock_sink</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">out_clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_avalon_st_adapter_128_to_256_0">avalon_st_adapter_128_to_256_0</a>
       </td>
      </tr>
      <tr>
@@ -3786,140 +3868,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
-  <a name="module_dfa_out"> </a>
-  <div>
-   <hr/>
-   <h2>dfa_out</h2>data_format_adapter v22.1
-   <br/>
-   <div class="greydiv">
-    <table class="connectionboxes">
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_systolic_core">systolic_core</a>
-      </td>
-      <td class="from">data_out&#160;&#160;</td>
-      <td class="main" rowspan="10">dfa_out</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;in</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clock_bridge_0">clock_bridge_0</a>
-      </td>
-      <td class="from">out_clk&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;clk</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_clk_0">clk_0</a>
-      </td>
-      <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">out&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
-       <a href="#module_dma_write">dma_write</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;st_data_in</td>
-     </tr>
-    </table>
-   </div>
-   <br/>
-   <br/>
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Parameters</h2>
-      <table>
-       <tr>
-        <td class="parametername">inChannelWidth</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">inMaxChannel</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">inBitsPerSymbol</td>
-        <td class="parametervalue">8</td>
-       </tr>
-       <tr>
-        <td class="parametername">inUsePackets</td>
-        <td class="parametervalue">false</td>
-       </tr>
-       <tr>
-        <td class="parametername">inUseEmptyPort</td>
-        <td class="parametervalue">AUTO</td>
-       </tr>
-       <tr>
-        <td class="parametername">inUseEmpty</td>
-        <td class="parametervalue">false</td>
-       </tr>
-       <tr>
-        <td class="parametername">outUseEmptyPort</td>
-        <td class="parametervalue">AUTO</td>
-       </tr>
-       <tr>
-        <td class="parametername">outUseEmpty</td>
-        <td class="parametervalue">false</td>
-       </tr>
-       <tr>
-        <td class="parametername">inSymbolsPerBeat</td>
-        <td class="parametervalue">16</td>
-       </tr>
-       <tr>
-        <td class="parametername">outSymbolsPerBeat</td>
-        <td class="parametervalue">32</td>
-       </tr>
-       <tr>
-        <td class="parametername">inReadyLatency</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">inErrorWidth</td>
-        <td class="parametervalue">0</td>
-       </tr>
-       <tr>
-        <td class="parametername">inErrorDescriptor</td>
-        <td class="parametervalue"></td>
-       </tr>
-       <tr>
-        <td class="parametername">deviceFamily</td>
-        <td class="parametervalue">UNKNOWN</td>
-       </tr>
-       <tr>
-        <td class="parametername">generateLegacySim</td>
-        <td class="parametervalue">false</td>
-       </tr>
-      </table>
-     </td>
-    </tr>
-   </table>&#160;&#160;
-   <table class="flowbox">
-    <tr>
-     <td class="parametersbox">
-      <h2>Software Assignments</h2>(none)</td>
-    </tr>
-   </table>
-  </div>
   <a name="module_dfa_rows"> </a>
   <div>
    <hr/>
@@ -4076,24 +4024,24 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </tr>
      <tr>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dfa_out">dfa_out</a>
-      </td>
-      <td class="from">out&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;st_data_in</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td class="neighbor" rowspan="2">
        <a href="#module_dma_write_fifo">dma_write_fifo</a>
       </td>
       <td class="from">out&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;st_instruction</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_avalon_st_adapter_128_to_256_0">avalon_st_adapter_128_to_256_0</a>
+      </td>
+      <td class="from">st_out&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;st_data_in</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -31258,7 +31206,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TRANSFER_TYPE</td>
-        <td class="parametervalue">Aligned Accesses</td>
+        <td class="parametervalue">Full Word Accesses Only</td>
        </tr>
        <tr>
         <td class="parametername">BURST_ENABLE</td>
@@ -31495,7 +31443,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TRANSFER_TYPE</td>
-        <td class="parametervalue">Aligned Accesses</td>
+        <td class="parametervalue">Full Word Accesses Only</td>
        </tr>
       </table>
      </td>
@@ -32064,13 +32012,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">data_out&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_dfa_out">dfa_out</a>
+       <a href="#module_avalon_st_adapter_128_to_256_0">avalon_st_adapter_128_to_256_0</a>
       </td>
      </tr>
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;in</td>
+      <td class="to">&#160;&#160;st_in</td>
      </tr>
     </table>
    </div>

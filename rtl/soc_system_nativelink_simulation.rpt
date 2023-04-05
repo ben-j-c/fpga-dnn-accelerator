@@ -1,5 +1,4 @@
 Info: Start Nativelink Simulation process
-executing command line: ip-make-simscript --nativelink-mode --output-directory=soc_system_iputf_input --spd=/home/ben/repo/systolic/rtl/ip/mult16.spd 
 
 ========= EDA Simulation Settings =====================
 

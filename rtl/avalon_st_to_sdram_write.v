@@ -52,7 +52,6 @@ module avalon_st_to_sdram_write (
 					mm_burstcount <= 8'd8;
 					mm_write <= 1;
 					mm_writedata <= st_data_swap;
-					counter <= counter + st_data_swap[31:0] + st_data_swap[63:32] + st_data_swap[95:64] + st_data_swap[127:96] + st_data_swap[159:128] + st_data_swap[191:160] + st_data_swap[223:192] + st_data_swap[255:224];
 
 					cycle_count <= 0;
 				end
@@ -67,7 +66,6 @@ module avalon_st_to_sdram_write (
 					cycle_count <= cycle_count + 1;
 					mm_write <= 1;
 					mm_writedata <= st_data_swap;
-					counter <= counter + st_data_swap[31:0] + st_data_swap[63:32] + st_data_swap[95:64] + st_data_swap[127:96] + st_data_swap[159:128] + st_data_swap[191:160] + st_data_swap[223:192] + st_data_swap[255:224];
 				end else begin
 					mm_write <= 0;
 				end

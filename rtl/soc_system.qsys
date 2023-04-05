@@ -9,6 +9,14 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element avalon_st_adapter_128_to_256_0
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
    element avalon_st_dummy_0
    {
       datum _sortIndex
@@ -99,22 +107,6 @@
       datum color
       {
          value = "-16777012";
-         type = "int";
-      }
-   }
-   element dfa_out
-   {
-      datum _sortIndex
-      {
-         value = "8";
-         type = "int";
-      }
-   }
-   element dfa_out.out
-   {
-      datum color
-      {
-         value = "-16724788";
          type = "int";
       }
    }
@@ -419,6 +411,22 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element systolic_core
    {
       datum _sortIndex
@@ -504,6 +512,11 @@
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <module
+   name="avalon_st_adapter_128_to_256_0"
+   kind="avalon_st_adapter_128_to_256"
+   version="1.0"
+   enabled="1" />
  <module
    name="avalon_st_dummy_0"
    kind="avalon_st_dummy"
@@ -752,21 +765,6 @@
   <parameter name="inUseEmptyPort" value="AUTO" />
   <parameter name="inUsePackets" value="false" />
   <parameter name="outSymbolsPerBeat" value="16" />
-  <parameter name="outUseEmpty" value="false" />
-  <parameter name="outUseEmptyPort" value="AUTO" />
- </module>
- <module name="dfa_out" kind="data_format_adapter" version="22.1" enabled="1">
-  <parameter name="inBitsPerSymbol" value="8" />
-  <parameter name="inChannelWidth" value="0" />
-  <parameter name="inErrorDescriptor" value="" />
-  <parameter name="inErrorWidth" value="0" />
-  <parameter name="inMaxChannel" value="0" />
-  <parameter name="inReadyLatency" value="0" />
-  <parameter name="inSymbolsPerBeat" value="16" />
-  <parameter name="inUseEmpty" value="false" />
-  <parameter name="inUseEmptyPort" value="AUTO" />
-  <parameter name="inUsePackets" value="false" />
-  <parameter name="outSymbolsPerBeat" value="32" />
   <parameter name="outUseEmpty" value="false" />
   <parameter name="outUseEmptyPort" value="AUTO" />
  </module>
@@ -1410,7 +1408,7 @@
   <parameter name="PROGRAMMABLE_BURST_ENABLE" value="1" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
+  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module name="msgdma_write" kind="altera_msgdma" version="22.1" enabled="0">
@@ -1636,7 +1634,7 @@
    kind="avalon_streaming"
    version="22.1"
    start="systolic_core.data_out"
-   end="dfa_out.in" />
+   end="avalon_st_adapter_128_to_256_0.st_in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1652,11 +1650,6 @@
    version="22.1"
    start="dfa_cols.out"
    end="systolic_core.st_cols" />
- <connection
-   kind="avalon_streaming"
-   version="22.1"
-   start="dfa_out.out"
-   end="dma_write.st_data_in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1687,6 +1680,11 @@
    version="22.1"
    start="avalon_st_dummy_0.st"
    end="msgdma_write.st_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="22.1"
+   start="avalon_st_adapter_128_to_256_0.st_out"
+   end="dma_write.st_data_in" />
  <connection
    kind="avalon_streaming"
    version="22.1"
@@ -1727,11 +1725,6 @@
    kind="clock"
    version="22.1"
    start="clock_bridge_0.out_clk"
-   end="dfa_out.clk" />
- <connection
-   kind="clock"
-   version="22.1"
-   start="clock_bridge_0.out_clk"
    end="fifo_instr.clk_in" />
  <connection
    kind="clock"
@@ -1763,6 +1756,11 @@
    version="22.1"
    start="clock_bridge_0.out_clk"
    end="avalon_st_dummy_0.clock_sink" />
+ <connection
+   kind="clock"
+   version="22.1"
+   start="clock_bridge_0.out_clk"
+   end="avalon_st_adapter_128_to_256_0.clock_sink" />
  <connection
    kind="clock"
    version="22.1"
@@ -1818,11 +1816,6 @@
    kind="reset"
    version="22.1"
    start="clk_0.clk_reset"
-   end="dfa_out.reset" />
- <connection
-   kind="reset"
-   version="22.1"
-   start="clk_0.clk_reset"
    end="fifo_instr.reset_in" />
  <connection
    kind="reset"
@@ -1854,6 +1847,11 @@
    version="22.1"
    start="clk_0.clk_reset"
    end="avalon_st_dummy_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="22.1"
+   start="clk_0.clk_reset"
+   end="avalon_st_adapter_128_to_256_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

@@ -90,7 +90,7 @@ module systolic_array_top (
 			instr_n_cols <= 0;
 			instr_n_rows <= 0;
 			mult_over <= 0;
-			data_out_valid <= 1;
+			data_out_valid <= 0;
 			data_in_ready <= 0;
 			cycle_count <= 0;
 
